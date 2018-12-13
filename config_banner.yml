@@ -15,6 +15,10 @@
       text: "          FUNZICA           "
       state: present
 
+  - name: CONFIGURE HOSTNAME ON CISCO DEVICES
+    ios_config:
+       lines: hostname PORTA-DOWN-ALLARME
+    
   - name: SHOW RUN | BEG BANNER 
     ios_command:
       commands:
