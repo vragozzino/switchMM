@@ -8,8 +8,7 @@
 
   tasks:
 
-  - name: CONFIGURE BANNER ON CISCO DEVICES
+  - name: CLEAR BANNER ON CISCO DEVICES
     ios_banner:
       banner: login
-      text: "cleared"
-      state: present
+      state: absent
