@@ -1,5 +1,5 @@
 ---
-- hosts:10.22.22.69
+- hosts: 10.22.22.69
   gather_facts: no
   connection: network_cli
 
