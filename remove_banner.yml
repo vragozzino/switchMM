@@ -13,5 +13,3 @@
       banner: login
       text: "cleared"
       state: present
-
-- debug: var=banner.stdout_lines
