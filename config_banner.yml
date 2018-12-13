@@ -4,7 +4,7 @@
   connection: network_cli
 
   vars:
-       rd_id: '1:1'
+       ansible_network_os: ios
 
   tasks:
 
