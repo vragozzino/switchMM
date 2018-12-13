@@ -12,7 +12,7 @@
   - name: CONFIGURE BANNER ON CISCO DEVICES
     ios_banner:
       banner: login
-      text: "          FUNZICA           "
+      text: "          FUNZICA DAVVERO           "
       state: present
 
 #  - name: CONFIGURE HOSTNAME ON CISCO DEVICES
