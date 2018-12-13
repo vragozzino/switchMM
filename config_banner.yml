@@ -1,0 +1,20 @@
+---
+- hosts: ios
+  gather_facts: no
+  connection: network_cli
+
+  tasks:
+
+  - name: CONFIGURE BANNER ON CISCO DEVICES
+    ios_banner:
+      banner: login
+      text: "          FUNZICA           "
+      state: present
+
+  - name: SHOW RUN | BEG BANNER 
+    ios_command:
+      commands:
+        - show run | beg HODL
+    register: banner
+
+  - debug: var=banner.stdout_lines
