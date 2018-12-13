@@ -1,5 +1,5 @@
 ---
-- hosts: ios
+- hosts: MM_Vimodrone
   gather_facts: no
   connection: network_cli
 
