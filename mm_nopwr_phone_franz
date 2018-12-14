@@ -1,5 +1,5 @@
 ---
-- hosts: MM_Vimodrone
+- hosts: MM_Vimodrone_DEVNET
   gather_facts: no
   connection: network_cli
 
