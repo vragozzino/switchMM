@@ -1,0 +1,22 @@
+---
+- hosts: MM_Vimodrone
+  gather_facts: no
+  connection: network_cli
+
+
+  vars:
+    ansible_network_os: ios
+    
+  tasks:
+
+  - name: run multiple commands on switch DEVNET
+    ios_command:
+      commands:
+        - configure terminal
+        - interface GigabitEthernet1/0/2
+        - power inline never
+        - end
+        - wr
+
+  - debug: var=banner.stdout_lines
+  
