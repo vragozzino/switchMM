@@ -5,7 +5,7 @@
 
   vars:
     ansible_network_os: ios
-    username_mm: 4 
+    username_mm: test
   
   tasks:
 
@@ -19,7 +19,5 @@
         - wr
     
    
-  - debug: 
-      var=banner.stdout_lines
-      var: username_mm
+  - debug: var=banner.stdout_lines
   
