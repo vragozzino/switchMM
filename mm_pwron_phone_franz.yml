@@ -17,6 +17,6 @@
         - no power inline never
         - end
         - wr
-    when: {username_mm} == 4
+    when: [username_mm] == 4
   - debug: var=banner.stdout_lines
   
