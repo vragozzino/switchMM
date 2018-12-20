@@ -5,7 +5,7 @@
 
   vars:
     ansible_network_os: ios
-#    username_mm: 'fmenezes'
+    username_mm: 'fmenezes'
   
   tasks:
 
