@@ -21,11 +21,11 @@
     when: username_mm == "fmenezes"
    
   - debug:
-      msg: "The received username is {{ username_mm }}"
+      msg: "The received username is {{ username_mm }} so PWR is granted"
     when: username_mm == "fmenezes"
 
   - debug:
-      msg: "The received username is {{ username_mm }}"
+      msg: "The received username is {{ username_mm }} so PWR is NOT granted"
     when: username_mm != "fmenezes"
 
     
