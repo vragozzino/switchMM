@@ -6,7 +6,7 @@
 
   vars:
     ansible_network_os: ios
-    username : "{{ USERNAME_ID }}" 
+    username : 'fmenezes' 
   
   tasks:
 
@@ -18,6 +18,6 @@
         - no power inline never
         - end
         - wr
-#        when: username == "fmenezes"
+    when: username == "fmenezes"
   - debug: var=banner.stdout_lines
   
