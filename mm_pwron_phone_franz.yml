@@ -18,7 +18,7 @@
         - end
         - wr
       
-    when: username_mm == "fmenenzes"
+    when: username_mm == "fmenezes"
    
   - debug: 
       
