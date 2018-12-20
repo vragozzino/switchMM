@@ -15,8 +15,17 @@
         - configure terminal
         - interface GigabitEthernet1/0/2
         - power inline never
+        - description {{username_mm}}
         - end
         - wr
 
-  - debug: var=banner.stdout_lines
+#    when: username_mm == "fmenezes"
+
+  - debug:
+      msg: "The received username is {{ username_mm }} so PWR is removed"
+    when: username_mm == "fmenezes"
+
+  - debug:
+      msg: "The received username is {{ username_mm }} so PWR is NOT removed"
+    when: username_mm != "fmenezes"
   
