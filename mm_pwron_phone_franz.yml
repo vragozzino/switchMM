@@ -20,5 +20,6 @@
       
     when: username_mm == "fmenezes"
    
-  - debug: 
-      
+  - debug:
+      msg: "The configured description is {{ username_mm }} "
+    
