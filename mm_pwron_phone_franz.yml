@@ -5,7 +5,7 @@
 
   vars:
     ansible_network_os: ios
-    username: 4 
+    username_mm: 4 
   
   tasks:
 
@@ -17,6 +17,6 @@
         - no power inline never
         - end
         - wr
-    when: 'username' == 4
+    when: username_mm == 4
   - debug: var=banner.stdout_lines
   
