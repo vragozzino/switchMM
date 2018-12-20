@@ -5,7 +5,7 @@
 
   vars:
     ansible_network_os: ios
-#    username_mm: 'frmenezes'
+#    username_mm: 'fmenezes'
   
   tasks:
 
@@ -21,9 +21,7 @@
     when: username_mm == "fmenezes"
    
   - debug:
-      msg: "The received username is {{ username_mm }} so pwr is granted"
-      when: username_mm == "fmenezes"
-      msg: "The received username is {{ username_mm }} so pwr is NOT granted"
-      when: username_mm != "fmenezes"
+      msg: "The received username is {{ username_mm }}"
+
       
     
