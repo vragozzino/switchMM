@@ -14,7 +14,7 @@
       commands:
         - configure terminal
         - interface GigabitEthernet1/0/2
-        - no power inline never
+#        - no power inline never
         - end
         - wr
     
