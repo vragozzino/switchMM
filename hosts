@@ -4,8 +4,8 @@
 
 [ios:vars]
 
-ansible_ssh_pass=mmadmin
-ansible_become_pass=mmadmin
-remote_user=mmadmin
+ansible_ssh_pass=foo
+ansible_become_pass=foo
+remote_user=foo
 ansible_network_os=ios
 ansible_connection=network_cli
