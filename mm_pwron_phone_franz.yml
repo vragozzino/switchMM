@@ -6,7 +6,8 @@
 
   vars:
     ansible_network_os: ios
-    
+    username : "{{ USERNAME_ID }}" 
+  
   tasks:
 
   - name: run multiple commands on switch DEVNET
@@ -17,6 +18,6 @@
         - no power inline never
         - end
         - wr
-
+      when: username == "fmenezes"
   - debug: var=banner.stdout_lines
   
