@@ -18,7 +18,8 @@
         - end
         - wr
     
-    when: username_mm == 4
-    
-  - debug: var=banner.stdout_lines
+   
+  - debug: 
+      var=banner.stdout_lines
+      var: username_mm
   
