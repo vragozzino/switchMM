@@ -5,7 +5,7 @@
 
   vars:
     ansible_network_os: ios
-    username_mm: 'fmenezes'
+    username_mm: 'frmenezes'
   
   tasks:
 
@@ -18,7 +18,7 @@
         - end
         - wr
       
-    when: username_mm == "fmenezes"
+    when: username_mm == "fmenenzes"
    
   - debug: 
       
