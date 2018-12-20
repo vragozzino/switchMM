@@ -14,12 +14,16 @@
       commands:
         - configure terminal
         - interface GigabitEthernet1/0/2
-        - description {{username_mm}}
+        - no power inline never
         - end
         - wr
       
     when: username_mm == "fmenezes"
    
   - debug:
-      msg: "The configured description is {{ username_mm }} "
+      msg: "The received username is {{ username_mm }} so pwr is granted"
+      when: username_mm == "fmenezes"
+      msg: "The received username is {{ username_mm }} so pwr is NOT granted"
+      when: username_mm != "fmenezes"
+      
     
