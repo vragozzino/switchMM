@@ -14,11 +14,11 @@
       commands:
         - configure terminal
         - interface GigabitEthernet1/0/2
-        - no power inline never
+        - description {{username_mm}}
         - end
         - wr
+      
     when: username_mm == "fmenezes"
    
   - debug: 
-      msg: username_mm
-  
+      
