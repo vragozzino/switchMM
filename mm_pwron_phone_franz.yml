@@ -5,7 +5,7 @@
 
   vars:
     ansible_network_os: ios
-#    username_mm: test
+    username_mm: 'fmenezes'
   
   tasks:
 
@@ -14,10 +14,11 @@
       commands:
         - configure terminal
         - interface GigabitEthernet1/0/2
-#        - no power inline never
+        - no power inline never
         - end
         - wr
-    
+    when: username_mm == "fmenezes"
    
-  - debug: var=banner.stdout_lines
+  - debug: 
+      msg: username_mm
   
