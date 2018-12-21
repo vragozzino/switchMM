@@ -26,6 +26,9 @@
     - xml:
         xmlstring: "{{page_content.content}}"
         xpath: /soapenv:Envelope/soapenv:Body/ns:executeSQLQueryResponse/return/row/device_name
+        namespaces:
+            soapenv: http://schemas.xmlsoap.org/soap/envelope/
+            ns: http://www.cisco.com/AXL/API/10.5
         content: text
       register: phone_mac
 
