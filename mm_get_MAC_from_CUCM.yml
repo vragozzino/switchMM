@@ -25,7 +25,7 @@
 
     - xml:
         xmlstring: "{{page_content.content}}"
-        xpath: /soapenv/soapenv/ns/return/row/device_name
+        xpath: /soapenv:Envelope/soapenv:Body/ns:executeSQLQueryResponse/return/row/device_name
         content: text
       register: phone_mac
 
