@@ -40,7 +40,7 @@
  
     - name: get_clean_mac_address
       set_fact: 
-         clean_mac: "{{ 'mac_device | regex_replace('SEP') }}"
+         clean_mac: "{{ mac_device | regex_replace('SEP') }}"
          
     - debug:
         var: clean_mac
