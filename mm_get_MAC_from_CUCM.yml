@@ -31,9 +31,9 @@
         content: text
       register: phone_mac
       
-    - mac_address: 
-        mac_device: "{{phone_mac.matches.0.device_name}}"
+#    - mac_address: 
+#        mac_device: "{{phone_mac.matches.0.device_name}}"
 
     - debug:
-        var: macaddress
+        var: phone_mac.matches.0.device_name
         
