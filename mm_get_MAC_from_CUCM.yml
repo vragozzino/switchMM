@@ -1,7 +1,7 @@
 ---
 - hosts: CUCM_MO
   gather_facts: no
-  connection: http
+  connection: httpapi
 
 # vars:
 #   ansible_network_os: ios
