@@ -20,10 +20,10 @@
       password: devnet
 #      body_format: raw
       force_basic_auth: yes
-      register: page_content
+    register: page_content
       
   - debug      
-     var: page_content.content
+      var: page_content.content
 
 #- name: POST "something" on CUCM!
 #  uri:
