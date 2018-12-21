@@ -18,9 +18,16 @@
         password: devnet
         force_basic_auth: yes
       register: page_content
-      
+
+    - xml
+        xmlstring: "{{page_content.content}}"
+        xpath: /html/head/title
+        content: attribute
+        attribute: page_title
+      register: xmlresp
+
     - debug:
-        var: page_content.content
+        var: xmlresp.matches[0].title.page_title
         
 #- name: POST "something" on CUCM!
 #  uri:
