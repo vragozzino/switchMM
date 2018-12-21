@@ -21,7 +21,7 @@
       force_basic_auth: yes
     
       register: page_content
-      failed_when: "'AXL' not in page_content.content"
+      failed_when: "'MATTEO' not in page_content.content"
 
 #- name: POST "something" on CUCM!
 #  uri:
