@@ -33,7 +33,7 @@
       register: phone_mac
 
     - debug:
-        var: phone_mac
+        var: phone_mac.matches.0.device_name
         
 #- name: POST "something" on CUCM!
 #    force_basic_auth: yes
