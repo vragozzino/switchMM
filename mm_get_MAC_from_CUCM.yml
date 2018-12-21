@@ -1,6 +1,6 @@
 ---
-- hosts: localhost
-  gather_facts: no
+-   hosts: localhost
+    gather_facts: no
 #  connection: httpapi
 
 # vars:
@@ -23,7 +23,6 @@
       
     - debug      
         var: page_content.content
-
 #- name: POST "something" on CUCM!
 #  uri:
 #    url: https://10.142.0.1:8443/axl/
