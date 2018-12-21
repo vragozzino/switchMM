@@ -1,7 +1,7 @@
 ---
 - hosts: CUCM_MO
   gather_facts: no
-# connection: network_cli
+  connection: httpapi
 
 - name: Check that you can connect (GET) to CUCM and it returns a status 200
   uri:
