@@ -1,7 +1,7 @@
 ---
-- hosts: MM_Vimodrone
+- hosts: CUCM_MO
   gather_facts: no
-  connection: network_cli
+# connection: network_cli
 
 - name: Check that you can connect (GET) to CUCM and it returns a status 200
   uri:
