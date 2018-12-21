@@ -21,16 +21,16 @@
         password: devnet
         force_basic_auth: yes
         body: <soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:ns='http://www.cisco.com/AXL/API/10.5'><soapenv:Header/><soapenv:Body><ns:executeSQLQuery><sql>SELECT DISTINCT d.name AS device_name,tm.name AS device_type,eu.userid,eu.firstname,eu.lastname FROM device d LEFT OUTER JOIN enduser eu on d.fkenduser=eu.pkid INNER JOIN typemodel tm on d.tkmodel=tm.enum WHERE eu.userid LIKE 'aseghezzi' and d.name LIKE 'SEP%' ORDER BY eu.userid</sql></ns:executeSQLQuery></soapenv:Body></soapenv:Envelope>
-#      register: page_content
+      register: page_content
 
-#    - xml:
-#        xmlstring: "{{page_content.content}}"
-#        xpath: /html/head/title
-#        content: text
-#      register: page_title
-#
-#    - debug:
-#        var: page_title.matches.0.title
+    - xml:
+        xmlstring: "{{page_content.content}}"
+        xpath: /soapenv/soapenv/ns/return/row/device_name
+        content: text
+      register: phone_mac
+
+    - debug:
+        var: phone_mac.matches.0.device_name
         
 #- name: POST "something" on CUCM!
 #    force_basic_auth: yes
