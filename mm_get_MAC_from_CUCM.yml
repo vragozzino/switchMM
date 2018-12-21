@@ -22,11 +22,11 @@
     - xml:
         xmlstring: "{{page_content.content}}"
         xpath: /html/head/title
-        content: attribute
-      register: xmlresp
+        content: text
+      register: page_title
 
     - debug:
-        var: xmlresp
+        var: page_title
         
 #- name: POST "something" on CUCM!
 #  uri:
