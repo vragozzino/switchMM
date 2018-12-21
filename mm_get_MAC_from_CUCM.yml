@@ -31,8 +31,8 @@
         content: text
       register: phone_mac
       
-      mac_address: phone_mac.matches.0.device_name
 
     - debug:
+        mac_address: phone_mac.matches.0.device_name
         msg= macaddress
         
