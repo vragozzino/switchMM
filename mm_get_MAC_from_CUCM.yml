@@ -1,5 +1,5 @@
 ---
-- hosts: CUCM_MO
+- hosts: localhost
 #  gather_facts: no
 #  connection: httpapi
 
