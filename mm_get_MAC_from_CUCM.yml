@@ -1,5 +1,5 @@
 ---
-#- hosts: CUCM_MO
+- hosts: CUCM_MO
 #  gather_facts: no
 #  connection: httpapi
 
