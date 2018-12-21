@@ -6,12 +6,14 @@
 # vars:
 #   ansible_network_os: ios
 
-#  tasks:
+  tasks:
 
   - name: Check that you can connect (GET) to CUCM and it returns a status 200
     uri:
       url: https://10.142.0.1:8443/axl/
       validate_certs: no
+      headers:
+       Content-Type: "application/xml"
       user: devnet
       password: devnet
       body_format: xml
