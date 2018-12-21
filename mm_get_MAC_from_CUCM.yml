@@ -19,7 +19,7 @@
         password: devnet
         force_basic_auth: yes
         body: "{{ 
-                \"<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns=\"http://www.cisco.com/AXL/API/10.5\">
+                "<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.cisco.com/AXL/API/10.5">
                 <soapenv:Header/>
                 <soapenv:Body>
                     <ns:executeSQLQuery>
@@ -28,12 +28,12 @@
                             FROM device d
                             LEFT OUTER JOIN enduser eu on d.fkenduser=eu.pkid
                             INNER JOIN typemodel tm on d.tkmodel=tm.enum
-                            WHERE eu.userid LIKE \'aseghezzi\' and d.name LIKE \'SEP%\'
+                            WHERE eu.userid LIKE 'aseghezzi' and d.name LIKE 'SEP%'
                             ORDER BY eu.userid
                         </sql>
                     </ns:executeSQLQuery>
                 </soapenv:Body>
-                </soapenv:Envelope>\"
+                </soapenv:Envelope>"
                 }}"
       register: page_content
 
