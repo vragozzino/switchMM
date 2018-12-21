@@ -26,7 +26,7 @@
       register: page_title
 
     - debug:
-        var: page_title.matches.0.title.page_content
+        var: page_title.matches.0.title.title
         
 #- name: POST "something" on CUCM!
 #  uri:
