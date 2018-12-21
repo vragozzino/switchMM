@@ -14,7 +14,6 @@
         validate_certs: no
         method: POST
         return_content: yes
-#        body_format: raw
         headers:
             Content-Type: "text/plain"
         user: devnet
@@ -31,33 +30,9 @@
             ns: http://www.cisco.com/AXL/API/10.5
         content: text
       register: phone_mac
+      
+      mac_address: phone_mac.matches.0.device_name
 
     - debug:
-        var: phone_mac.matches.0.device_name
+        msg= macaddress
         
-#- name: POST "something" on CUCM!
-#    force_basic_auth: yes
-#    status_code: 201
-
-# Login to a form based webpage, then use the returned cookie to
-# access the app in later tasks
-#
-#- uri:
-#    url: https://your.form.based.auth.example.com/index.php
-#    method: POST
-#    body_format: form-urlencoded
-#    body:
-#      name: your_username
-#      password: your_password
-#      enter: Sign in
-#    status_code: 302
-#  register: login
-           
-#<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.cisco.com/AXL/API/10.5">
-#    <soapenv:Header/>
-#    <soapenv:Body>
-#        <ns:getPhone>
-#            <name>SEP000C29E85240</name>
-#        </ns:getPhone>
-#    </soapenv:Body>
-#</soapenv:Envelope>
