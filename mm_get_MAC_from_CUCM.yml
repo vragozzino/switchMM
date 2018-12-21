@@ -19,7 +19,7 @@
         force_basic_auth: yes
       register: page_content
 
-    - xml
+    - xml:
         xmlstring: "{{page_content.content}}"
         xpath: /html/head/title
         content: attribute
