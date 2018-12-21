@@ -26,7 +26,7 @@
       register: xmlresp
 
     - debug:
-        var: xmlresp.matches.0.title
+        var: xmlresp
         
 #- name: POST "something" on CUCM!
 #  uri:
