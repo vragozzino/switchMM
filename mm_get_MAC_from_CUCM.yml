@@ -3,14 +3,14 @@
   gather_facts: no
   connection: httpapi
 
-tasks:
+  tasks:
 
-- name: Check that you can connect (GET) to CUCM and it returns a status 200
-  uri:
-   url: https://10.142.0.1:8443/axl/
-     user: devnet
-     password: devnet
-     force_basic_auth: yes
+  - name: Check that you can connect (GET) to CUCM and it returns a status 200
+    uri:
+     url: https://10.142.0.1:8443/axl/
+       user: devnet
+       password: devnet
+       force_basic_auth: yes
     
 # Check that a page returns a status 200 and fail if the word AXL is not
 # in the page contents.
