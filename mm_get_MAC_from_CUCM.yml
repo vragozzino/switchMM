@@ -23,11 +23,10 @@
         xmlstring: "{{page_content.content}}"
         xpath: /html/head/title
         content: attribute
-        attribute: page_title
       register: xmlresp
 
     - debug:
-        var: xmlresp.matches[0].title.page_title
+        var: xmlresp.matches.0.title
         
 #- name: POST "something" on CUCM!
 #  uri:
