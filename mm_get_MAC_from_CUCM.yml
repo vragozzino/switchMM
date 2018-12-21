@@ -16,7 +16,7 @@
        Content-Type: "application/xml"
       user: devnet
       password: devnet
-      body_format: xml
+      body_format: raw
       force_basic_auth: yes
     
 # Check that a page returns a status 200 and fail if the word AXL is not
