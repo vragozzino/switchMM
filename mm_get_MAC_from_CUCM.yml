@@ -34,7 +34,7 @@
     - name: get_mac_address
       set_fact: 
          mac_device: "{{phone_mac.matches.0.device_name}}"
-         clean_mac: "{{ mac_device | regex_replace('SEP','') }}"
+         clean_mac: "{{ "{{mac_device}}" | regex_replace('SEP')}}"
     - debug:
         var: clean_mac
         
