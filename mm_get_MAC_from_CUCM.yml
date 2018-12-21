@@ -17,7 +17,7 @@
         user: devnet
         password: devnet
         force_basic_auth: yes
-       register: page_content
+      register: page_content
       
     - debug:
         var: page_content.content
