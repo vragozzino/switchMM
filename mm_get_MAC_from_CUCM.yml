@@ -4,7 +4,7 @@
   connection: network_cli
 
 - name: Check that you can connect (GET) to CUCM and it returns a status 200
-  uri:
+  get_url:
     url: https://10.142.0.1:8443/axl/
     user: devnet
     password: devnet
@@ -13,15 +13,15 @@
 # Check that a page returns a status 200 and fail if the word AXL is not
 # in the page contents.
 
-- name: Check if CUCM returns AXL in its content
-  uri:
-    url: https://10.142.0.1:8443/axl/
-    user: devnet
-    password: devnet
-    force_basic_auth: yes
-    return_content: yes
-  register: page_content
-  failed_when: "'AXL' not in page_content.content"
+#- name: Check if CUCM returns AXL in its content
+#  uri:
+#    url: https://10.142.0.1:8443/axl/
+#    user: devnet
+#    password: devnet
+#    force_basic_auth: yes
+#    return_content: yes
+#  register: page_content
+#  failed_when: "'AXL' not in page_content.content"
 
 #- name: POST "something" on CUCM!
 #  uri:
