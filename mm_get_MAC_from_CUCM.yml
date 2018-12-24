@@ -160,6 +160,6 @@
         - description acazzo
         - end
       
-     when: inventory_hostname == {{switch_IP}}
+     when: inventory_hostname == 10.22.22.69
 
 
