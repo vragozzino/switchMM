@@ -82,7 +82,7 @@
 
     - name: get_highest_session_ID
       set_fact: 
-         highest_session_ID: "{{sessions_mac.matches.entityId | max}}"
+         highest_session_ID: "{{sessions_mac.matches | max}}"
 
     - debug:
         var: highest_session_ID
