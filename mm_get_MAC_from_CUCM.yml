@@ -143,13 +143,13 @@
     - debug:
         var: switch_hostname
 
-    - name: run multiple commands on selected switch
-      network_cli
-        host: "{{switch_IP}}"
-        network_os: ios
-        validate_certs: no
-        remote_user: mmadmin
-        password: mmadmin
+    - hosts:
+        devices:
+          ansible_host: "{{switch_IP}}"
+#          network_os: ios
+#        validate_certs: no
+#        remote_user: mmadmin
+#        password: mmadmin
 
 #   ios_command:
 #        commands:
