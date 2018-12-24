@@ -143,9 +143,15 @@
     - debug:
         var: switch_hostname
 
--   hosts:
-      devices:
-        ansible_host: "{{switch_IP}}"
+-   hosts: MM_Vimodrone_DEVNET
+    gather_facts: no
+    connection: network_cli
+
+    vars:
+      ansible_network_os: ios
+
+    - debug:
+        var: switch_hostname
 
 #          network_os: ios
 #        validate_certs: no
