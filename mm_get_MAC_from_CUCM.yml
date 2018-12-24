@@ -143,9 +143,10 @@
     - debug:
         var: switch_hostname
 
-    - hosts:
-        devices:
-          ansible_host: "{{switch_IP}}"
+-   hosts:
+      devices:
+        ansible_host: "{{switch_IP}}"
+
 #          network_os: ios
 #        validate_certs: no
 #        remote_user: mmadmin
