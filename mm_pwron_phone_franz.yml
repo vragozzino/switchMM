@@ -5,7 +5,7 @@
 
   vars:
     ansible_network_os: ios
-#    username_mm: 'fmenezes'
+    username_mm: 'fmenezes'
   
   tasks:
 
@@ -13,9 +13,9 @@
     ios_command:
       commands:
         - configure terminal
-        - interface GigabitEthernet1/0/2
+        - interface {{switch_Int}}
         - no power inline never
-        - description {{username_mm}}
+        - description chissa
         - end
         - wr
       
