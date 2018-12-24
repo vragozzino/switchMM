@@ -47,7 +47,7 @@
 
     - name: get_mac_session_from_PRIME
       uri:
-        url: "https://10.23.77.200/webacs/api/v4/data/ClientSessions?macAddress=\"{{clean_mac}}\""
+        url: https://10.23.77.200/webacs/api/v4/data/ClientSessions?macAddress={{clean_mac}}
         validate_certs: no
         method: GET
 #        body: "macAddress=\"{{clean_mac}}\""
