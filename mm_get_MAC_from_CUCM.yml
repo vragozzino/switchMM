@@ -70,8 +70,8 @@
         content: text
       register: sessions_mac
 
-    - debug:
-        var: sessions_mac
+#    - debug:
+#        var: sessions_mac
 
 #    - name: get_sessions_cont
 #      set_fact: 
@@ -86,4 +86,20 @@
 
     - debug:
         var: highest_session_ID.entityId
+
+    - name: get_session_facts
+      uri:
+        url: https://10.23.77.200/webacs/api/v4/data/ClientSessions/{{highest_session_ID.entityId}}
+        validate_certs: no
+        method: GET
+        return_content: yes
+        headers:
+            Content-Type: "application/x-www-form-urlencoded"
+        user: devnet
+        password: Maticmind2018
+        force_basic_auth: yes
+      register: session_facts
+
+    - debug:
+        var: session_facts.content
 
