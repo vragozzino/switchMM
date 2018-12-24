@@ -143,29 +143,29 @@
     - debug:
         var: switch_hostname
 
-- hosts: MM_Vimodrone_DEVNET
-  gather_facts: yes
-  connection: network_cli
+-   hosts: MM_Vimodrone_DEVNET
+    gather_facts: yes
+    connection: network_cli
 
-  vars:
+    vars:
     ansible_network_os: ios
 
-- debug:
-    var: switch_Interface
+    tasks:
 
-  tasks:
+    - debug:
+        var: switch_Interface
 
-  - name: run multiple commands on switch DEVNET
-    ios_command:
-      commands:
-        - configure terminal
-        - interface "{{switch_Interface}}"
-        - no power inline never
-        - description acazzo
-        - end
+    - name: run multiple commands on switch DEVNET
+      ios_command:
+        commands:
+          - configure terminal
+#         - interface "{{switch_Interface}}"
+#         - no power inline never
+#         - description acazzo
+          - end
 
-  - debug:
-        var: inventory_hostname
+#    - debug:
+#        var: inventory_hostname
       
 #    when: inventory_hostname == 10.22.22.69
 
