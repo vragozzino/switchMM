@@ -161,7 +161,7 @@
           - configure terminal
           - interface {{hostvars['localhost']['switch_Interface']}}
           - no power inline never
-          - description acazzo
+          - description {{username_mm}}
           - end
       when: ansible_host== hostvars['localhost']['switch_IP']
 
