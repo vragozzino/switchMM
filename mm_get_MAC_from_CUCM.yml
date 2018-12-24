@@ -144,10 +144,14 @@
         var: switch_hostname
 
 - hosts: MM_Vimodrone_DEVNET
+  gather_facts: yes
   connection: network_cli
 
   vars:
     ansible_network_os: ios
+
+- debug:
+    var: switch_Interface
 
   tasks:
 
@@ -155,7 +159,7 @@
     ios_command:
       commands:
         - configure terminal
-        - interface {{switch_Interface}}
+        - interface "{{switch_Interface}}"
         - no power inline never
         - description acazzo
         - end
