@@ -51,7 +51,7 @@
 
     - name: get_mac_session_from_PRIME
       uri:
-        url: https://10.23.77.200/webacs/api/v4/data/ClientSessions?macAddress={{clean_mac}}
+        url: https://10.23.77.200/webacs/api/v4/data/ClientSessions.json?macAddress={{clean_mac}}
         validate_certs: no
         method: GET
         return_content: yes
@@ -62,14 +62,14 @@
         force_basic_auth: yes
       register: prime_sessions
 
-#    - debug:
-#        var: prime_sessions.content
+    - debug:
+        var: prime_sessions.content
       
-    - xml:
-        xmlstring: "{{prime_sessions.content}}"
-        xpath: /queryResponse/entityId
-        content: text
-      register: sessions_mac
+#    - xml:
+#        xmlstring: "{{prime_sessions.content}}"
+#        xpath: /queryResponse/entityId
+#        content: text
+#      register: sessions_mac
 
 #    - debug:
 #        var: sessions_mac
@@ -83,14 +83,14 @@
 
     - name: get_highest_session_ID
       set_fact: 
-         highest_session_ID: "{{sessions_mac.matches | max}}"
+         highest_session_ID: "{{queryResponse.entityId.$ | max}}"
 
     - debug:
-        var: highest_session_ID.entityId
+        var: highest_session_ID
 
     - name: get_session_facts
       uri:
-        url: https://10.23.77.200/webacs/api/v4/data/ClientSessions/{{highest_session_ID.entityId}}
+        url: https://10.23.77.200/webacs/api/v4/data/ClientSessions/{{highest_session_ID}}.json
         validate_certs: no
         method: GET
         return_content: yes
@@ -104,41 +104,41 @@
     - debug:
         var: session_facts.content
 
-    - xml:
-        xmlstring: "{{session_facts.content}}"
-        xpath: /queryResponse/entity/clientSessionsDTO/deviceMgmtAddress/address
-        content: text
-      register: switch_IPaddress
+#    - xml:
+#        xmlstring: "{{session_facts.content}}"
+#        xpath: /queryResponse/entity/clientSessionsDTO/deviceMgmtAddress/address
+#        content: text
+#      register: switch_IPaddress
       
     - name: get_switch_IPaddress
       set_fact: 
-         switch_IP: "{{switch_IPaddress.matches.0.address}}"
+         switch_IP: "{{queryResponse.entity.clientSessionsDTO.deviceMgmtAddress.address}}"
 
     - debug:
         var: switch_IP
 
-    - xml:
-        xmlstring: "{{session_facts.content}}"
-        xpath: /queryResponse/entity/clientSessionsDTO/clientInterface
-        content: text
-      register: switch_If
+#    - xml:
+#        xmlstring: "{{session_facts.content}}"
+#        xpath: /queryResponse/entity/clientSessionsDTO/clientInterface
+#        content: text
+#      register: switch_If
       
     - name: get_switch_If
       set_fact: 
-         switch_Interface: "{{switch_If.matches.0.clientInterface}}"
+         switch_Interface: "{{queryResponse.entity.clientSessionsDTO.clientInterface}}"
 
     - debug:
         var: switch_Interface
 
-    - xml:
-        xmlstring: "{{session_facts.content}}"
-        xpath: /queryResponse/entity/clientSessionsDTO/deviceName
-        content: text
-      register: switch_name
+ #   - xml:
+ #       xmlstring: "{{session_facts.content}}"
+ #       xpath: /queryResponse/entity/clientSessionsDTO/deviceName
+ #       content: text
+ #     register: switch_name
       
     - name: get_switch_hostname
       set_fact: 
-         switch_hostname: "{{switch_name.matches.0.deviceName}}"
+         switch_hostname: "{{queryResponse.entity.clientSessionsDTO.deviceName}}"
 
     - debug:
         var: switch_hostname
