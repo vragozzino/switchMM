@@ -143,16 +143,7 @@
     - debug:
         var: switch_hostname
 
-
-    - ssh:
-        ansible_ssh_host: "{{switch_IP}}"
-        validate_certs: no
-        user: mmadmin
-        password: mmadmin
-
-#    - include: mm_pwron_phone_franz.yml
-#      vars:
-#        switch_Int: "{{switch_Interface}}"
+    - import_playbook: mm_pwron_phone_franz.yml --extra-vars "switch_Int={{switch_Interface}}" 
 
 #-   hosts: MM_Vimodrone_DEVNET
 #    gather_facts: no
