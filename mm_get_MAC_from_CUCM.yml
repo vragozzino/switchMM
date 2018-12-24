@@ -160,6 +160,6 @@
         - description acazzo
         - end
       
-     when: ansible_host == {{switch_IP}}
+     when: ansible_host == "{{switch_IP}}"
 
 
