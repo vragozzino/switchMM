@@ -73,10 +73,17 @@
     - debug:
         var: sessions_mac
 
-    - name: get_sessions_cont
+#    - name: get_sessions_cont
+#      set_fact: 
+#         sessions_count: "{{sessions_mac.count}}"
+#
+#    - debug:
+#        var: sessions_count
+
+    - name: get_highest_session_ID
       set_fact: 
-         sessions_count: "{{sessions_mac.count}}"
+         highest_session_ID: "{{sessions_mac.matches.entityId | max}}"
 
     - debug:
-        var: sessions_count
+        var: highest_session_ID
 
