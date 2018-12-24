@@ -146,20 +146,20 @@
 - hosts: MM_Vimodrone
   connection: network_cli
 
-#  vars:
-#    ansible_network_os: ios
+  vars:
+    ansible_network_os: ios
 
-#  tasks:
+  tasks:
 
-#  - name: run multiple commands on switch DEVNET
-#    ios_command:
-#      commands:
-#        - configure terminal
-#        - interface {{switch_Interface}}
-#        - no power inline never
-#        - description acazzo
-#        - end
+  - name: run multiple commands on switch DEVNET
+    ios_command:
+      commands:
+        - configure terminal
+        - interface {{switch_Interface}}
+        - no power inline never
+        - description acazzo
+        - end
       
- #     when: ansible_host == {{switch_IP}}
+     when: ansible_host == {{switch_IP}}
 
 
