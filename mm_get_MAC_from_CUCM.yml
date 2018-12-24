@@ -143,25 +143,23 @@
     - debug:
         var: switch_hostname
 
-    - import_playbook: mm_pwron_phone_franz.yml -e switch_Int={{switch_Interface}} 
 
-#-   hosts: MM_Vimodrone_DEVNET
-#    gather_facts: no
-#    connection: network_cli
+-   hosts: MM_Vimodrone_DEVNET
+    gather_facts: no
+    connection: network_cli
 
-#    vars:
-#      ansible_network_os: ios
+    vars:
+      ansible_network_os: ios
 
-#   tasks:
+    tasks:
 
-#  - debug:
-#       var: switch_hostname
+    - debug:
+       var: hostvars['localhost']['switch_hostname']
 
-#          network_os: ios
-#        validate_certs: no
-#        remote_user: mmadmin
-#        password: mmadmin
+    - debug:
+       var: hostvars['localhost']['switch_Interface']
 
+#   hostvars['localhost']['foo']
 #   ios_command:
 #        commands:
 #          - configure terminal
