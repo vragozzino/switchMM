@@ -145,7 +145,7 @@
 
     - include: mm_pwron_phone_franz.yml
       vars:
-        switch_Int: {{switch_Interface}}
+        switch_Int: "{{switch_Interface}}"
 
 #-   hosts: MM_Vimodrone_DEVNET
 #    gather_facts: no
