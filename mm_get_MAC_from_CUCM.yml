@@ -145,7 +145,7 @@
 
     - hosts:
         devices:
-          ansible_host: {{switch_IP}}
+          ansible_host: "{{switch_IP}}"
 #          network_os: ios
 #        validate_certs: no
 #        remote_user: mmadmin
