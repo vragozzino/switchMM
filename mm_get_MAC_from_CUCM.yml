@@ -59,8 +59,8 @@
         force_basic_auth: yes
       register: prime_sessions
 
-    - debug:
-        var: prime_sessions.content
+#    - debug:
+#        var: prime_sessions.content
       
     - xml:
         xmlstring: "{{prime_sessions.content}}"
@@ -71,6 +71,10 @@
     - debug:
         var: sessions_mac
 
-#    - name: get_sessions
-#      set_fact: 
-#         mac_device: "{{phone_mac.matches.0.device_name}}"
+    - name: get_sessions_cont
+      set_fact: 
+         sessions_count: "{{sessions_mac.count}}"
+
+    - debug:
+        var: sessions_count
+
