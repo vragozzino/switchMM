@@ -60,5 +60,5 @@
       register: prime_session
 
     - debug:
-        var: prime_session
+        var: prime_session.content
       
