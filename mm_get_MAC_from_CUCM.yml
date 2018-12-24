@@ -22,6 +22,9 @@
         body: <soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:ns='http://www.cisco.com/AXL/API/10.5'><soapenv:Header/><soapenv:Body><ns:executeSQLQuery><sql>SELECT DISTINCT d.name AS device_name,tm.name AS device_type,eu.userid,eu.firstname,eu.lastname FROM device d LEFT OUTER JOIN enduser eu on d.fkenduser=eu.pkid INNER JOIN typemodel tm on d.tkmodel=tm.enum WHERE eu.userid LIKE 'fmenezes' and d.name LIKE 'SEP%' ORDER BY eu.userid</sql></ns:executeSQLQuery></soapenv:Body></soapenv:Envelope>
       register: page_content
 
+#    - debug:
+#        var: username_mm
+
     - xml:
         xmlstring: "{{page_content.content}}"
         xpath: /soapenv:Envelope/soapenv:Body/ns:executeSQLQueryResponse/return/row/device_name
@@ -35,8 +38,8 @@
       set_fact: 
          mac_device: "{{phone_mac.matches.0.device_name}}"
 
-    - debug:
-        var: mac_device
+#    - debug:
+#        var: mac_device
  
     - name: get_clean_mac_address
       set_fact: 
@@ -50,7 +53,6 @@
         url: https://10.23.77.200/webacs/api/v4/data/ClientSessions?macAddress={{clean_mac}}
         validate_certs: no
         method: GET
-#        body: "macAddress=\"{{clean_mac}}\""
         return_content: yes
         headers:
             Content-Type: "application/x-www-form-urlencoded"
