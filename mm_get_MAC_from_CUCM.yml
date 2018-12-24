@@ -150,7 +150,9 @@
   vars:
     ansible_network_os: ios
 
-  - name: run multiple commands on selected switch
+  tasks:
+
+  - name: run multiple commands on switch DEVNET
     ios_command:
       commands:
         - configure terminal
@@ -158,8 +160,7 @@
         - no power inline never
         - description acazzo
         - end
-        - wr
       
-    when: ansible_host == {{switch_IP}}
+      when: ansible_host == {{switch_IP}}
 
 
