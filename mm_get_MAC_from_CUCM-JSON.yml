@@ -83,7 +83,7 @@
 
     - name: get_highest_session_ID
       set_fact: 
-         highest_session_ID: "{{queryResponse.entityId.$ | max}}"
+         highest_session_ID: "{{queryResponse.entityId[2] | max}}"
 
     - debug:
         var: highest_session_ID
