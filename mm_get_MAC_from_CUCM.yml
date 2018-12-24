@@ -154,19 +154,15 @@
     tasks:
 
     - debug:
-       var: hostvars['localhost']['switch_hostname']
-
-    - debug:
        var: hostvars['localhost']['switch_Interface']
 
-#   hostvars['localhost']['foo']
-#   ios_command:
-#        commands:
-#          - configure terminal
-#         - interface "{{switch_Interface}}"
-#         - no power inline never
-#         - description acazzo
-#          - end
+    - ios_command:
+        commands:
+          - configure terminal
+          - interface "{{switch_Interface}}"
+          - no power inline never
+          - description acazzo
+          - end
 
 #    - debug:
 #        var: inventory_hostname
