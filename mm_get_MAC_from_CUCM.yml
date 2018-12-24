@@ -159,7 +159,7 @@
     - ios_command:
         commands:
           - configure terminal
-          - interface "{{hostvars['localhost']['switch_Interface']}}"
+          - interface {{hostvars['localhost']['switch_Interface']}}
           - no power inline never
           - description acazzo
           - end
