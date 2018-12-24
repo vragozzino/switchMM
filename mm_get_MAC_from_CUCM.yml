@@ -150,6 +150,8 @@
     vars:
       ansible_network_os: ios
 
+    tasks:
+
     - debug:
         var: switch_hostname
 
