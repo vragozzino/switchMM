@@ -41,7 +41,23 @@
     - name: get_clean_mac_address
       set_fact: 
          clean_mac: "{{ mac_device | regex_replace('SEP') }}"
-         
+
     - debug:
         var: clean_mac
-        
+
+    - name: get_mac_session_from_PRIME
+      uri:
+        url: https://10.23.77.200/webacs/api/v4/data/ClientSessions?macAddress="{{clean_mac}}"
+        validate_certs: no¨
+        method: GET
+        return_content: yes
+        headers:
+            Content-Type: "text/plain"
+        user: devnet
+        password: Maticmind2018
+        force_basic_auth: yes
+      register: prime_session
+
+    - debug:
+        var: prime_session
+      
