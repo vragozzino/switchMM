@@ -144,7 +144,7 @@
         var: switch_hostname
 
 
--   hosts: MM_Vimodrone_DEVNET
+-   hosts: MM_Vimodrone
     gather_facts: no
     connection: network_cli
 
@@ -157,6 +157,7 @@
        var: hostvars['localhost']['switch_Interface']
 
     - ios_command:
+        host: hostvars['localhost']['switch_IP']
         commands:
           - configure terminal
           - interface {{hostvars['localhost']['switch_Interface']}}
