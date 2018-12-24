@@ -142,7 +142,7 @@
     - debug:
         var: switch_hostname
 
-- hosts: {{switch_IP}}
+- hosts: "{{switch_IP}}"
   gather_facts: no
   connection: network_cli
 
