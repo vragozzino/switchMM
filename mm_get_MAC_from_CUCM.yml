@@ -85,5 +85,5 @@
          highest_session_ID: "{{sessions_mac.matches | max}}"
 
     - debug:
-        var: highest_session_ID
+        var: highest_session_ID.entityId
 
