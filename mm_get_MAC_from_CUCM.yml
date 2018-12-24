@@ -157,14 +157,13 @@
        var: hostvars['localhost']['switch_Interface']
 
     - ios_command:
-        host: {{hostvars['localhost']['switch_IP']}}
         commands:
           - configure terminal
           - interface {{hostvars['localhost']['switch_Interface']}}
           - no power inline never
           - description acazzo
           - end
-#      when: hostvars['localhost']['switch_IP']
+      when: ansible_host== hostvars['localhost']['switch_IP']
 
 #    - debug:
 #        var: inventory_hostname
