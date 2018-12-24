@@ -57,8 +57,20 @@
         user: devnet
         password: Maticmind2018
         force_basic_auth: yes
-      register: prime_session
+      register: prime_sessions
 
     - debug:
-        var: prime_session.content
+        var: prime_sessions.content
       
+    - xml:
+        xmlstring: "{{prime_sessions.content}}"
+        xpath: /queryResponse/entityId
+        content: text
+      register: sessions_mac
+
+    - debug:
+        var: sessions_mac
+
+#    - name: get_sessions
+#      set_fact: 
+#         mac_device: "{{phone_mac.matches.0.device_name}}"
