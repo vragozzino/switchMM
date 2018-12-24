@@ -3,8 +3,9 @@
     gather_facts: no
 #  connection: httpapi
 
-# vars:
+#    vars:
 #   ansible_network_os: ios
+#       username_mm: fmenezes
 
     tasks:
 
@@ -142,8 +143,23 @@
     - debug:
         var: switch_hostname
 
-- hosts: "{{switch_IP}}"
+- hosts: MM_Vimodrone_DEVNET
   gather_facts: no
   connection: network_cli
+
+  vars:
+    ansible_network_os: ios
+
+  - name: run multiple commands on selected switch
+    ios_command:
+      commands:
+        - configure terminal
+        - interface {{switch_Interface}}
+        - no power inline never
+        - description acazzo
+        - end
+        - wr
+      
+    when: ansible_host == {{switch_IP}}
 
 
