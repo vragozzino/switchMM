@@ -143,17 +143,21 @@
     - debug:
         var: switch_hostname
 
--   hosts: MM_Vimodrone_DEVNET
-    gather_facts: no
-    connection: network_cli
+    - include: mm_pwron_phone_franz.yml
+      vars:
+        switch_Int: {{switch_Interface}}
 
-    vars:
-      ansible_network_os: ios
+#-   hosts: MM_Vimodrone_DEVNET
+#    gather_facts: no
+#    connection: network_cli
 
-    tasks:
+#    vars:
+#      ansible_network_os: ios
 
-    - debug:
-        var: switch_hostname
+#   tasks:
+
+#  - debug:
+#       var: switch_hostname
 
 #          network_os: ios
 #        validate_certs: no
