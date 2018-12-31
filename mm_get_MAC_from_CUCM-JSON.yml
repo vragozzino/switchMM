@@ -55,6 +55,7 @@
         validate_certs: no
         method: GET
         return_content: yes
+        body_format: json
         headers:
             Content-Type: "application/x-www-form-urlencoded"
         user: devnet
@@ -83,7 +84,7 @@
 
     - name: get_highest_session_ID
       set_fact: 
-         highest_session_ID: "{{prime_sessions.content[0].queryResponse[0].entityId[0].id}}"
+         highest_session_ID: "{{prime_sessions.content.queryResponse.entityId.id}}"
 
     - debug:
         var: highest_session_ID
