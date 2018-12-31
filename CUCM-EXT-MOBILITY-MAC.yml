@@ -17,7 +17,7 @@
       register: page_content
 
     - debug:
-        var: username_mm
+        var: page_content.content
 
     - xml:
         xmlstring: "{{page_content.content}}"
