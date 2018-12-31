@@ -28,7 +28,7 @@
     - name: get_mac_address
       set_fact: 
          mac_device: "{{phone_mac.matches.0.deviceName}}"
-		 
+
     - name: logout from the device
       uri:
         url: https://10.142.0.1:8443/emservice/EMServiceServlet
