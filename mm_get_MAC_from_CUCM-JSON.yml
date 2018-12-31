@@ -94,10 +94,10 @@
     
     - name: get_session_id
       set_fact:
-        session_id: "{{prime_json.queryResponse.entityId[0]}}"
+        session_id: '{{prime_json.queryResponse.entityId[0]."$"}}'
      
     - debug:
-            var: session_id.$
+            var: session_id
 
     - name: get_session_facts
       uri:
