@@ -84,7 +84,7 @@
 
     - name: get_highest_session_ID
       set_fact: 
-         highest_session_ID: {{prime_sessions.content.queryResponse.entityId[0].id | from_json }}
+         highest_session_ID: "{{prime_sessions.content.queryResponse.entityId[0].id}}"
 
     - debug:
         var: highest_session_ID
