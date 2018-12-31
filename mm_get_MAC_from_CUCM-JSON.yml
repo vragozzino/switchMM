@@ -89,15 +89,12 @@
     - debug:
         msg: "{{prime_json}}"
     
-    - debug:
-        msg: "{{prime_json['queryResponse']['entityId'][0]}}"
-    
-    - name: get_session_id
+    - name: get_session_url
       set_fact:
-        session_id: "{{prime_json['queryResponse']['entityId'][0]['$']}}"
+        prime_session_url: "{{prime_json['queryResponse']['entityId'][0]['@url']}}"
      
     - debug:
-            var: session_id
+            var: prime_session_url
 
     - name: get_session_facts
       uri:
