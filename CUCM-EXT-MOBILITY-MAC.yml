@@ -21,7 +21,7 @@
 
     - xml:
         xmlstring: "{{page_content.content}}"
-        xpath: /response/userDevicesResults/user/device_name
+        xpath: /response/userDevicesResults/user/deviceName
         content: text
       register: phone_mac
       
