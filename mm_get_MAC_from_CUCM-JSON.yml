@@ -98,12 +98,13 @@
 
     - name: get_session_facts
       uri:
-        url: https://10.23.77.200/webacs/api/v4/data/ClientSessions/{{highest_session_ID}}.json
+        url: {{prime_session_url}}.json
         validate_certs: no
         method: GET
         return_content: yes
+        body_format: json
         headers:
-            Content-Type: "application/x-www-form-urlencoded"
+            Content-Type: "application/json"
         user: devnet
         password: Maticmind2018
         force_basic_auth: yes
@@ -111,6 +112,10 @@
 
     - debug:
         var: session_facts.content
+    
+    - name: parse_json_prime_session
+      set_fact: 
+         prime_json_session: "{{session_facts.content | from_json }}"
 
 #    - xml:
 #        xmlstring: "{{session_facts.content}}"
@@ -120,7 +125,7 @@
       
     - name: get_switch_IPaddress
       set_fact: 
-         switch_IP: "{{queryResponse.entity.clientSessionsDTO.deviceMgmtAddress.address}}"
+         switch_IP: "{{prime_json_session.queryResponse.entity.0.clientSessionsDTO.deviceMgmtAddress.address}}"
 
     - debug:
         var: switch_IP
@@ -133,7 +138,7 @@
       
     - name: get_switch_If
       set_fact: 
-         switch_Interface: "{{queryResponse.entity.clientSessionsDTO.clientInterface}}"
+         switch_Interface: "{{prime_json_session.queryResponse.entity.0.clientSessionsDTO.clientInterface}}"
 
     - debug:
         var: switch_Interface
@@ -146,7 +151,7 @@
       
     - name: get_switch_hostname
       set_fact: 
-         switch_hostname: "{{queryResponse.entity.clientSessionsDTO.deviceName}}"
+         switch_hostname: "{{prime_json_session.queryResponse.entity.0.clientSessionsDTO.deviceName}}"
 
     - debug:
         var: switch_hostname
