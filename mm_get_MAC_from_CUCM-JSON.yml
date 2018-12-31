@@ -98,7 +98,7 @@
 
     - name: get_session_facts
       uri:
-        url: {{prime_session_url}}.json
+        url: '{{prime_session_url}}.json'
         validate_certs: no
         method: GET
         return_content: yes
