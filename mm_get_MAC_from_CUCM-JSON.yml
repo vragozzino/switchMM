@@ -51,7 +51,7 @@
 
     - name: get_mac_session_from_PRIME
       uri:
-        url: 'https://10.23.77.200/webacs/api/v4/data/ClientSessions.json?macAddress={{clean_mac}}&.sort=-id'
+        url: 'https://10.23.77.200/webacs/api/v4/data/ClientSessions.json?macAddress={{clean_mac}}&.sort=-id&.maxResults=1'
         validate_certs: no
         method: GET
         return_content: yes
@@ -83,7 +83,7 @@
 
     - name: get_highest_session_ID
       set_fact: 
-         highest_session_ID: "{{prime_sessions.content.queryResponse.entityId.id}}"
+         highest_session_ID: "{{prime_sessions.content.id}}"
 
     - debug:
         var: highest_session_ID
