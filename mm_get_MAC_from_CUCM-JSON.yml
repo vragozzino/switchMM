@@ -64,7 +64,7 @@
       register: prime_sessions
 
     - debug:
-        msg: prime_sessions.content.queryResponse
+        var: prime_sessions.content
       
 #    - xml:
 #        xmlstring: "{{prime_sessions.content}}"
@@ -82,12 +82,15 @@
 #    - debug:
 #        var: sessions_count
 
-    - name: get_highest_session_ID
+    - name: parse_json_prime
       set_fact: 
-         highest_session_ID: "{{prime_sessions.content.queryResponse.entityId[0].id}}"
+         prime_json: "{{prime_sessions.content | from_json }}"
 
     - debug:
-        var: highest_session_ID
+        msg: "{{prime_json}}"
+    
+    - debug:
+        msg: "{{prime_json.queryResponse.entityID[0]}}"
 
     - name: get_session_facts
       uri:
