@@ -90,11 +90,11 @@
         msg: "{{prime_json}}"
     
     - debug:
-        msg: "{{prime_json.queryResponse.entityId[0]}}"
+        msg: {{prime_json['queryResponse']['entityId'][0]}}
     
     - name: get_session_id
       set_fact:
-        session_id: '{{prime_json.queryResponse.entityId[0].["$"]}}'
+        session_id: {{prime_json['queryResponse']['entityId'][0]['$']}}
      
     - debug:
             var: session_id
