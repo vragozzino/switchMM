@@ -64,7 +64,7 @@
       register: prime_sessions
 
     - debug:
-        var: prime_sessions.content.queryResponse
+        var: prime_sessions.content.queryResponse[0]
       
 #    - xml:
 #        xmlstring: "{{prime_sessions.content}}"
