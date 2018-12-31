@@ -83,7 +83,7 @@
 
     - name: get_highest_session_ID
       set_fact: 
-         highest_session_ID: "{{prime_sessions.content.queryResponse.domain}}"
+         highest_session_ID: "{{prime_sessions.queryResponse.@domain}}"
 
     - debug:
         var: highest_session_ID
