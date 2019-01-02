@@ -38,6 +38,7 @@
          maxCPU: "{{item.statisticEntries.statisticEntry.3.entryValue}}"
          minCPU: "{{item.statisticEntries.statisticEntry.2.entryValue}}"
          currentCPU: "{{item.statisticEntries.statisticEntry.1.entryValue}}"
+         timestamp: "{{lookup('pipe','date +%Y/%m/%d %H:%M:%S')}}"
       with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
       register: prime_loop_result
       
@@ -57,25 +58,14 @@
         method: POST
         return_content: yes
         body_format: json
-        body: '{"deviceName":"{{item.deviceName}}","deviceIP":"{{item.deviceIP}}","averageCPU":"{{item.averageCPU}}","maxCPU":"{{item.maxCPU}}","minCPU":"{{item.minCPU}}","currentCPU":"{{item.currentCPU}}","@timestamp":"{{ansible_date_time.epoch}}"}'
+        body: '{"deviceName":"{{item.deviceName}}","deviceIP":"{{item.deviceIP}}","averageCPU":"{{item.averageCPU}}","maxCPU":"{{item.maxCPU}}","minCPU":"{{item.minCPU}}","currentCPU":"{{item.currentCPU}}","@timestamp":"{{timestamp}}"}'
         headers:
             Content-Type: "application/json"
         status_code: 201
       register: elastic_result
       with_items: "{{device}}"
       
-    - name: create the index and set the mapping
-      uri:
-        url: 'http://10.23.77.202:9200/cpu-{{ansible_date_time.date}}/_mapping/switch'
-        method: PUT
-        return_content: yes
-        body_format: json
-        body: '{"properties": {"@timestamp": {"type": "date" }}}'
-        headers:
-            Content-Type: "application/json"
-        status_code: 200
-      register: mapping_result
-      
+    
       
      
     - debug:
