@@ -41,7 +41,7 @@
          maxCPU: "{{item.statisticEntries.statisticEntry.3.entryValue}}"
          minCPU: "{{item.statisticEntries.statisticEntry.2.entryValue}}"
          currentCPU: "{{item.statisticEntries.statisticEntry.1.entryValue}}"
-         fingerprint: timestamp + 1
+         fingerprint: "{{timestamp}}" + 1
       with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
       register: prime_loop_result
       
