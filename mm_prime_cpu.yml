@@ -29,6 +29,10 @@
     - debug:
         msg: "{{prime_topn_cpu_json}}"
         
+    - name: get timestamp
+      set_fact:
+        timestamp: {{ansible_date_time.epoch}}
+        
     - name: get device cpu
       set_fact:
          deviceName: "{{item.statisticEntries.statisticEntry.5.entryValue}}"
@@ -37,7 +41,7 @@
          maxCPU: "{{item.statisticEntries.statisticEntry.3.entryValue}}"
          minCPU: "{{item.statisticEntries.statisticEntry.2.entryValue}}"
          currentCPU: "{{item.statisticEntries.statisticEntry.1.entryValue}}"
-         fingerprint: "{{ansible_date_time.epoch | hash('sha1')}}"
+         fingerprint: timestamp + 1
       with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
       register: prime_loop_result
       
