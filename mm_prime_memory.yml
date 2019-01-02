@@ -44,13 +44,13 @@
                 "minUtil":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
                 "curUtil":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
                 "prevUtil":"{{item.statisticEntries.statisticEntry.1.entryValue}}",
+                "instance":"{{item.statisticEntries.statisticEntry.8.entryValue}}",
                 "@timestamp":"{{ansible_date_time.iso8601}}"
                 }'
         headers:
             Content-Type: "application/json"
         status_code: 201
       register: elastic_result
-      when: "{{item.statisticEntries.statisticEntry.8.entryValue}}" == "Processor"
       with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
       
       
