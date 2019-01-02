@@ -45,7 +45,7 @@
          
     - name: create clean list for elastic
       set_fact:
-         device: "{{prime_loop_result.result | map(attribute='ansible_facts')|list}}"
+         device: "{{prime_loop_result.results | map(attribute='ansible_facts')|list}}"
     - debug:
          var: device
 
