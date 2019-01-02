@@ -55,7 +55,7 @@
         method: PUT
         return_content: yes
         body_format: json
-        body: 'deviceName:{{item.deviceName}},deviceIP:{{item.deviceIP}},averageCPU:{{item.averageCPU}},maxCPU:{{item.maxCPU}},minCPU:{{item.minCPU}},currentCPU:{{item.currentCPU}}'
+        body: '{"deviceName":"{{item.deviceName}}","deviceIP":"{{item.deviceIP}}","averageCPU":"{{item.averageCPU}}","maxCPU":"{{item.maxCPU}}","minCPU":"{{item.minCPU}}","currentCPU":"{{item.currentCPU}}"}'
         headers:
             Content-Type: "application/json"
         status_code: 201
