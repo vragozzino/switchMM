@@ -6,7 +6,7 @@
 
     - name: GET the cpu values from CPI
       uri:
-        url: 'https://10.23.77.200/webacs/api/v4/op/statisticsService/device/topNMemory.json?range=1'
+        url: 'https://10.23.77.200/webacs/api/v4/op/statisticsService/device/topNMemory.json?range=1&topN=10'
         validate_certs: no
         method: GET
         return_content: yes
