@@ -54,7 +54,7 @@
 #            Content-Type: "application/json"
 #        status_code: 201
 #      register: elastic_result
-       with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
+      with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
 #     
 #    - debug:
 #            var: elastic_result.content
