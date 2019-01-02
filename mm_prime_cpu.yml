@@ -31,7 +31,7 @@
         
     - name: get timestamp
       set_fact:
-        timestamp: {{ansible_date_time.epoch}}
+        timestamp: "{{ansible_date_time.epoch}}"
         
     - name: get device cpu
       set_fact:
