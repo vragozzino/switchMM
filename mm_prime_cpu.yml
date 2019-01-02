@@ -29,12 +29,6 @@
     - debug:
         msg: "{{prime_topn_cpu_json}}"
     
-    - name: set timestamp
-      set_fact:
-        fingerprint: "{{ansible_date_time.epoch | int}}"
-        
-    - debug:
-       var: fingerprint
        
     - name: get device cpu
       set_fact:
@@ -44,7 +38,6 @@
          maxCPU: "{{item.statisticEntries.statisticEntry.3.entryValue}}"
          minCPU: "{{item.statisticEntries.statisticEntry.2.entryValue}}"
          currentCPU: "{{item.statisticEntries.statisticEntry.1.entryValue}}"
-         fingerprint: "{{fingerprint | int + 1}}"
       with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
       register: prime_loop_result
       
@@ -57,13 +50,25 @@
     - debug:
          var: device
          
-    - name: save output to elastic
+    - name: create the index and set the mapping
       uri:
-        url: 'http://10.23.77.202:9200/devicecpu-{{ansible_date_time.date}}/switch/{{item.fingerprint}}'
+        url: 'http://10.23.77.202:9200/devicecpu-{{ansible_date_time.date}}/'
         method: PUT
         return_content: yes
         body_format: json
-        body: '{"deviceName":"{{item.deviceName}}","deviceIP":"{{item.deviceIP}}","averageCPU":"{{item.averageCPU}}","maxCPU":"{{item.maxCPU}}","minCPU":"{{item.minCPU}}","currentCPU":"{{item.currentCPU}}","@timestamp":"{{ansible_date_time.date}} {{ansible_date_time.time}}"}'
+        body: '{"mappings": {"switch": {"properties": {"@timestamp": {"type": "date" }}}}}'
+        headers:
+            Content-Type: "application/json"
+        status_code: 201
+      register: mapping_result
+         
+    - name: save output to elastic
+      uri:
+        url: 'http://10.23.77.202:9200/devicecpu-{{ansible_date_time.date}}/switch/'
+        method: POST
+        return_content: yes
+        body_format: json
+        body: '{"deviceName":"{{item.deviceName}}","deviceIP":"{{item.deviceIP}}","averageCPU":"{{item.averageCPU}}","maxCPU":"{{item.maxCPU}}","minCPU":"{{item.minCPU}}","currentCPU":"{{item.currentCPU}}","@timestamp":"{{ansible_date_time.epoch}}"}'
         headers:
             Content-Type: "application/json"
         status_code: 201
