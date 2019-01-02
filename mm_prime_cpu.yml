@@ -41,7 +41,7 @@
       register: prime_loop_result
       
     - debug:
-         msg: "{{prime_loop_result}}
+         msg: "{{prime_loop_result}}"
 
 #      uri:
 #        url: 'http://10.23.77.202:9200/devicecpu-{{ansible_date_time.date}}/switch/{{ansible_date_time.epoch}}'
