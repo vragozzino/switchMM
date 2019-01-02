@@ -39,6 +39,7 @@
         body: "{{prime_topn_cpu_json}}"
         headers:
             Content-Type: "application/json"
+        status_code: 201
       register: elastic_result
      
     - debug:
