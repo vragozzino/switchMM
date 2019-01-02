@@ -31,9 +31,9 @@
         
     - name: get device cpu
       set_fact:
-         device_name: "{{deviceName:{{prime_topn_cpu_json.mgmtResponse.statisticsDTO.0.statisticEntries.statisticEntry.5.entryValue}}}}"
+         deviceName: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO.0.statisticEntries.statisticEntry.5.entryValue}}"
     - debug:
-        var: device_name
+        var: deviceName
     
     
 #    - name: save to Elasticsearch
