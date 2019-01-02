@@ -31,10 +31,10 @@
     
     - name: set timestamp
       set_fact:
-        timestamp: "{{ansible_date_time.epoch | int}}"
+        fingerprint: "{{ansible_date_time.epoch | int}}"
         
     - debug:
-       var: timestamp
+       var: fingerprint
        
     - name: get device cpu
       set_fact:
@@ -44,7 +44,7 @@
          maxCPU: "{{item.statisticEntries.statisticEntry.3.entryValue}}"
          minCPU: "{{item.statisticEntries.statisticEntry.2.entryValue}}"
          currentCPU: "{{item.statisticEntries.statisticEntry.1.entryValue}}"
-         fingerprint: "{{timestamp | int + 1}}"
+         fingerprint: "{{fingerprint | int + 1}}"
       with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
       register: prime_loop_result
       
