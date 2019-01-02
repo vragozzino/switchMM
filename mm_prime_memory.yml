@@ -51,7 +51,7 @@
             Content-Type: "application/json"
         status_code: 201
       register: elastic_result
-      when: item.statisticEntries.statisticEntry.8.entryValue == "Processor"
+      when: (item.statisticEntries.statisticEntry.8.entryValue == "Processor") or (item.statisticEntries.statisticEntry.8.entryValue == "Switch 1")
       with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
       
       
