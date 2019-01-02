@@ -42,6 +42,12 @@
       
     - debug:
          msg: "{{prime_loop_result}}"
+         
+    - name: create clean list for elastic
+      set_fact:
+         device: "{{prime_loop_result.result | map(attribute='ansible_facts')|list}}"
+    - debug:
+         var: device
 
 #      uri:
 #        url: 'http://10.23.77.202:9200/devicecpu-{{ansible_date_time.date}}/switch/{{ansible_date_time.epoch}}'
