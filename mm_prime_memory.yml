@@ -1,0 +1,56 @@
+---
+-   hosts: localhost
+    gather_facts: yes
+
+    tasks:
+
+    - name: GET the cpu values from CPI
+      uri:
+        url: 'https://10.23.77.200/webacs/api/v4/op/statisticsService/device/topNMemory.json?range=1'
+        validate_certs: no
+        method: GET
+        return_content: yes
+        body_format: json
+        headers:
+            Content-Type: "application/json"
+        user: devnet
+        password: Maticmind2018
+        force_basic_auth: yes
+      register: prime_topn_cpu
+
+    - debug:
+        var: prime_topn_cpu.content
+      
+
+    - name: parse the JSON output from CPI and save it in a new dictionary
+      set_fact: 
+         prime_topn_cpu_json: "{{prime_topn_cpu.content | from_json }}"
+
+    - debug:
+        msg: "{{prime_topn_cpu_json}}"
+    
+         
+    - name: save output to elastic
+      uri:
+        url: 'http://10.23.77.202:9200/memory-{{ansible_date_time.date}}/switch/'
+        method: POST
+        return_content: yes
+        body_format: json
+        body: '{
+                "avgUtil":"{{item.statisticEntries.statisticEntry.5.entryValue}}",
+                "deviceName":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
+                "deviceIP":"{{item.statisticEntries.statisticEntry.7.entryValue}}",
+                "maxUtil":"{{item.statisticEntries.statisticEntry.4.entryValue}}",
+                "minUtil":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
+                "curUtil":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
+                "prevUtil":"{{item.statisticEntries.statisticEntry.1.entryValue}}",
+                "@timestamp":"{{ansible_date_time.iso8601}}"
+                }'
+        headers:
+            Content-Type: "application/json"
+        status_code: 201
+      register: elastic_result
+      when: "{{item.statisticEntries.statisticEntry.8.entryValue}}" == "Processor"
+      with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
+      
+      
