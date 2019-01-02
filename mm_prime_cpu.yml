@@ -48,19 +48,21 @@
          device: "{{prime_loop_result.results | map(attribute='ansible_facts')|list}}"
     - debug:
          var: device
-
-#      uri:
-#        url: 'http://10.23.77.202:9200/devicecpu-{{ansible_date_time.date}}/switch/{{ansible_date_time.epoch}}'
-#        method: PUT
-#        return_content: yes
-#        body_format: json
-#        body: "{{deviceName:{{deviceName}},deviceIP:{{deviceIP}},averageCPU:{{averageCPU}},maxCPU:{{maxCPU}},minCPU{{minCPU}},currentCPU:{{currentCPU}}}}"
-#        headers:
-#            Content-Type: "application/json"
-#        status_code: 201
-#      register: elastic_result
-#      
-#      
-#     
-#    - debug:
-#            var: elastic_result.content
+         
+    - name: save output to elastic
+      uri:
+        url: 'http://10.23.77.202:9200/devicecpu-{{ansible_date_time.date}}/switch/{{ansible_date_time.epoch}}'
+        method: PUT
+        return_content: yes
+        body_format: json
+        body: "{{deviceName:{{item.deviceName}},deviceIP:{{item.deviceIP}},averageCPU:{{item.averageCPU}},maxCPU:{{item.maxCPU}},minCPU{{item.minCPU}},currentCPU:{{item.currentCPU}}}}"
+        headers:
+            Content-Type: "application/json"
+        status_code: 201
+      register: elastic_result
+      with_items: "{{device}}"
+      
+      
+     
+    - debug:
+            var: elastic_result.content
