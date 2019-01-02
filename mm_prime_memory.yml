@@ -50,8 +50,8 @@
         headers:
             Content-Type: "application/json"
         status_code: 201
-        when: item.statisticEntries.statisticEntry.8.entryValue == "Processor"
       register: elastic_result
+      when: item.statisticEntries.statisticEntry.8.entryValue == "Processor"
       with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
       
       
