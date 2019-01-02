@@ -30,26 +30,26 @@
         msg: "{{prime_topn_cpu_json}}"
     
        
-    - name: get device cpu
-      set_fact:
-         deviceName: "{{item.statisticEntries.statisticEntry.5.entryValue}}"
-         deviceIP: "{{item.statisticEntries.statisticEntry.6.entryValue}}"
-         averageCPU: "{{item.statisticEntries.statisticEntry.4.entryValue}}"
-         maxCPU: "{{item.statisticEntries.statisticEntry.3.entryValue}}"
-         minCPU: "{{item.statisticEntries.statisticEntry.2.entryValue}}"
-         currentCPU: "{{item.statisticEntries.statisticEntry.1.entryValue}}"
-      with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
-      register: prime_loop_result
-      
-    - debug:
-         msg: "{{prime_loop_result}}"
-         
-    - name: create clean list for elastic
-      set_fact:
-         device: "{{prime_loop_result.results | map(attribute='ansible_facts')|list}}"
-    - debug:
-         var: device
-         
+#    - name: get device cpu
+#      set_fact:
+#         deviceName: "{{item.statisticEntries.statisticEntry.5.entryValue}}"
+#         deviceIP: "{{item.statisticEntries.statisticEntry.6.entryValue}}"
+#         averageCPU: "{{item.statisticEntries.statisticEntry.4.entryValue}}"
+#         maxCPU: "{{item.statisticEntries.statisticEntry.3.entryValue}}"
+#         minCPU: "{{item.statisticEntries.statisticEntry.2.entryValue}}"
+#         currentCPU: "{{item.statisticEntries.statisticEntry.1.entryValue}}"
+#      with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
+#      register: prime_loop_result
+#      
+#    - debug:
+#         msg: "{{prime_loop_result}}"
+#         
+#    - name: create clean list for elastic
+#      set_fact:
+#         device: "{{prime_loop_result.results | map(attribute='ansible_facts')|list}}"
+#    - debug:
+#         var: device
+#         
          
     - name: save output to elastic
       uri:
@@ -57,15 +57,10 @@
         method: POST
         return_content: yes
         body_format: json
-        body: '{"deviceName":"{{item.deviceName}}","deviceIP":"{{item.deviceIP}}","averageCPU":"{{item.averageCPU}}","maxCPU":"{{item.maxCPU}}","minCPU":"{{item.minCPU}}","currentCPU":"{{item.currentCPU}}","@timestamp":"{{ansible_date_time.iso8601}}"}'
+        body: '{"deviceName":"{{item.statisticEntries.statisticEntry.5.entryValue}}","deviceIP":"{{item.statisticEntries.statisticEntry.6.entryValue}}","averageCPU":"{{item.statisticEntries.statisticEntry.4.entryValue}}","maxCPU":"{{item.statisticEntries.statisticEntry.3.entryValue}}","minCPU":"{{item.statisticEntries.statisticEntry.2.entryValue}}","currentCPU":"{{item.statisticEntries.statisticEntry.1.entryValue}}","@timestamp":"{{ansible_date_time.iso8601}}"}'
         headers:
             Content-Type: "application/json"
         status_code: 201
       register: elastic_result
-      with_items: "{{device}}"
+      with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
       
-    
-      
-     
-    - debug:
-            var: elastic_result.content
