@@ -32,7 +32,8 @@
     - name: get timestamp
       set_fact:
         timestamp: "{{ansible_date_time.epoch | int}}"
-        
+    - debug:
+       var: timestamp
     - name: get device cpu
       set_fact:
          deviceName: "{{item.statisticEntries.statisticEntry.5.entryValue}}"
