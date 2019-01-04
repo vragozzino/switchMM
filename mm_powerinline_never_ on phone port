@@ -13,9 +13,11 @@
         headers:
             Content-Type: "application/x-www-form-urlencoded"
         force_basic_auth: yes
-        body: 'xml=%3cquery%3e%3cappInfo%3e%3cappID%3edevnet%3c%2fappID%3e%3cappCertificate%3edevnet%3c%2fappCertificate%3e%3c%2fappInfo%3e%3cuserDevicesQuery%3e%3cuserID%3e{{username_mm}}%3c%2fuserID%3e%3c%2fuserDevicesQuery%3e%3c%2fquery%3e'
+        body: 'xml=%3cquery%3e%3cappInfo%3e%3cappID%3edevnet%3c%2fappID%3e%3cappCertificate%3edevnet%3c%2fappCertificate%3e%3c%2fappInfo%3e%3cuserDevicesQuery%3e%3cuserID%3e{{item}}%3c%2fuserID%3e%3c%2fuserDevicesQuery%3e%3c%2fquery%3e'
       register: page_content
-
+      with_items:
+        - fmenezes
+        
     - debug:
         var: page_content.content
 
@@ -29,21 +31,6 @@
       set_fact: 
          mac_device: "{{phone_mac.matches.0.deviceName}}"
 
-#    - name: logout from the device
-#      uri:
-#        url: https://10.142.0.1:8443/emservice/EMServiceServlet
-#        validate_certs: no
-#        method: POST
-#        return_content: yes
-#        headers:
-#            Content-Type: "application/x-www-form-urlencoded"
-#        force_basic_auth: yes
-#        body: 'xml=%3crequest%3e%3cappInfo%3e%3cappID%3edevnet%3c%2fappID%3e%3cappCertificate%3edevnet%3c%2fappCertificate%3e%3c%2fappInfo%3e%3clogout%3e%3cdeviceName%3e{{mac_device}}%3c%2fdeviceName%3e%3c%2flogout%3e%3c%2frequest%3e'
-#      register: logout_result
-#
-#    - debug:
-#       var: logout_result.content
- 
     - name: get_clean_mac_address
       set_fact: 
          clean_mac: "{{ mac_device | regex_replace('SEP') }}"
