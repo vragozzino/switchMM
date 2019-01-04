@@ -13,7 +13,7 @@
         headers:
             Content-Type: "application/x-www-form-urlencoded"
         force_basic_auth: yes
-        body: 'xml=%3cquery%3e%3cappInfo%3e%3cappID%3edevnet%3c%2fappID%3e%3cappCertificate%3edevnet%3c%2fappCertificate%3e%3c%2fappInfo%3e%3cuserDevicesQuery%3e%3cuserID%3e{{mm_username}}%3c%2fuserID%3e%3c%2fuserDevicesQuery%3e%3c%2fquery%3e'
+        body: 'xml=%3cquery%3e%3cappInfo%3e%3cappID%3edevnet%3c%2fappID%3e%3cappCertificate%3edevnet%3c%2fappCertificate%3e%3c%2fappInfo%3e%3cuserDevicesQuery%3e%3cuserID%3e{{username_mm}}%3c%2fuserID%3e%3c%2fuserDevicesQuery%3e%3c%2fquery%3e'
 #       with_items:
 #           - fmenezes
 
