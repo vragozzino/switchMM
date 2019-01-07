@@ -22,12 +22,12 @@
     
     - xml:
         xmlstring: "{{prime_devices.content}}"
-        xpath: /queryResponse/entityId
+        xpath: /queryResponse/entityId.0
         content: text
-      register: deviceID_mac
+      register: deviceID
 
     - debug:
-        var: deviceID_mac.content
+        var: deviceID
 
 #    - name: get_session_facts
 #      uri:
