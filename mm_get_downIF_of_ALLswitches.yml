@@ -49,7 +49,7 @@
 
     - name: Show attribute value
       debug:
-        var: listOfdeviceIDs.matches[0].entityId
+        var: listOfdeviceIDs.matches[0].entityId.url
     
     
 #    - name: get_session_facts
