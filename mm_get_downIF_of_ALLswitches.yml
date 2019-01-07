@@ -50,7 +50,24 @@
     - name: Show attribute value
       debug:
         var: listOfdeviceIDs.matches[0].entityId.url
-    
+
+
+    - name: get_facts_from_device_IDs_from_PRIME
+      uri:
+        url: listOfdeviceIDs.matches[0].entityId.url
+        validate_certs: no
+        method: GET
+        return_content: yes
+        headers:
+            Content-Type: "application/xml"
+        user: devnet
+        password: Maticmind2018
+        force_basic_auth: yes
+      register: device_facts
+
+    - name: Show device facts
+      debug:
+        var: device_facts
     
 #    - name: get_session_facts
 #      uri:
