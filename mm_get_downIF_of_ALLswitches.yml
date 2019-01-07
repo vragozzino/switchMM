@@ -45,11 +45,11 @@
         xmlstring: "{{prime_devices.content}}"
         xpath: /queryResponse/entityId
         content: attribute
-      register: xmlresp
+      register: listOfdeviceIDs
 
     - name: Show attribute value
       debug:
-        var: xmlresp
+        var: listOfdeviceIDs.matches[0].entityId
     
     
 #    - name: get_session_facts
