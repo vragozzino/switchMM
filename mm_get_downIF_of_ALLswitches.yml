@@ -20,15 +20,27 @@
     - debug:
         var: prime_devices.content
     
-    - xml:
+#    - xml:
+#        xmlstring: "{{prime_devices.content}}"
+#        xpath: /queryResponse/entityId
+#        content: text
+#      register: deviceIDs.content
+#
+#    - debug:
+#        var: deviceIDs.content
+
+
+    - name: Get count of Nodes
+      xml:
         xmlstring: "{{prime_devices.content}}"
         xpath: /queryResponse/entityId
-        content: text
-      register: deviceIDs.content
+        count: yes
+      register: hits
 
     - debug:
-        var: deviceIDs.content
-
+        var: hits.count
+    
+    
 #    - name: get_session_facts
 #      uri:
 #        url: https://10.23.77.200/webacs/api/v4/data/ClientSessions/{{highest_session_ID.entityId}}
