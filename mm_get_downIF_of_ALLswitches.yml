@@ -67,7 +67,7 @@
 
     - name: Show device facts
       debug:
-        var: device_facts
+        var: device_facts.content
     
 #    - name: get_session_facts
 #      uri:
