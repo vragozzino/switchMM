@@ -22,7 +22,7 @@
     
     - xml:
         xmlstring: "{{prime_devices.content}}"
-        xpath: /queryResponse/entityId.0
+        xpath: /queryResponse.0/entityId
         content: text
       register: deviceID
 
