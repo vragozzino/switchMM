@@ -17,6 +17,8 @@
         force_basic_auth: yes
       register: prime_devices
 
+    - debug:
+        var: prime_devices.content
     
     - xml:
         xmlstring: "{{prime_devices.content}}"
