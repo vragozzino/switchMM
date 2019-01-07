@@ -45,12 +45,11 @@
         xmlstring: "{{prime_devices.content}}"
         xpath: /queryResponse/entityId
         content: attribute
-        attribute: validatedon
       register: xmlresp
 
     - name: Show attribute value
       debug:
-        var: xmlresp.matches[0].validxhtml.validatedon
+        var: xmlresp
     
     
 #    - name: get_session_facts
