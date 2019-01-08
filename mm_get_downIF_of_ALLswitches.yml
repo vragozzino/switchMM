@@ -67,8 +67,8 @@
 #
 #    - name: Show device facts
 #      debug:
-        var: device_facts.content
-    
+#        var: device_facts.content
+#    
 #    - name: get_session_facts
 #      uri:
 #        url: https://10.23.77.200/webacs/api/v4/data/ClientSessions/{{highest_session_ID.entityId}}
