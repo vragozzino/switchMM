@@ -32,8 +32,9 @@
         Num_Of_Devices: "{{prime_devices_json['queryResponse']['@last']}}"
 
     - name: Create Array of URLs - one for each device
+      genders: "{{ genders|default({}) | combine( {item.item.name: item.stdout} ) }}"
       set_fact:
-        prime_device_urls[{{ item }}]: "{{prime_devices_json['queryResponse']['entityId'][0]['@url']}}"
+        prime_device_urls: "{{prime_device_urls|default({}) | combine prime_devices_json['queryResponse']['entityId'][0]['@url']}}"
       with_sequence: start=0 end=3
     
     - debug:
