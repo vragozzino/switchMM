@@ -4,14 +4,14 @@
 
     tasks:
 
-    - name: get_device_IDs_from_PRIME
+    - name: get_device_IDs_from_PRIME_in_JSON
       uri:
-        url: https://10.23.77.200/webacs/api/v4/data/InventoryDetails/
+        url: https://10.23.77.200/webacs/api/v4/data/InventoryDetails.json?
         validate_certs: no
         method: GET
         return_content: yes
         headers:
-            Content-Type: "application/xml"
+            Content-Type: "application/json"
         user: devnet
         password: Maticmind2018
         force_basic_auth: yes
@@ -19,16 +19,13 @@
 
     - debug:
         var: prime_devices.content
-    
-#    - xml:
-#        xmlstring: "{{prime_devices.content}}"
-#        xpath: /queryResponse/entityId
-#        content: text
-#      register: deviceIDs.content
-#
-#    - debug:
-#        var: deviceIDs.content
 
+    - name: parse the JSON output from CPI and save it in a new dictionary
+      set_fact: 
+         prime_devices_json: "{{prime_devices.content | from_json }}"
+
+    - debug:
+        msg: "{{prime__devices_json}}"
 
     - name: Get count of Nodes
       xml:
@@ -44,36 +41,32 @@
       set_fact:
         Num_Of_Devices: int(hits.count)
 
-    - name: Read attribute value
-      xml:
-        xmlstring: "{{prime_devices.content}}"
-        xpath: /queryResponse/entityId
-        content: attribute
-      register: listOfdeviceIDs
+    - name: Create Array of URLs - one for each device
+      set_fact:
+        prime_device_urls[{{format(item)}}]: "{{prime_json['queryResponse']['entityId'][{{format(item)}}]['@url']}}"
+      loop: "{{ range(0,3)}}"  
+    
+    - debug:
+            var: prime_device_urls
 
-    - name: Show attribute value
-      debug:
-        var: listOfdeviceIDs.matches[0].entityId.url
-
-
-    - name: get_facts_from_device_IDs_from_PRIME
-      uri:
-        url: "{{listOfdeviceIDs.matches[{{ item }}].entityId.url}}"
-        validate_certs: no
-        method: GET
-        return_content: yes
-        headers:
-            Content-Type: "application/xml"
-        user: devnet
-        password: Maticmind2018
-        force_basic_auth: yes
-      with_items:
-          - 0
-          - 1
-      register: device_facts
-
-    - name: Show device facts
-      debug:
+#    - name: get_facts_from_device_IDs_from_PRIME
+#      uri:
+#        url: "{{listOfdeviceIDs.matches[{{ item }}].entityId.url}}"
+#        validate_certs: no
+#        method: GET
+#        return_content: yes
+#        headers:
+#            Content-Type: "application/xml"
+#        user: devnet
+#        password: Maticmind2018
+#        force_basic_auth: yes
+#      with_items:
+#          - 0
+#          - 1
+#      register: device_facts
+#
+#    - name: Show device facts
+#      debug:
         var: device_facts.content
     
 #    - name: get_session_facts
