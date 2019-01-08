@@ -40,6 +40,10 @@
     - debug:
         var: hits.count
 
+    - name: Place number of Devices in a Variable
+      set_fact:
+        Num_Of_Devices: int(hits.count)
+
     - name: Read attribute value
       xml:
         xmlstring: "{{prime_devices.content}}"
