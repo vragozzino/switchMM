@@ -29,7 +29,7 @@
 
     - name: Get index of last device
       set_fact:
-        Num_Of_Devices: "{{prime__devices_json['queryResponse']['@last']}}"
+        Num_Of_Devices: "{{prime_devices_json['queryResponse']['@last']}}"
 
     - name: Create Array of URLs - one for each device
       set_fact:
