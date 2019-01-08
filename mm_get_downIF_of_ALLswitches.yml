@@ -58,7 +58,7 @@
 
     - name: get_facts_from_device_IDs_from_PRIME
       uri:
-        url: '{{listOfdeviceIDs.matches['{{item}}'].entityId.url}}'
+        url: '{{listOfdeviceIDs.matches[\"{{item}}\"].entityId.url}}'
         validate_certs: no
         method: GET
         return_content: yes
