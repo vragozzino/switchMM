@@ -58,7 +58,7 @@
 
     - name: get_facts_from_device_IDs_from_PRIME
       uri:
-        url: "{{listOfdeviceIDs.matches[{{item}}].entityId.url}}"
+        url: "{{listOfdeviceIDs.matches[{{ item }}].entityId.url}}"
         validate_certs: no
         method: GET
         return_content: yes
@@ -67,7 +67,9 @@
         user: devnet
         password: Maticmind2018
         force_basic_auth: yes
-        with_sequence: start=0 end=7
+      with_items:
+          - 0
+          - 1
       register: device_facts
 
     - name: Show device facts
