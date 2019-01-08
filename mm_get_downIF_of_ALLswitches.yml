@@ -27,19 +27,9 @@
     - debug:
         msg: "{{prime_devices_json}}"
 
-    - name: Get count of Nodes
-      xml:
-        xmlstring: "{{prime_devices.content}}"
-        xpath: /queryResponse/entityId
-        count: yes
-      register: hits
-
-    - debug:
-        var: hits.count
-
-    - name: Place number of Devices in a Variable
+    - name: Get index of last device
       set_fact:
-        Num_Of_Devices: int(hits.count)
+        Num_Of_Devices: "{{prime__devices_json['queryResponse']['@last']}}"
 
     - name: Create Array of URLs - one for each device
       set_fact:
