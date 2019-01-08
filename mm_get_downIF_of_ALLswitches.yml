@@ -25,7 +25,7 @@
          prime_devices_json: "{{prime_devices.content | from_json }}"
 
     - debug:
-        msg: "{{prime__devices_json}}"
+        msg: "{{prime_devices_json}}"
 
     - name: Get count of Nodes
       xml:
