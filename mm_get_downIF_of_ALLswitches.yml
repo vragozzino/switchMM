@@ -58,7 +58,6 @@
         user: devnet
         password: Maticmind2018
         force_basic_auth: yes
-      with_items: "{{prime_device_urls | list}}"
       register: device_facts_json
 
     - name: Show device facts
