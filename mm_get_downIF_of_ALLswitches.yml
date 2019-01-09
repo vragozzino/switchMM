@@ -49,7 +49,7 @@
 
     - name: Let's get all URLs
       set_fact:
-        Device_URLS: "{{Device_URLS| default([]) + prime_device_urls[{{ item.0 }}]['@url'] }}"
+        Device_URLS: "{{Device_URLS| default([]) + prime_device_urls[ item.0 ]['@url'] }}"
       with_indexed_items: "{{prime_device_urls}}"
 
     - debug:
