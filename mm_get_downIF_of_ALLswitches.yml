@@ -33,7 +33,7 @@
 
     - name: Create Array of URLs - one for each device
       set_fact:
-        prime_device_urls: "{{prime_device_urls| default([]) + ([item][item.1]['@url']) }}"
+        prime_device_urls: "{{prime_device_urls| default([]) + [item] }}"
       with_items: "{{prime_devices_json['queryResponse']['entityId'] | list}}"
     
     - debug:
@@ -63,7 +63,12 @@
     - name: Show device facts
       debug:
         var: device_facts_json.content
-    
+
+    - name: Create Array of only URLs - one for each device
+      set_fact:
+        prime_device_only_urls: "{{prime_device_only_urls| default([]]) + [item][item.1] }}"
+      with_items: "{{prime_devices_urls | list}}"
+
 #    - name: get_session_facts
 #      uri:
 #        url: https://10.23.77.200/webacs/api/v4/data/ClientSessions/{{highest_session_ID.entityId}}
