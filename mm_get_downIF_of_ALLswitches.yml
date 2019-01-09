@@ -33,8 +33,8 @@
 
     - name: Create Array of URLs - one for each device
       set_fact:
-        prime_device_urls: "{{prime_device_urls| default({}) + {{ item }} }}"
-      with_items: "{{prime_devices_json['queryResponse']['entityId']}}"
+        prime_device_urls: "{{prime_device_urls| default([]) + [item] }}"
+      with_items: "{{prime_devices_json['queryResponse']['entityId'] | list}}"
     
     - debug:
             var: prime_device_urls
