@@ -54,7 +54,8 @@
 #
 #    - debug:
 #            var: Device_URLS
-
+#    https://stackoverflow.com/questions/37748174/extract-last-character-of-string-with-ansible-and-regex-replace-filter
+#    https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html
 
     - name: get_facts_from_device_IDs_from_PRIME
       uri:
