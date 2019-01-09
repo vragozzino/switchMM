@@ -47,26 +47,24 @@
             var: Device_URL
 
 
-#    - name: get_facts_from_device_IDs_from_PRIME
-#      uri:
-#        url: "{{listOfdeviceIDs.matches[{{ item }}].entityId.url}}"
-#        validate_certs: no
-#        method: GET
-#        return_content: yes
-#        headers:
-#            Content-Type: "application/xml"
-#        user: devnet
-#        password: Maticmind2018
-#        force_basic_auth: yes
-#      with_items:
-#          - 0
-#          - 1
-#      register: device_facts
-#
-#    - name: Show device facts
-#      debug:
-#        var: device_facts.content
-#    
+    - name: get_facts_from_device_IDs_from_PRIME
+      uri:
+        url: "{{ prime_device_urls[item]['@url'] }}"
+        validate_certs: no
+        method: GET
+        return_content: yes
+        headers:
+            Content-Type: "application/json"
+        user: devnet
+        password: Maticmind2018
+        force_basic_auth: yes
+      with_items: prime_device_urls
+      register: device_facts_json
+
+    - name: Show device facts
+      debug:
+        var: device_facts.content
+    
 #    - name: get_session_facts
 #      uri:
 #        url: https://10.23.77.200/webacs/api/v4/data/ClientSessions/{{highest_session_ID.entityId}}
