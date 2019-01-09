@@ -47,6 +47,15 @@
             var: Device_URL
 
 
+    - name: Let's get all URLs
+      set_fact:
+        Device_URLS: "{{Device_URLS| default([]) + prime_device_urls[{{ item.0 }}]['@url'] }}"
+      with_indexed_items: "{{prime_device_urls}}"
+
+    - debug:
+            var: Device_URLS
+
+
     - name: get_facts_from_device_IDs_from_PRIME
       uri:
         url: "{{ prime_device_urls[0]['@url'] }}"
