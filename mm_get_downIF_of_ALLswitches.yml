@@ -49,7 +49,7 @@
 
     - name: get_facts_from_device_IDs_from_PRIME
       uri:
-        url: "{{ prime_device_urls[item]['@url'] }}"
+        url: "{{ prime_device_urls[0]['@url'] }}"
         validate_certs: no
         method: GET
         return_content: yes
