@@ -67,7 +67,7 @@
     - name: Create Array of only URLs - one for each device
       set_fact:
         prime_device_only_urls: "{{prime_device_only_urls| default([]]) + [item][item.1] }}"
-      with_items: "{{prime_devices_urls | list}}"
+      with_items: "{{prime_device_urls | list}}"
 
 #    - name: get_session_facts
 #      uri:
