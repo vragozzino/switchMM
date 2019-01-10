@@ -27,43 +27,38 @@
     - debug:
         msg: "{{prime_devices_json}}"
 
-    - name: Get index of last device
-      set_fact:
-        Num_Of_Devices: "{{prime_devices_json['queryResponse']['@last']}}"
+#    - name: Get index of last device
+#      set_fact:
+#        Num_Of_Devices: "{{prime_devices_json['queryResponse']['@last']}}"
 
-    - name: Create Array of URLs - one for each device
+    - name: Create Array of entityIDs - one for each device
       set_fact:
-        prime_device_urls: "{{prime_device_urls| default([]) + [item] }}"
+        prime_device_IDs: "{{prime_device_IDs| default([]) + [item] }}"
       with_items: "{{prime_devices_json['queryResponse']['entityId'] | list}}"
     
     - debug:
-            var: prime_device_urls
+            var: prime_device_IDs
 
-    - name: Let's get one URL
-      set_fact:
-        Device_URL: "{{prime_device_urls[0]['@url']}}"
-
-    - debug:
-            var: Device_URL
-
-
-    - name: Create list of get URLs
+#    - name: Let's get one URL
 #      set_fact:
-#        clean_Device_URL: "{{ (prime_device_urls | from_json).queryResponse | map(attribute='@url') | list }}"
-      debug: 
-        var=item
-      with_items: "{{prime_device_urls|json_query('[*].\"@url\"')}}"
-#        clean_Device_URLS: "{{GET_Device_URLS| default([]) + ["https://10.23.77.200/webacs/api/v4/data/InventoryDetails" }}"
-#      with_indexed_items: "{{prime_device_urls}}"
+#        1st_Device_URL: "{{prime_device_IDs[0]['@url']}}"
 #
 #    - debug:
-#            var: clean_Device_URLS
+#            var: 1st_Device_URL
+
+    - name: Create list Device URLs
+      set_fact:
+        Device_URLS: "{{Device_URLS| default([]) + [item] }}"
+      with_items: "{{prime_device_IDs|json_query('[*].\"@url\"')}}"
+
+    - debug:
+            var: Device_URLS
 #    https://stackoverflow.com/questions/37748174/extract-last-character-of-string-with-ansible-and-regex-replace-filter
 #    https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html
 
-    - name: get_facts_from_device_IDs_from_PRIME
+    - name: get_facts_from_1stdevice_from_PRIME
       uri:
-        url: "{{ prime_device_urls[0]['@url'] }}"
+        url: "{{ prime_device_IDs[0]['@url'] }}"
         validate_certs: no
         method: GET
         return_content: yes
@@ -74,14 +69,14 @@
         force_basic_auth: yes
       register: device_facts_json
 
-    - name: Show device facts
+    - name: Show 1st device facts
       debug:
         var: device_facts_json.content
 
     - name: Create Array of only URLs - one for each device
       set_fact:
-        prime_device_only_urls: "at array position {{ item.0 }} there is a value {{ item.1 }}, we want {{ item.1 }}[item.0] "
-      with_indexed_items: "{{prime_device_urls}}"
+        prime_device_only_urls: "at array position {{ item.0 }} there is a value {{ item.1 }}, we want {{ item.1 }}[{{item.0}}] "
+      with_indexed_items: "{{prime_device_IDs}}"
 
     - debug:
         var: prime_device_only_urls
