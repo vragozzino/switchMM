@@ -48,13 +48,16 @@
 
 
     - name: Create list of get URLs
-      set_fact:
-        clean_Device_URL: "{{ (prime_device_urls | from_json).queryResponse | map(attribute='@url') | list }}"
+#      set_fact:
+#        clean_Device_URL: "{{ (prime_device_urls | from_json).queryResponse | map(attribute='@url') | list }}"
+      debug: 
+        var=item
+      with_items: "{{prime_device_urls|json_query('queryResponse[*].@url')}}"
 #        clean_Device_URLS: "{{GET_Device_URLS| default([]) + ["https://10.23.77.200/webacs/api/v4/data/InventoryDetails" }}"
 #      with_indexed_items: "{{prime_device_urls}}"
 #
-    - debug:
-            var: clean_Device_URLS
+#    - debug:
+#            var: clean_Device_URLS
 #    https://stackoverflow.com/questions/37748174/extract-last-character-of-string-with-ansible-and-regex-replace-filter
 #    https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html
 
