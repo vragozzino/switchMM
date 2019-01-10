@@ -52,7 +52,7 @@
 #        clean_Device_URL: "{{ (prime_device_urls | from_json).queryResponse | map(attribute='@url') | list }}"
       debug: 
         var=item
-      with_items: "{{prime_device_urls|json_query('queryResponse[*].@url')}}"
+      with_items: "{{prime_device_urls|json_query('[*].@url')}}"
 #        clean_Device_URLS: "{{GET_Device_URLS| default([]) + ["https://10.23.77.200/webacs/api/v4/data/InventoryDetails" }}"
 #      with_indexed_items: "{{prime_device_urls}}"
 #
