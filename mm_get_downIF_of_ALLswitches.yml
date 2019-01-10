@@ -97,7 +97,7 @@
       set_fact:
         Device_IP: "{{Device_IP| default([]) + [item] }}"
       with_items: "{{
-                    device_facts.results|json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"ethernetInterfaces\".\"ethernetInterface\".[0].\"operationalStatus\"')
+                    device_facts.results|json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"ethernetInterfaces\"')
                     }}"
 #      with_items: "{{
 #                    device_facts.results|json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\".\"deviceName\"'),
