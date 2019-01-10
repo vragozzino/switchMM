@@ -53,8 +53,6 @@
 
 #    - debug:
 #            var: Device_URLS
-#    https://stackoverflow.com/questions/37748174/extract-last-character-of-string-with-ansible-and-regex-replace-filter
-#    https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html
 
     - name: get_facts_from_1stdevice_from_PRIME
       uri:
@@ -98,7 +96,7 @@
     - name: Get specific Values from JSON
       set_fact:
         Device_IP: "{{Device_IP| default([]) + [item] }}"
-      with_items: "{{device_facts.results|json_query('QueryResponse.entity[*].\"InventoryDetailsDTO\".\"sumary\".\"ipAddress\"')}}"
+      with_items: "{{device_facts.results|json_query('[*].json.queryResponse.entity[*].\"inventoryDetailsDTO\".\"summary\".\"ipAddress\"')}}"
 
     - debug:
             var: Device_IP
