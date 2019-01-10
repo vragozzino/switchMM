@@ -41,10 +41,10 @@
 
 #    - name: Let's get one URL
 #      set_fact:
-#        1st_Device_URL: "{{prime_device_IDs[0]['@url']}}"
+#        First_Device_URL: "{{prime_device_IDs[0]['@url']}}"
 #
 #    - debug:
-#            var: 1st_Device_URL
+#            var: First_Device_URL
 
     - name: Create list Device URLs
       set_fact:
@@ -67,11 +67,11 @@
         user: devnet
         password: Maticmind2018
         force_basic_auth: yes
-      register: 1stdevice_facts_json
+      register: FirstDevice_facts_json
 
     - name: Show 1st device facts
       debug:
-        var: 1stdevice_facts_json.content
+            var: FirstDevice_facts_json.content
 
     - name: get_facts_from_ALL_devices_from_PRIME
       uri:
@@ -89,7 +89,7 @@
 
     - name: Show ALL device facts
       debug:
-        var: device_facts_json.content
+            var: device_facts_json.content
 
 #    - name: Create Array of only URLs - one for each device
 #      set_fact:
