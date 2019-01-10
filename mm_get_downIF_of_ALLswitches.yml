@@ -87,17 +87,21 @@
       with_items: "{{Device_URLS}}"
       register: device_facts
 
-#    - name: Show ALL device facts
-#      debug:
-#            var: device_facts.results
-
-    - name: parse the JSON output from CPI and save it in a new dictionary
-      set_fact: 
-         device_facts_json: "{{device_facts.results | from_json }}"
-
-    - name: Show New Dictionary
+    - name: Show ALL device facts
       debug:
-            var: device_facts_json
+            var: device_facts.results
+
+#    - name: parse the JSON output from CPI and save it in a new dictionary
+#      set_fact: 
+#         device_facts_json: "{{device_facts.results | from_json }}"
+
+    - name: Get specific Values from JSON
+      set_fact:
+        Device_IP: "{{Device_IP| default([]) + [item] }}"
+      with_items: "{{device_facts.results|json_query('QueryResponse.entity[*].\"InventoryDetailsDTO\".\"sumary\".\"ipAddress\"')}}"
+
+    - debug:
+            var: Device_IP
 
 #    - name: Create list Device URLs
 #      set_fact:
