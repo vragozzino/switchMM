@@ -99,6 +99,7 @@
       with_items: "{{
                     device_facts.results|
                         json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\".\"deviceName\"'),
+                    device_facts.results|
                         json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"ethernetInterfaces\".ethernetInterface[*].\"operationalStatus\"')
                     }}"
 #      with_items: "{{
