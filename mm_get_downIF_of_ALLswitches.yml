@@ -110,7 +110,7 @@
 
     - name: Get number of DOWN IFs
       set_fact:
-        Number_Of_DOWN_IFs: "{{Down_IFs| lenght }}"
+        Number_Of_DOWN_IFs: "{{Down_IFs| length }}"
 
     - debug: msg="The total number of DOWN Interfaces is {{Number_Of_DOWN_IFs}}"
 
