@@ -75,7 +75,7 @@
 
     - name: get_facts_from_ALL_devices_from_PRIME
       uri:
-        url: "{{ item }}"
+        url: "{{ item }}.json"
         validate_certs: no
         method: GET
         return_content: yes
