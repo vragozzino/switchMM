@@ -95,20 +95,24 @@
 
     - name: Get specific Values from JSON
       set_fact:
-        Device_IP: "{{Device_IP| default([]) + [item] }}"
+        Down_IFs: "{{Down_IFs| default([]) + [item] }}"
       with_items: "{{
-                    device_facts.results|
-                        json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\".\"deviceName\"'),
                     device_facts.results|
                         json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"ethernetInterfaces\".ethernetInterface[*].\"operationalStatus\"')
                     }}"
 #      with_items: "{{
 #                    device_facts.results|json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\".\"deviceName\"'),
 #                    }}"
-#      when: json_query('device_facts.results.[*].json.queryResponse.entity[0]."inventoryDetailsDTO"."ethernetInterfaces".ethernetInterface[*]."operationalStatus"') == "DOWN"
+      when: item == "DOWN"
 
     - debug:
-            var: Device_IP
+            var: Down_IFs
+
+    - name: Get number of DOWN IFs
+      set_fact:
+        Number_Of_DOWN_IFs: "{{Down_IFs| lenght }}"
+
+    - debug: msg="The total number of DOWN Interfaces is {{Number_Of_DOWN_IFs}}"
 
 #    - name: Create list Device URLs
 #      set_fact:
