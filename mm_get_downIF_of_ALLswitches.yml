@@ -96,7 +96,10 @@
     - name: Get specific Values from JSON
       set_fact:
         Device_IP: "{{Device_IP| default([]) + [item] }}"
-      with_items: "{{device_facts.results|json_query('[*].json.queryResponse.entity[*].\"inventoryDetailsDTO\".\"summary\".\"ipAddress\"')}}"
+      with_items: "{{
+                    device_facts.results|json_query('[*].json.queryResponse.entity[*].\"inventoryDetailsDTO\".\"summary\".\"deviceName\"'),
+                    device_facts.results|json_query('[*].json.queryResponse.entity[*].\"inventoryDetailsDTO\".\"summary\".\"ipAddress\"')
+                    }}"
 
     - debug:
             var: Device_IP
