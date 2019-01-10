@@ -36,8 +36,8 @@
         prime_device_IDs: "{{prime_device_IDs| default([]) + [item] }}"
       with_items: "{{prime_devices_json['queryResponse']['entityId'] | list}}"
     
-    - debug:
-            var: prime_device_IDs
+#    - debug:
+#            var: prime_device_IDs
 
 #    - name: Let's get one URL
 #      set_fact:
@@ -54,22 +54,22 @@
 #    - debug:
 #            var: Device_URLS
 
-    - name: get_facts_from_1stdevice_from_PRIME
-      uri:
-        url: "{{ prime_device_IDs[0]['@url'] }}.json"
-        validate_certs: no
-        method: GET
-        return_content: yes
-        headers:
-            Content-Type: "application/json"
-        user: devnet
-        password: Maticmind2018
-        force_basic_auth: yes
-      register: FirstDevice_facts
+#    - name: get_facts_from_1stdevice_from_PRIME
+#      uri:
+#        url: "{{ prime_device_IDs[0]['@url'] }}.json"
+#        validate_certs: no
+#        method: GET
+#        return_content: yes
+#        headers:
+#            Content-Type: "application/json"
+#        user: devnet
+#        password: Maticmind2018
+#        force_basic_auth: yes
+#      register: FirstDevice_facts
 
-    - name: Show 1st device facts
-      debug:
-            var: FirstDevice_facts.content
+#    - name: Show 1st device facts
+#      debug:
+#            var: FirstDevice_facts.content
 
     - name: get_facts_from_ALL_devices_from_PRIME
       uri:
@@ -85,9 +85,9 @@
       with_items: "{{Device_URLS}}"
       register: device_facts
 
-    - name: Show ALL device facts
-      debug:
-            var: device_facts.results
+#    - name: Show ALL device facts
+#      debug:
+#            var: device_facts.results
 
 #    - name: parse the JSON output from CPI and save it in a new dictionary
 #      set_fact: 
@@ -105,8 +105,8 @@
 #                    }}"
       when: item == "DOWN"
 
-    - debug:
-            var: Down_IFs
+#    - debug:
+#            var: Down_IFs
 
     - name: Get number of DOWN IFs
       set_fact:
