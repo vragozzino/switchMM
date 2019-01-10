@@ -89,7 +89,7 @@
 
     - name: Show ALL device facts
       debug:
-            var: device_facts_json.content
+            var: device_facts_json.results
 
 #    - name: Create Array of only URLs - one for each device
 #      set_fact:
