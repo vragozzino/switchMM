@@ -51,8 +51,8 @@
         Device_URLS: "{{Device_URLS| default([]) + [item] }}"
       with_items: "{{prime_device_IDs|json_query('[*].\"@url\"')}}"
 
-    - debug:
-            var: Device_URLS
+#    - debug:
+#            var: Device_URLS
 #    https://stackoverflow.com/questions/37748174/extract-last-character-of-string-with-ansible-and-regex-replace-filter
 #    https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html
 
@@ -67,11 +67,11 @@
         user: devnet
         password: Maticmind2018
         force_basic_auth: yes
-      register: FirstDevice_facts_json
+      register: FirstDevice_facts
 
     - name: Show 1st device facts
       debug:
-            var: FirstDevice_facts_json.content
+            var: FirstDevice_facts.content
 
     - name: get_facts_from_ALL_devices_from_PRIME
       uri:
@@ -85,11 +85,27 @@
         password: Maticmind2018
         force_basic_auth: yes
       with_items: "{{Device_URLS}}"
-      register: device_facts_json
+      register: device_facts
 
-    - name: Show ALL device facts
+#    - name: Show ALL device facts
+#      debug:
+#            var: device_facts.results
+
+    - name: parse the JSON output from CPI and save it in a new dictionary
+      set_fact: 
+         device_facts_json: "{{device_facts.results | from_json }}"
+
+    - name: Show New Dictionary
       debug:
-            var: device_facts_json.results
+            var: device_facts_json
+
+#    - name: Create list Device URLs
+#      set_fact:
+#        Device_URLS: "{{Device_URLS| default([]) + [item] }}"
+#      with_items: "{{prime_device_IDs|json_query('[*].\"@url\"')}}"
+#
+#    - debug:
+#            var: Device_URLS
 
 #    - name: Create Array of only URLs - one for each device
 #      set_fact:
