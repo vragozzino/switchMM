@@ -58,7 +58,7 @@
 
     - name: get_facts_from_1stdevice_from_PRIME
       uri:
-        url: "{{ prime_device_IDs[0]['@url'].json }}"
+        url: "{{ prime_device_IDs[0]['@url'] }}.json"
         validate_certs: no
         method: GET
         return_content: yes
