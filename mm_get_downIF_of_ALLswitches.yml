@@ -97,9 +97,11 @@
       set_fact:
         Device_IP: "{{Device_IP| default([]) + [item] }}"
       with_items: "{{
-#                    device_facts.results|json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\".\"deviceName\"'),
                     device_facts.results|json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"ethernetInterfaces\".\"ethernetInterface\".[*].\"operationalStatus\"')
                     }}"
+#      with_items: "{{
+#                    device_facts.results|json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\".\"deviceName\"'),
+#                    }}"
 #      when: json_query('device_facts.results.[*].json.queryResponse.entity[0]."inventoryDetailsDTO"."ethernetInterfaces"."ethernetInterface".[*]."operationalStatus"') == "DOWN"
 
     - debug:
