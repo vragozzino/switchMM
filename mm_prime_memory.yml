@@ -37,13 +37,12 @@
         return_content: yes
         body_format: json
         body: '{
-                "avgUtil":"{{item.statisticEntries.statisticEntry.9.entryValue}}",
-                "deviceName":"{{item.statisticEntries.statisticEntry.4.entryValue}}",
-                "deviceIP":"{{item.statisticEntries.statisticEntry.5.entryValue}}",
-                "maxUtil":"{{item.statisticEntries.statisticEntry.8.entryValue}}",
-                "minUtil":"{{item.statisticEntries.statisticEntry.7.entryValue}}",
-                "curUtil":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
-                "prevUtil":"{{item.statisticEntries.statisticEntry.1.entryValue}}",
+                "deviceName":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
+                "deviceIP":"{{item.statisticEntries.statisticEntry.4.entryValue}}",
+                "curUtil":"{{item.statisticEntries.statisticEntry.5.entryValue}}",
+                "minUtil":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
+                "maxUtil":"{{item.statisticEntries.statisticEntry.7.entryValue}}",
+                "avgUtil":"{{item.statisticEntries.statisticEntry.8.entryValue}}",
                 "instance":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
                 "@timestamp":"{{ansible_date_time.iso8601}}",
                 "myindex":"{{ 100000 | random }}"            
