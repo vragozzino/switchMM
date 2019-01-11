@@ -43,7 +43,7 @@
                 "maxCPU":"{{item.statisticEntries.statisticEntry.5.entryValue}}",
                 "minCPU":"{{item.statisticEntries.statisticEntry.4.entryValue}}",
                 "currentCPU":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
-                "@timestamp":"{{ansible_date_time.iso8601}}"
+                "@timestamp":"{{ansible_date_time.iso8601}}",
                 "index":"{{ 1000 | random }}"
                 }'
         headers:
