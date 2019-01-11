@@ -44,7 +44,7 @@
                 "minCPU":"{{item.statisticEntries.statisticEntry.4.entryValue}}",
                 "currentCPU":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
                 "@timestamp":"{{ansible_date_time.iso8601}}",
-                "index":"{{ 1000 | random }}"
+                "index":"{{ 1000000 | random }}"
                 }'
         headers:
             Content-Type: "application/json"
