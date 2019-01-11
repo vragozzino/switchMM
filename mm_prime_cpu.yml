@@ -37,13 +37,14 @@
         return_content: yes
         body_format: json
         body: '{
-                "deviceName":"{{item.statisticEntries.statisticEntry.5.entryValue}}",
-                "deviceIP":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
-                "averageCPU":"{{item.statisticEntries.statisticEntry.4.entryValue}}",
-                "maxCPU":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
-                "minCPU":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
-                "currentCPU":"{{item.statisticEntries.statisticEntry.1.entryValue}}",
+                "deviceName":"{{item.statisticEntries.statisticEntry.1.entryValue}}",
+                "deviceIP":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
+                "averageCPU":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
+                "maxCPU":"{{item.statisticEntries.statisticEntry.5.entryValue}}",
+                "minCPU":"{{item.statisticEntries.statisticEntry.4.entryValue}}",
+                "currentCPU":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
                 "@timestamp":"{{ansible_date_time.iso8601}}"
+                "index":"{{ 1000 | random }}"
                 }'
         headers:
             Content-Type: "application/json"
