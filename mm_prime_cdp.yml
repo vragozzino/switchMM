@@ -56,7 +56,7 @@
       set_fact:
          CDP_Neighbours: "{{ item }}"
       with_items: "{{
-                    device_facts.content.queryResponse.entity[0].inventoryDetailsDTO.cdpNeighbors.cdpNeighbor[*]
+                    device_facts.content.queryResponse.entity[0].inventoryDetailsDTO.cdpNeighbors.cdpNeighbor
                     }}"
     - debug:
             var: CDP_Neighbours
