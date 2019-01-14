@@ -66,10 +66,10 @@
            var: CDP_Neighbours
 
     - debug:
-           var: CDP_Neighbours[neighborDeviceName]
+           var: CDP_Neighbours[0].'neighborDeviceName'
 
     - debug:
-           var: CDP_Neighbours[nearEndInterface]
+           var: CDP_Neighbours."nearEndInterface"
 
 #      
 #
@@ -88,6 +88,6 @@
 #          - interface {{CDP_Neighbours.nearEndInterface}}
 #          - description Verso_{{CDP_Neighbours.neighborDeviceName}}
           - end
-      with_items: "{{CDP_Neighbours}}"
+#      with_items: "{{CDP_Neighbours}}"
       when: ansible_host== input_ipaddress 
  
