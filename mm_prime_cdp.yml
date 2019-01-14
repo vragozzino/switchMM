@@ -31,7 +31,7 @@
     - debug:
             var: Clean_Device_ID
 
-    - name: get_cdp_facts_from_selected_Device_from_PRIME
+    - name: get_all_facts_from_selected_Device_from_PRIME
       uri:
         url: https://10.23.77.200/webacs/api/v4/data/InventoryDetails/{{Clean_Device_ID}}.json
         validate_certs: no
@@ -48,22 +48,18 @@
       debug:
             var: device_facts.content
 
-#    - name: parse the JSON output from CPI and save it in a new dictionary
-#      set_fact: 
-#         device_facts_json: "{{device_facts.results | from_json }}"
-#
-#    - name: Get specific Values from JSON
-#      set_fact:
-#        Down_IFs: "{{Down_IFs| default([]) + [item] }}"
-#      with_items: "{{
-#                    device_facts.results|
-#                        json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"ethernetInterfaces\".ethernetInterface[*].\"operationalStatus\"')
-#                    }}"
-#      with_items: "{{
-#                    device_facts.results|json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\".\"deviceName\"'),
-#                    }}"
-#      when: item == "DOWN"
-#    - debug:
-#            var: Down_IFs
+    - name: parse the JSON output from CPI and save it in a new dictionary
+      set_fact: 
+         device_facts_json: "{{device_facts.content | from_json }}"
+
+    - name: Get specific Values from JSON
+      set_fact:
+       CDP_Neighbours: {{ item }}
+       with_items: "{{
+                    device_facts_json|
+                        json_query('queryResponse.entity[0].\"inventoryDetailsDTO\".\"cdpNeighbors\".cdpNeighbor[*]')
+                    }}"
+    - debug:
+            var: CDP_Neighbours
 #      
 #
