@@ -46,7 +46,7 @@
 
     - name: Show ALL device facts
       debug:
-            var: device_facts.results
+            var: device_facts.content
 
 #    - name: parse the JSON output from CPI and save it in a new dictionary
 #      set_fact: 
