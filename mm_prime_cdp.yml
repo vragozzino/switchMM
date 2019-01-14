@@ -48,15 +48,19 @@
       debug:
             var: device_facts.content
 
-#    - name: parse the JSON output from CPI and save it in a new dictionary
-#      set_fact: 
-#         device_facts_json: "{{device_facts.content | from_json }}"
+    - name: parse the JSON output from CPI and save it in a new dictionary
+      set_fact: 
+         device_facts_json: "{{device_facts.content | from_json }}"
+
+    - name: Show ALL device facts
+      debug:
+            var: device_facts_json
 
     - name: Get specific Values from JSON
       set_fact:
          CDP_Neighbours: "{{ item }}"
       with_items: "{{
-                    device_facts.content.queryResponse.entity[0].inventoryDetailsDTO.cdpNeighbors.cdpNeighbor
+                    device_facts_json.queryResponse.entity[0].inventoryDetailsDTO.cdpNeighbors.cdpNeighbor
                     }}"
     - debug:
             var: CDP_Neighbours
