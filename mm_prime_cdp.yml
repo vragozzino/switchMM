@@ -44,17 +44,17 @@
         force_basic_auth: yes
       register: device_facts
 
-    - name: Show ALL device facts
-      debug:
-            var: device_facts.content
+#    - name: Show ALL device facts
+#      debug:
+#            var: device_facts.content
 
     - name: parse the JSON output from CPI and save it in a new dictionary
       set_fact: 
          device_facts_json: "{{device_facts.content | from_json }}"
 
-    - name: Show ALL device facts
-      debug:
-            var: device_facts_json
+#    - name: Show ALL device facts
+#      debug:
+#            var: device_facts_json
 
     - name: Get specific Values from JSON
       set_fact:
@@ -66,3 +66,28 @@
             var: CDP_Neighbours
 #      
 #
+-   hosts: MM_Vimodrone
+    gather_facts: no
+    connection: network_cli
+
+    vars:
+      ansible_network_os: ios
+
+    tasks:
+
+    - debug:
+       var: CDP_Neighbours.neighborDeviceName
+
+    - debug:
+       var: CDP_Neighbours.nearEndInterface
+
+    - ios_command:
+        commands:
+          - configure terminal
+#          - interface {{CDP_Neighbours.nearEndInterface}}
+#          - description Verso_{{CDP_Neighbours.neighborDeviceName}}
+          - end
+      with_items: "{{CDP_Neighbours}}"
+      when: ansible_host== "{{ input_ipaddress }}"
+ 
+ 
