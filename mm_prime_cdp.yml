@@ -67,50 +67,50 @@
       set_fact:
          CDP_Neighbours: "{{CDP_Neighbours| default([]) + [item] }}"
       with_items: "{{
-                    device_facts_json['queryResponse']['entity'][0]['inventoryDetailsDTO']['cdpNeighbors']['cdpNeighbor'] | list
+                    device_facts_json['queryResponse']['entity'][0]['inventoryDetailsDTO']['cdpNeighbors'] | list
                     }}"
 
     - debug:
            var: CDP_Neighbours
 
-    - name: get_CDP_interface
-      set_fact: 
-         CDP_int: "{{CDP_Neighbours[0].nearEndInterface}}"
-
-    - debug:
-           var: CDP_int
-
-    - name: get_CDP_Nei
-      set_fact: 
-         CDP_Nei: "{{CDP_Neighbours[0].neighborDeviceName}}"
-         
-    - debug:
-           var: CDP_Nei
-
+#    - name: get_CDP_interface
+#      set_fact: 
+#         CDP_int: "{{CDP_Neighbours[0].nearEndInterface}}"
+#
+#    - debug:
+#           var: CDP_int
+#
+#    - name: get_CDP_Nei
+#      set_fact: 
+#         CDP_Nei: "{{CDP_Neighbours[0].neighborDeviceName}}"
+#         
+#    - debug:
+#           var: CDP_Nei
+#
 #      
 #
--   hosts: MM_Vimodrone
-    gather_facts: no
-    connection: network_cli
-
-    vars:
-      ansible_network_os: ios
-
-    tasks:
-
-    - debug:
-       var: hostvars['localhost']['CDP_int']
-
-    - debug:
-       var: hostvars['localhost']['switch_IP']
-
-    - ios_command:
-        commands:
-          - configure terminal
+#-   hosts: MM_Vimodrone
+#    gather_facts: no
+#    connection: network_cli
+#
+#    vars:
+#      ansible_network_os: ios
+#
+#    tasks:
+#
+#    - debug:
+#       var: hostvars['localhost']['CDP_int']
+#
+#    - debug:
+#       var: hostvars['localhost']['switch_IP']
+#
+#    - ios_command:
+#        commands:
+#          - configure terminal
 #          - interface {{hostvars['localhost']['CDP_int']}}
 #          - description Verso_{{hostvars['localhost']['CDP_Nei']}}
-          - end
+#          - end
 #      with_items: "{{CDP_Neighbours}}"
-      when: ansible_host== hostvars['localhost']['switch_IP']
+#      when: ansible_host== hostvars['localhost']['switch_IP']
 
 
