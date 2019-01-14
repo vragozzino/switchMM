@@ -26,14 +26,14 @@
          
     - name: Clean Device URLs
       set_fact:
-        Clean_Device_URL: "{{deviceID_prime['queryResponse']['entityId'][0]['@url']}}"
+        Clean_Device_ID: "{{deviceID_prime['queryResponse']['entityId'][0]['$']}}"
 
     - debug:
-            var: Clean_Device_URL
+            var: Clean_Device_ID
 
     - name: get_cdp_facts_from_selected_Device_from_PRIME
       uri:
-        url: "{{ Clean_Device_URL }}.json"
+        url: https://10.23.77.200/webacs/api/v4/data/InventoryDetails/{{Clean_Device_ID}}.json
         validate_certs: no
         method: GET
         return_content: yes
