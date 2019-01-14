@@ -63,7 +63,14 @@
                     device_facts_json.queryResponse.entity[0].inventoryDetailsDTO.cdpNeighbors.cdpNeighbor
                     }}"
     - debug:
-            var: CDP_Neighbours
+           var: CDP_Neighbours
+
+    - debug:
+           var: CDP_Neighbours[neighborDeviceName]
+
+    - debug:
+           var: CDP_Neighbours[nearEndInterface]
+
 #      
 #
 -   hosts: MM_Vimodrone
@@ -75,12 +82,6 @@
 
     tasks:
 
-    - debug:
-       var: CDP_Neighbours.neighborDeviceName
-
-    - debug:
-       var: CDP_Neighbours.nearEndInterface
-
     - ios_command:
         commands:
           - configure terminal
@@ -88,6 +89,5 @@
 #          - description Verso_{{CDP_Neighbours.neighborDeviceName}}
           - end
       with_items: "{{CDP_Neighbours}}"
-      when: ansible_host== "{{ input_ipaddress }}"
- 
+      when: ansible_host== input_ipaddress 
  
