@@ -28,8 +28,8 @@
       set_fact:
         Clean_Device_ID: "{{deviceID_prime['queryResponse']['entityId'][0]['$']}}"
 
-    - debug:
-            var: Clean_Device_ID
+#    - debug:
+#            var: Clean_Device_ID
 
     - name: get_all_facts_from_selected_Device_from_PRIME
       uri:
@@ -65,23 +65,24 @@
 
     - name: Get specific Values from JSON
       set_fact:
-         CDP_Neighbours: "{{ item }}"
+         CDP_Neighbours: "{{CDP_Neighbours| default([]) + [item] }}"
       with_items: "{{
                     device_facts_json.queryResponse.entity[0].inventoryDetailsDTO.cdpNeighbors.cdpNeighbor
                     }}"
+
     - debug:
            var: CDP_Neighbours
 
     - name: get_CDP_interface
       set_fact: 
-         CDP_int: "{{CDP_Neighbours.nearEndInterface}}"
+         CDP_int: "{{CDP_Neighbours[0].nearEndInterface}}"
 
     - debug:
            var: CDP_int
 
     - name: get_CDP_Nei
       set_fact: 
-         CDP_Nei: "{{CDP_Neighbours.neighborDeviceName}}"
+         CDP_Nei: "{{CDP_Neighbours[0].neighborDeviceName}}"
          
     - debug:
            var: CDP_Nei
