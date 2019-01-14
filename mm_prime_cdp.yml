@@ -54,7 +54,7 @@
 
     - name: Get specific Values from JSON
       set_fact:
-       CDP_Neighbours: {{ item }}
+       CDP_Neighbours: "{{ item }}"
        with_items: "{{
                     device_facts_json|
                         json_query('queryResponse.entity[0].\"inventoryDetailsDTO\".\"cdpNeighbors\".cdpNeighbor[*]')
