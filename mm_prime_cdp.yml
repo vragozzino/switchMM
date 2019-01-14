@@ -67,13 +67,17 @@
 
     - name: get_CDP_interface
       set_fact: 
-         CDP_interface: "{{CDP_Neighbours.neighborDeviceName}}"
-         
-    - debug:
-           var: CDP_interface
+         CDP_int: "{{CDP_Neighbours.nearEndInterface}}"
 
     - debug:
-           var: CDP_Neighbours."nearEndInterface"
+           var: CDP_int
+
+    - name: get_CDP_Nei
+      set_fact: 
+         CDP_Nei: "{{CDP_Neighbours.neighborDeviceName}}"
+         
+    - debug:
+           var: CDP_Nei
 
 #      
 #
