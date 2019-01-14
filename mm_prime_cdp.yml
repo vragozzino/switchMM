@@ -48,9 +48,10 @@
       with_items: "{{Device_URLS}}"
       register: device_facts.queryResponse.entity
 
-#    - name: Show ALL device facts
-#      debug:
-#            var: device_facts.results
+    - name: Show ALL device facts
+      debug:
+            var: device_facts.queryResponse.entity.results
+
 #    - name: parse the JSON output from CPI and save it in a new dictionary
 #      set_fact: 
 #         device_facts_json: "{{device_facts.results | from_json }}"
