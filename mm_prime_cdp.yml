@@ -67,7 +67,7 @@
 
     - name: get_CDP_interface
       set_fact: 
-         CDP_interface: "{{CDP_Neighbours.0.neighborDeviceName}}"
+         CDP_interface: "{{CDP_Neighbours.neighborDeviceName}}"
          
     - debug:
            var: CDP_interface
