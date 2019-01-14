@@ -90,12 +90,14 @@
 
     tasks:
 
+    - debug:
+       var: hostvars['localhost']['CDP_int']
+
     - ios_command:
         commands:
           - configure terminal
-#          - interface {{CDP_Neighbours.nearEndInterface}}
-#          - description Verso_{{CDP_Neighbours.neighborDeviceName}}
+#          - interface {{hostvars['localhost']['CDP_int']}}
+#          - description Verso_{{hostvars['localhost']['CDP_Nei']}}
           - end
 #      with_items: "{{CDP_Neighbours}}"
-      when: ansible_host== input_ipaddress 
- 
+      when: ansible_host== hostvars['localhost']['input_ipaddress'] 
