@@ -65,8 +65,12 @@
     - debug:
            var: CDP_Neighbours
 
+    - name: get_CDP_interface
+      set_fact: 
+         CDP_interface: "{{CDP_Neighbours.0.neighborDeviceName}}"
+         
     - debug:
-           var: CDP_Neighbours[0].'neighborDeviceName'
+           var: CDP_interface
 
     - debug:
            var: CDP_Neighbours."nearEndInterface"
