@@ -9,7 +9,7 @@
 
     - name: get_device_ID_from_PRIME_in_JSON
       uri:
-        url: webacs/api/v4/data/Devices.json?ipAddress="{{input_ipaddress}}"
+        url: webacs/api/v4/data/Devices.json?ipAddress={{input_ipaddress}}
         validate_certs: no
         method: GET
         return_content: yes
