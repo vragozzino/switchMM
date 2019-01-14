@@ -56,6 +56,13 @@
 #      debug:
 #            var: device_facts_json
 
+    - name: get_switch_IPaddress
+      set_fact: 
+         switch_IP: "{{device_facts_json.queryResponse.entity[0].inventoryDetailsDTO.summary.ipAddress}}"
+
+    - debug:
+        var: switch_IP
+
     - name: Get specific Values from JSON
       set_fact:
          CDP_Neighbours: "{{ item }}"
@@ -93,6 +100,9 @@
     - debug:
        var: hostvars['localhost']['CDP_int']
 
+    - debug:
+       var: hostvars['localhost']['switch_IP']
+
     - ios_command:
         commands:
           - configure terminal
@@ -100,4 +110,6 @@
 #          - description Verso_{{hostvars['localhost']['CDP_Nei']}}
           - end
 #      with_items: "{{CDP_Neighbours}}"
-      when: ansible_host== hostvars['localhost']['input_ipaddress'] 
+      when: ansible_host== hostvars['localhost']['switch_IP']
+
+
