@@ -58,3 +58,9 @@
     - debug:
             var: Device_IPs
 
+    - debug:
+            var: "{{[Device_IPs][0]}}"
+
+    - Change desc on first switch
+      import_tasks: mm_prime_cdp.yml input_ipaddress="{{[Device_IPs][0]}}"
+
