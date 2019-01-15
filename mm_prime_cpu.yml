@@ -51,4 +51,7 @@
         status_code: 201
       register: elastic_result
       with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
-      
+
+    - debug:
+        msg: "{{ansible_date_time.iso8601}}"
+
