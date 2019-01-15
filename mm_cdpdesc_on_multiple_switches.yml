@@ -22,7 +22,7 @@
 
     - name: Get Array of entityIDs - one for each device
       set_fact:
-        prime_entity_IDs: device_ID['queryResponse']['entityId']
+        prime_entity_IDs: "{{ device_ID['queryResponse']['entityId'] }}"
 
     - debug:
             var: prime_entity_IDs
