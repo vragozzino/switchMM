@@ -62,4 +62,17 @@
             var: Device_IPs[0]
 
     - name: Change desc on first switch
-      include: mm_prime_cdp.yml
+      uri:
+        url: http://10.23.77.201/api/v2/job_templates/23/launch/
+        validate_certs: no
+        method: POST
+        return_content: yes
+        headers:
+            Content-Type: "application/json"
+        user: devnet
+        password: devnet
+        force_basic_auth: yes
+        body:
+            {
+        	"extra_vars": "{input_ipaddress: '10.22.22.1'}"
+            }
