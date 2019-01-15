@@ -1,6 +1,6 @@
 ---
--   hosts: localhost
-    gather_facts: no
+#-   hosts: localhost
+#    gather_facts: no
 
     vars:
        input_ipaddress: "10.22.22.69" 
