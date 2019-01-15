@@ -45,6 +45,7 @@
                 "currentCPU":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
                 "@timestamp":"{{ansible_date_time.iso8601}}",
                 "Datetime":"{{ansible_date_time.iso8601}}",
+                "store": true,
                 "Myindex":"{{ 1000000 | random }}"
                 }'
         headers:
