@@ -1,0 +1,34 @@
+---
+-   hosts: localhost
+    gather_facts: no
+
+#    vars:
+#       input_ipaddress: "10.22.22.69" 
+    
+    tasks:
+
+    - name: get_device_IDs_from_PRIME_in_JSON
+      uri:
+        url: https://10.23.77.200/webacs/api/v4/data/Devices.json
+        validate_certs: no
+        method: GET
+        return_content: yes
+        headers:
+            Content-Type: "application/json"
+        user: devnet
+        password: Maticmind2018
+        force_basic_auth: yes
+      register: device_ID
+
+    - name: Get Array of entityIDs - one for each device
+      set_fact:
+        prime_entity_IDs: device_ID['queryResponse']['entityId']
+
+    - name: Create Array of deviceIDs - one for each device
+      set_fact:
+        prime_device_IDs: "{{ prime_device_IDs| default([]) + [item]['$'] }}"
+      with_items: "{{ prime_entity_IDs }}"
+    
+    - debug:
+            var: prime_device_IDs
+         
