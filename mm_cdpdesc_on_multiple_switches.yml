@@ -20,9 +20,17 @@
         force_basic_auth: yes
       register: device_ID
 
+    - debug:
+            var: device_ID.content
+
+    - name: parse the JSON output from CPI and save it in a new dictionary
+      set_fact: 
+         device_ID_json: "{{device_ID.content | from_json }}"
+
+
     - name: Get Array of entityIDs - one for each device
       set_fact:
-        prime_entity_IDs: "{{ device_ID['queryResponse']['entityId'] }}"
+        prime_entity_IDs: "{{ device_ID_json['queryResponse']['entityId'] }}"
 
     - debug:
             var: prime_entity_IDs
