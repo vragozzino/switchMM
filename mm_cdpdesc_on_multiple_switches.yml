@@ -73,5 +73,8 @@
         password: devnet
         force_basic_auth: yes
         status_code: 201, 200
-        body:'{"extra_vars": "{input_ipaddress: 10.22.22.1}" }'
-        
+        body_format: json
+        body:'{
+                "extra_vars": "\{input_ipaddress: 10.22.22.1\}" 
+              }'
+
