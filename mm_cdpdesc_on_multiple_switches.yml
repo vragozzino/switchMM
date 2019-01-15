@@ -24,11 +24,14 @@
       set_fact:
         prime_entity_IDs: device_ID['queryResponse']['entityId']
 
-    - name: Create Array of deviceIDs - one for each device
-      set_fact:
-        prime_device_IDs: "{{ prime_device_IDs| default([]) + [item]['$'] }}"
-      with_items: "{{ prime_entity_IDs }}"
-    
     - debug:
-            var: prime_device_IDs
+            var: prime_entity_IDs
+
+#    - name: Create Array of deviceIDs - one for each device
+#      set_fact:
+#        prime_device_IDs: "{{ prime_device_IDs| default([]) + [item]['$'] }}"
+#      with_items: "{{ prime_entity_IDs }}"
+#    
+#    - debug:
+#            var: prime_device_IDs
          
