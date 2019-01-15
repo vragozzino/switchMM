@@ -45,6 +45,8 @@
                 "avgUtil":"{{item.statisticEntries.statisticEntry.8.entryValue}}",
                 "instance":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
                 "@timestamp":"{{ansible_date_time.iso8601}}",
+                "DateTime":"{{ansible_date_time.iso8601}}",
+                "store": true,
                 "myindex":"{{ 100000 | random }}"            
                 }'
         headers:
