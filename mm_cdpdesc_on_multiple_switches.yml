@@ -75,6 +75,6 @@
         status_code: 201, 200
         body_format: json
         body: { 
-                "extra_vars": "{input_ipaddress: '10.22.22.1'}" 
+                "extra_vars": "{ input_ipaddress: '{{ Device_IPs[0] }}' }" 
               }
 
