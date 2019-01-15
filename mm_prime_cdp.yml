@@ -60,8 +60,8 @@
       set_fact: 
          switch_IP: "{{device_facts_json.queryResponse.entity[0].inventoryDetailsDTO.summary.ipAddress}}"
 
-    - debug:
-        var: switch_IP
+#    - debug:
+#        var: switch_IP
 
     - name: Get specific Values from JSON
       set_fact:
@@ -90,28 +90,28 @@
 #
 #      
 #
-#-   hosts: MM_Vimodrone
-#    gather_facts: no
-#    connection: network_cli
-#
-#    vars:
-#      ansible_network_os: ios
-#
-#    tasks:
-#
+-   hosts: MM_Vimodrone
+    gather_facts: no
+    connection: network_cli
+
+    vars:
+      ansible_network_os: ios
+
+    tasks:
+
 #    - debug:
 #       var: hostvars['localhost']['CDP_int']
 #
 #    - debug:
 #       var: hostvars['localhost']['switch_IP']
 #
-#    - ios_command:
-#        commands:
-#          - configure terminal
-#          - interface {{hostvars['localhost']['CDP_int']}}
-#          - description Verso_{{hostvars['localhost']['CDP_Nei']}}
-#          - end
-#      with_items: "{{CDP_Neighbours}}"
-#      when: ansible_host== hostvars['localhost']['switch_IP']
+    - ios_command:
+        commands:
+          - configure terminal
+          - interface {{ item.nearEndInterface }}
+          - description Verso {{ item.neighborDeviceName }}
+          - end
+      with_items: "{{ hostvars['localhost'][CDP_Neighbours] }}"
+      when: ansible_host== hostvars['localhost']['switch_IP']
 
 
