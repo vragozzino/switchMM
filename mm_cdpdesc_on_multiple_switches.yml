@@ -20,8 +20,8 @@
         force_basic_auth: yes
       register: device_ID
 
-    - debug:
-            var: device_ID.content
+#    - debug:
+#            var: device_ID.content
 
     - name: parse the JSON output from CPI and save it in a new dictionary
       set_fact: 
@@ -32,14 +32,14 @@
       set_fact:
         prime_entity_IDs: "{{ device_ID_json['queryResponse']['entityId'] }}"
 
-    - debug:
-            var: prime_entity_IDs
-
-#    - name: Create Array of deviceIDs - one for each device
-#      set_fact:
-#        prime_device_IDs: "{{ prime_device_IDs| default([]) + [item]['$'] }}"
-#      with_items: "{{ prime_entity_IDs }}"
-#    
 #    - debug:
-#            var: prime_device_IDs
+#            var: prime_entity_IDs
+
+    - name: Create Array of deviceIDs - one for each device
+      set_fact:
+        prime_device_IDs: "{{ prime_device_IDs| default([]) + [item]['$'] }}"
+      with_items: "{{ prime_entity_IDs }}"
+    
+    - debug:
+            var: prime_device_IDs
          
