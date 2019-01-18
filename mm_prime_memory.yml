@@ -18,8 +18,8 @@
         force_basic_auth: yes
       register: prime_topn_mem
 
-    - debug:
-        var: prime_topn_mem.content
+#    - debug:
+#        var: prime_topn_mem.content
       
 
     - name: parse the JSON output from CPI and save it in a new dictionary
@@ -28,7 +28,57 @@
 
     - debug:
         msg: "{{prime_topn_mem_json}}"
-    
+
+    - name: set db fields to stored 
+      uri:
+        url: 'http://10.23.77.202:9200/memory-{{ansible_date_time.date}}'
+        method: PUT
+        return_content: yes
+        body_format: json
+        body: '{
+                "mappings": {
+                    "switch": {
+                        "properties": {
+                                "deviceName" : {
+                                    "type": "text",
+                                    "store" : true    
+                                },
+                                "deviceIP" : {
+                                    "type": "text",
+                                    "store" : true
+                                },
+                                "curUtil" : {
+                                    "type": "text",
+                                    "store" : true
+                                },
+                                "minUtil" : {
+                                    "type": "text",
+                                    "store" : true
+                                },
+                                "maxUtil" : {
+                                    "type": "text",
+                                    "store" : true
+                                },
+                                "avgUtil" : {
+                                    "type": "text",
+                                    "store" : true
+                                },
+                                "Datetime" : {
+                                    "type": "date",
+                                    "store" : true
+                                },
+                                "Myindex" : {
+                                    "type": "text",
+                                    "store" : true
+                                }
+                        }
+                    }
+                }
+               }'
+        headers:
+            Content-Type: "application/json"
+        status_code: [201, 200, 400]
+
          
     - name: save output to elastic
       uri:
@@ -46,8 +96,7 @@
                 "instance":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
                 "@timestamp":"{{ansible_date_time.iso8601}}",
                 "DateTime":"{{ansible_date_time.iso8601}}",
-                "store": true,
-                "myindex":"{{ 100000 | random }}"            
+                "Myindex":"{{ 100000 | random }}"            
                 }'
         headers:
             Content-Type: "application/json"
