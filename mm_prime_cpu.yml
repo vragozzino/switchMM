@@ -73,7 +73,7 @@
                             "type" : "text",
                             "store" : true
                         },
-                }
+                },
                 "deviceName":"{{item.statisticEntries.statisticEntry.1.entryValue}}",
                 "deviceIP":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
                 "averageCPU":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
