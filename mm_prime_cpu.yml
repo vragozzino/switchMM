@@ -37,6 +37,43 @@
         return_content: yes
         body_format: json
         body: '{
+                "properties" : {
+                        "@timestamp" : {
+                            "type" : "date"
+                        },
+                        "deviceName" : {
+                            "type" : "text",
+                            "store" : true
+                        },
+                        "deviceIP" : {
+                            "type" : "text",
+                            "store" : true
+                        },
+                        "averageCPU" : {
+                            "type" : "text",
+                            "store" : true
+                        },
+                        "maxCPU" : {
+                            "type" : "text",
+                            "store" : true
+                        },
+                        "minCPU" : {
+                            "type" : "text",
+                            "store" : true
+                        },
+                        "currentCPU" : {
+                            "type" : "text",
+                            "store" : true
+                        },
+                        "Datetime" : {
+                            "type" : "text",
+                            "store" : true
+                        },
+                        "Myindex" : {
+                            "type" : "text",
+                            "store" : true
+                        },
+                }
                 "deviceName":"{{item.statisticEntries.statisticEntry.1.entryValue}}",
                 "deviceIP":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
                 "averageCPU":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
@@ -45,7 +82,6 @@
                 "currentCPU":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
                 "@timestamp":"{{ansible_date_time.iso8601}}",
                 "Datetime":"{{ansible_date_time.iso8601}}",
-                "store": true,
                 "Myindex":"{{ 1000000 | random }}"
                 }'
         headers:
