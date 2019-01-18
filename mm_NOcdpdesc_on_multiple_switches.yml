@@ -1,0 +1,95 @@
+---
+-   hosts: localhost
+    gather_facts: no
+
+    tasks:
+
+    - name: get_device_IDs_from_PRIME_in_JSON
+      uri:
+        url: https://10.23.77.200/webacs/api/v4/data/InventoryDetails.json?
+        validate_certs: no
+        method: GET
+        return_content: yes
+        headers:
+            Content-Type: "application/json"
+        user: devnet
+        password: Maticmind2018
+        force_basic_auth: yes
+      register: prime_devices
+
+    - name: parse the JSON output from CPI and save it in a new dictionary
+      set_fact: 
+         prime_devices_json: "{{prime_devices.content | from_json }}"
+
+    - name: Create Array of entityIDs - one for each device
+      set_fact:
+        prime_device_IDs: "{{prime_device_IDs| default([]) + [item] }}"
+      with_items: "{{prime_devices_json['queryResponse']['entityId'] | list}}"
+    
+    - name: Create list Device URLs
+      set_fact:
+        Device_URLS: "{{Device_URLS| default([]) + [item] }}"
+      with_items: "{{prime_device_IDs|json_query('[*].\"@url\"')}}"
+
+    - debug:
+            var: Device_URLS
+
+    - name: get_facts_from_ALL_devices_from_PRIME
+      uri:
+        url: "{{ item }}.json"
+        validate_certs: no
+        method: GET
+        return_content: yes
+        headers:
+            Content-Type: "application/json"
+        user: devnet
+        password: Maticmind2018
+        force_basic_auth: yes
+      with_items: "{{Device_URLS}}"
+      register: device_facts
+
+    - name: Get specific Values from JSON
+      set_fact:
+        Device_IPs: "{{ Device_IPs| default([]) + [item] }}"
+      with_items: "{{
+                    device_facts.results|
+                        json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\".\"ipAddress\"')
+                    }}"
+    - debug:
+            var: Device_IPs
+
+#    - name: Change desc on first switch
+#      uri:
+#        url: http://10.23.77.201/api/v2/job_templates/23/launch/
+#        validate_certs: no
+#        method: POST
+#        return_content: yes
+#        headers:
+#            Content-Type: "application/json"
+#        user: devnet
+#        password: devnet
+#        force_basic_auth: yes
+#        status_code: 201, 200
+#        body_format: json
+#        body: { 
+#                "extra_vars": "{ input_ipaddress: '{{ Device_IPs[0] }}' }" 
+#              }
+
+
+    - name: Change desc on all switches
+      uri:
+        url: http://10.23.77.201/api/v2/job_templates/27/launch/
+        validate_certs: no
+        method: POST
+        return_content: yes
+        headers:
+            Content-Type: "application/json"
+        user: devnet
+        password: devnet
+        force_basic_auth: yes
+        status_code: 201, 200
+        body_format: json
+        body: { 
+                "extra_vars": "{ input_ipaddress: '{{ item }}' }" 
+              }
+      with_items: "{{ Device_IPs }}"
