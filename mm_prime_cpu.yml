@@ -40,27 +40,35 @@
                     "switch": {
                         "properties": {
                                 "deviceName" : {
-                                    "store" : true
+                                    "type": "text",
+                                    "store" : true    
                                 },
                                 "deviceIP" : {
+                                    "type": "text",
                                     "store" : true
                                 },
                                 "averageCPU" : {
+                                    "type": "text",
                                     "store" : true
                                 },
                                 "maxCPU" : {
+                                    "type": "text",
                                     "store" : true
                                 },
                                 "minCPU" : {
+                                    "type": "text",
                                     "store" : true
                                 },
                                 "currentCPU" : {
+                                    "type": "text",
                                     "store" : true
                                 },
                                 "Datetime" : {
+                                    "type": "date",
                                     "store" : true
                                 },
                                 "Myindex" : {
+                                    "type": "text",
                                     "store" : true
                                 }
                         }
