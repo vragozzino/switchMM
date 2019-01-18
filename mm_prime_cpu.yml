@@ -86,7 +86,7 @@
                                 },
                                 "Myindex" : {
                                     "store" : true
-                                },
+                                }
                         }
                     }
                 }
