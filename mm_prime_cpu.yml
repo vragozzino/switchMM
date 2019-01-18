@@ -37,43 +37,6 @@
         return_content: yes
         body_format: json
         body: '{
-                "properties" : {
-                        "@timestamp" : {
-                            "type" : "date"
-                        },
-                        "deviceName" : {
-                            "type" : "text",
-                            "store" : true
-                        },
-                        "deviceIP" : {
-                            "type" : "text",
-                            "store" : true
-                        },
-                        "averageCPU" : {
-                            "type" : "text",
-                            "store" : true
-                        },
-                        "maxCPU" : {
-                            "type" : "text",
-                            "store" : true
-                        },
-                        "minCPU" : {
-                            "type" : "text",
-                            "store" : true
-                        },
-                        "currentCPU" : {
-                            "type" : "text",
-                            "store" : true
-                        },
-                        "Datetime" : {
-                            "type" : "text",
-                            "store" : true
-                        },
-                        "Myindex" : {
-                            "type" : "text",
-                            "store" : true
-                        },
-                },
                 "deviceName":"{{item.statisticEntries.statisticEntry.1.entryValue}}",
                 "deviceIP":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
                 "averageCPU":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
@@ -89,6 +52,48 @@
         status_code: 201
       register: elastic_result
       with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
+
+    - name: set db fields to stored 
+      uri:
+        url: 'http://10.23.77.202:9200/cpu-{{ansible_date_time.date}}
+        method: PUT
+        return_content: yes
+        body_format: json
+        body: '{
+                "mappings": {
+                    "switch": {
+                        "properties" : {
+                                "deviceName" : {
+                                    "store" : true
+                                },
+                                "deviceIP" : {
+                                    "store" : true
+                                },
+                                "averageCPU" : {
+                                    "store" : true
+                                },
+                                "maxCPU" : {
+                                    "store" : true
+                                },
+                                "minCPU" : {
+                                    "store" : true
+                                },
+                                "currentCPU" : {
+                                    "store" : true
+                                },
+                                "Datetime" : {
+                                    "store" : true
+                                },
+                                "Myindex" : {
+                                    "store" : true
+                                },
+                        }
+                    }
+                }
+               }'
+        headers:
+            Content-Type: "application/json"
+        status_code: [201, 200]
 
     - debug:
         msg: "{{ansible_date_time.iso8601}}"
