@@ -62,7 +62,7 @@
         body: '{
                 "mappings": {
                     "switch": {
-                        "properties" : {
+                        "properties": {
                                 "deviceName" : {
                                     "store" : true
                                 },
