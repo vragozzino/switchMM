@@ -55,7 +55,7 @@
 
     - name: set db fields to stored 
       uri:
-        url: 'http://10.23.77.202:9200/cpu-{{ansible_date_time.date}}
+        url: 'http://10.23.77.202:9200/cpu-{{ansible_date_time.date}}'
         method: PUT
         return_content: yes
         body_format: json
