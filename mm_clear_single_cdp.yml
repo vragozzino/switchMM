@@ -87,7 +87,7 @@
         commands:
           - configure terminal
           - interface {{ item.nearEndInterface }}
-          - description Verso Chissa cosa - Boh!
+          - description _NULL_
           - end
       with_items: "{{ hostvars['localhost']['CDP_Neighbours'] }}"
       when: (ansible_host== hostvars['localhost']['switch_IP']) and 
