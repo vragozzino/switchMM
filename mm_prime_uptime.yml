@@ -88,28 +88,28 @@
 #            Content-Type: "application/json"
 #        status_code: [201, 200, 400]
          
-#    - name: save output to elastic
-#      uri:
-#        url: 'http://10.23.77.202:9200/uptime-{{ansible_date_time.date}}/switch/'
-#        method: POST
-#        return_content: yes
-#        body_format: json
-#        body: '{
-#                "deviceName":"{{item.deviceName}}",
-#                "deviceIP":"{{item.ipAddress}}",
-#                "uptime":"{{item.upTime}}",
-#                "@timestamp":"{{ansible_date_time.iso8601}}",
-#                "Datetime":"{{ansible_date_time.iso8601}}",
-#                "Myindex":"{{ 1000000 | random }}"
-#                }'
-#        headers:
-#            Content-Type: "application/json"
-#        status_code: 201
-#      register: elastic_result
-#      with_items: "{{
-#                    device_facts.results|
-#                        json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\"')
-#                    }}"
+    - name: save output to elastic
+      uri:
+        url: 'http://10.23.77.202:9200/uptime-{{ansible_date_time.date}}/switch/'
+        method: POST
+        return_content: yes
+        body_format: json
+        body: '{
+                "deviceName":"{{item.deviceName}}",
+                "deviceIP":"{{item.ipAddress}}",
+                "uptime":"{{item.upTime}}",
+                "@timestamp":"{{ansible_date_time.iso8601}}",
+                "Datetime":"{{ansible_date_time.iso8601}}",
+                "Myindex":"{{ 1000000 | random }}"
+                }'
+        headers:
+            Content-Type: "application/json"
+        status_code: 201
+      register: elastic_result
+      with_items: "{{
+                    device_facts.results|
+                        json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\"')
+                    }}"
 #   - debug:
 #       msg: "{{ansible_date_time.iso8601}}"
 
