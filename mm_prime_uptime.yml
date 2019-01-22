@@ -55,8 +55,8 @@
       with_items: "{{Device_URLS}}"
       register: device_facts
 
-    - debug:
-            var: device_facts.results
+#    - debug:
+#            var: device_facts.results
 
     - name: set db fields to stored 
       uri:
