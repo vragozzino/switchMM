@@ -58,35 +58,35 @@
     - debug:
             var: device_facts.results
 
-#    - name: set db fields to stored 
-#      uri:
-#        url: 'http://10.23.77.202:9200/uptime-{{ansible_date_time.date}}'
-#        method: PUT
-#        return_content: yes
-#        body_format: json
-#        body: '{
-#                "mappings": {
-#                    "switch": {
-#                        "properties": {
-#                                "deviceName" : {
-#                                    "type": "text",
-#                                    "store" : true    
-#                                },
-#                                "deviceIP" : {
-#                                    "type": "text",
-#                                    "store" : true
-#                                },
-#                                "uptime" : {
-#                                    "type": "text",
-#                                    "store" : true
-#                                }
-#                        }
-#                    }
-#                }
-#               }'
-#        headers:
-#            Content-Type: "application/json"
-#        status_code: [201, 200, 400]
+    - name: set db fields to stored 
+      uri:
+        url: 'http://10.23.77.202:9200/uptime-{{ansible_date_time.date}}'
+        method: PUT
+        return_content: yes
+        body_format: json
+        body: '{
+                "mappings": {
+                    "switch": {
+                        "properties": {
+                                "deviceName" : {
+                                    "type": "text",
+                                    "store" : true    
+                                },
+                                "deviceIP" : {
+                                    "type": "text",
+                                    "store" : true
+                                },
+                                "uptime" : {
+                                    "type": "text",
+                                    "store" : true
+                                }
+                        }
+                    }
+                }
+               }'
+        headers:
+            Content-Type: "application/json"
+        status_code: [201, 200, 400]
          
     - name: save output to elastic
       uri:
