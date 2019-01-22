@@ -95,9 +95,9 @@
 #        return_content: yes
 #        body_format: json
 #        body: '{
-#                "deviceName":"{{item.statisticEntries.statisticEntry.1.entryValue}}",
-#                "deviceIP":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
-#                "uptime":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
+#                "deviceName":"{{item.deviceName}}",
+#                "deviceIP":"{{item.ipAddress}}",
+#                "uptime":"{{item.upTime}}",
 #                "@timestamp":"{{ansible_date_time.iso8601}}",
 #                "Datetime":"{{ansible_date_time.iso8601}}",
 #                "Myindex":"{{ 1000000 | random }}"
@@ -106,8 +106,10 @@
 #            Content-Type: "application/json"
 #        status_code: 201
 #      register: elastic_result
-#      with_items: "{{device_facts.mgmtResponse.statisticsDTO}}"
-
- #   - debug:
- #       msg: "{{ansible_date_time.iso8601}}"
+#      with_items: "{{
+#                    device_facts.results|
+#                        json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\"')
+#                    }}"
+#   - debug:
+#       msg: "{{ansible_date_time.iso8601}}"
 
