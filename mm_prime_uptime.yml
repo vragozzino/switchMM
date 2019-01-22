@@ -1,107 +1,113 @@
 ---
 -   hosts: localhost
-    gather_facts: yes
+    gather_facts: no
 
     tasks:
 
-    - name: GET the cpu values from CPI
+    - name: get_device_IDs_from_PRIME_in_JSON
       uri:
-        url: 'https://10.23.77.200/webacs/api/v4/op/statisticsService/device/topNCPU.json?range=1&topN=10'
+        url: https://10.23.77.200/webacs/api/v4/data/InventoryDetails.json?
         validate_certs: no
         method: GET
         return_content: yes
-        body_format: json
         headers:
             Content-Type: "application/json"
         user: devnet
         password: Maticmind2018
         force_basic_auth: yes
-      register: prime_topn_cpu
-
-#    - debug:
-#        var: prime_topn_cpu.content
-      
+      register: prime_devices
 
     - name: parse the JSON output from CPI and save it in a new dictionary
       set_fact: 
-         prime_topn_cpu_json: "{{prime_topn_cpu.content | from_json }}"
+         prime_devices_json: "{{prime_devices.content | from_json }}"
 
 #    - debug:
-#        msg: "{{prime_topn_cpu_json}}"
+#        msg: "{{prime_devices_json}}"
+
+    - name: Create Array of entityIDs - one for each device
+      set_fact:
+        prime_device_IDs: "{{prime_device_IDs| default([]) + [item] }}"
+      with_items: "{{prime_devices_json['queryResponse']['entityId'] | list}}"
     
-    - name: set db fields to stored 
+#    - debug:
+#            var: prime_device_IDs
+
+    - name: Create list Device URLs
+      set_fact:
+        Device_URLS: "{{Device_URLS| default([]) + [item] }}"
+      with_items: "{{prime_device_IDs|json_query('[*].\"@url\"')}}"
+
+#    - debug:
+#            var: Device_URLS
+
+
+    - name: get_facts_from_ALL_devices_from_PRIME
       uri:
-        url: 'http://10.23.77.202:9200/cpu-{{ansible_date_time.date}}'
-        method: PUT
+        url: "{{ item }}.json"
+        validate_certs: no
+        method: GET
         return_content: yes
-        body_format: json
-        body: '{
-                "mappings": {
-                    "switch": {
-                        "properties": {
-                                "deviceName" : {
-                                    "type": "text",
-                                    "store" : true    
-                                },
-                                "deviceIP" : {
-                                    "type": "text",
-                                    "store" : true
-                                },
-                                "averageCPU" : {
-                                    "type": "text",
-                                    "store" : true
-                                },
-                                "maxCPU" : {
-                                    "type": "text",
-                                    "store" : true
-                                },
-                                "minCPU" : {
-                                    "type": "text",
-                                    "store" : true
-                                },
-                                "currentCPU" : {
-                                    "type": "text",
-                                    "store" : true
-                                },
-                                "Datetime" : {
-                                    "type": "date",
-                                    "store" : true
-                                },
-                                "Myindex" : {
-                                    "type": "text",
-                                    "store" : true
-                                }
-                        }
-                    }
-                }
-               }'
         headers:
             Content-Type: "application/json"
-        status_code: [201, 200, 400]
-         
-    - name: save output to elastic
-      uri:
-        url: 'http://10.23.77.202:9200/cpu-{{ansible_date_time.date}}/switch/'
-        method: POST
-        return_content: yes
-        body_format: json
-        body: '{
-                "deviceName":"{{item.statisticEntries.statisticEntry.1.entryValue}}",
-                "deviceIP":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
-                "averageCPU":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
-                "maxCPU":"{{item.statisticEntries.statisticEntry.5.entryValue}}",
-                "minCPU":"{{item.statisticEntries.statisticEntry.4.entryValue}}",
-                "currentCPU":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
-                "@timestamp":"{{ansible_date_time.iso8601}}",
-                "Datetime":"{{ansible_date_time.iso8601}}",
-                "Myindex":"{{ 1000000 | random }}"
-                }'
-        headers:
-            Content-Type: "application/json"
-        status_code: 201
-      register: elastic_result
-      with_items: "{{prime_topn_cpu_json.mgmtResponse.statisticsDTO}}"
+        user: devnet
+        password: Maticmind2018
+        force_basic_auth: yes
+      with_items: "{{Device_URLS}}"
+      register: device_facts
 
     - debug:
-        msg: "{{ansible_date_time.iso8601}}"
+            var: device_facts.results
+
+#    - name: set db fields to stored 
+#      uri:
+#        url: 'http://10.23.77.202:9200/uptime-{{ansible_date_time.date}}'
+#        method: PUT
+#        return_content: yes
+#        body_format: json
+#        body: '{
+#                "mappings": {
+#                    "switch": {
+#                        "properties": {
+#                                "deviceName" : {
+#                                    "type": "text",
+#                                    "store" : true    
+#                                },
+#                                "deviceIP" : {
+#                                    "type": "text",
+#                                    "store" : true
+#                                },
+#                                "uptime" : {
+#                                    "type": "text",
+#                                    "store" : true
+#                                }
+#                        }
+#                    }
+#                }
+#               }'
+#        headers:
+#            Content-Type: "application/json"
+#        status_code: [201, 200, 400]
+         
+#    - name: save output to elastic
+#      uri:
+#        url: 'http://10.23.77.202:9200/uptime-{{ansible_date_time.date}}/switch/'
+#        method: POST
+#        return_content: yes
+#        body_format: json
+#        body: '{
+#                "deviceName":"{{item.statisticEntries.statisticEntry.1.entryValue}}",
+#                "deviceIP":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
+#                "uptime":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
+#                "@timestamp":"{{ansible_date_time.iso8601}}",
+#                "Datetime":"{{ansible_date_time.iso8601}}",
+#                "Myindex":"{{ 1000000 | random }}"
+#                }'
+#        headers:
+#            Content-Type: "application/json"
+#        status_code: 201
+#      register: elastic_result
+#      with_items: "{{device_facts.mgmtResponse.statisticsDTO}}"
+
+ #   - debug:
+ #       msg: "{{ansible_date_time.iso8601}}"
 
