@@ -77,7 +77,7 @@
                                     "store" : true
                                 },
                                 "uptime" : {
-                                    "type": "text",
+                                    "type": "long",
                                     "store" : true
                                 }
                         }
