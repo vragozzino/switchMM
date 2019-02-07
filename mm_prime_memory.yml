@@ -48,19 +48,19 @@
                                     "store" : true
                                 },
                                 "curUtil" : {
-                                    "type": "text",
+                                    "type": "long",
                                     "store" : true
                                 },
                                 "minUtil" : {
-                                    "type": "text",
+                                    "type": "long",
                                     "store" : true
                                 },
                                 "maxUtil" : {
-                                    "type": "text",
+                                    "type": "long",
                                     "store" : true
                                 },
                                 "avgUtil" : {
-                                    "type": "text",
+                                    "type": "long",
                                     "store" : true
                                 },
                                 "Datetime" : {
@@ -68,7 +68,7 @@
                                     "store" : true
                                 },
                                 "Myindex" : {
-                                    "type": "text",
+                                    "type": "long",
                                     "store" : true
                                 }
                         }
