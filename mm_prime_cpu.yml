@@ -48,19 +48,19 @@
                                     "store" : true
                                 },
                                 "averageCPU" : {
-                                    "type": "text",
+                                    "type": "long",
                                     "store" : true
                                 },
                                 "maxCPU" : {
-                                    "type": "text",
+                                    "type": "long",
                                     "store" : true
                                 },
                                 "minCPU" : {
-                                    "type": "text",
+                                    "type": "long",
                                     "store" : true
                                 },
                                 "currentCPU" : {
-                                    "type": "text",
+                                    "type": "long",
                                     "store" : true
                                 },
                                 "Datetime" : {
@@ -68,7 +68,7 @@
                                     "store" : true
                                 },
                                 "Myindex" : {
-                                    "type": "text",
+                                    "type": "long",
                                     "store" : true
                                 }
                         }
