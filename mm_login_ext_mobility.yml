@@ -13,14 +13,14 @@
         headers:
             Content-Type: "application/x-www-form-urlencoded"
         force_basic_auth: yes
-        body: 'xml=%3crequest%3e%3cappInfo%3e%3cappID%3edevnet%3c%2fappID%3e%3cappCertificate%3edevnet%3c%2fappCertificate%3e%3c%2fappInfo%3e%3clogin%3e%3cdeviceName%3eSEP000CCEF1A45A%3c%2fdeviceName%3e%3cuserID%3e{{username_mm}}%3c%2fuserID%3e%3c%2flogin%3e%3c%2frequest%3e'
+        body: 'xml=%3crequest%3e%3cappInfo%3e%3cappID%3edevnet%3c%2fappID%3e%3cappCertificate%3edevnet%3c%2fappCertificate%3e%3c%2fappInfo%3e%3clogin%3e%3cdeviceName%3eSEP0013C352FFDA%3c%2fdeviceName%3e%3cuserID%3e{{username_mm}}%3c%2fuserID%3e%3c%2flogin%3e%3c%2frequest%3e'
       register: page_content
 
     - debug:
         var: page_content.content
 
 
-    - name: GET the highest session ID from CPI in JSON format
+    - name: Verifico su PRIME la sessione relativa al MAC address del telefono predefinito
       uri:
         url: 'https://10.23.77.200/webacs/api/v4/data/ClientSessions.json?macAddress=0013C352FFDA&.sort=-id&.maxResults=1'
         validate_certs: no
@@ -38,14 +38,14 @@
         var: prime_sessions.content
       
 
-    - name: parse the JSON output from CPI and save it in a new dictionary
+    - name: prendo il risultato della sessione PRIME e lo piazzo su un Dictionary
       set_fact: 
          prime_json: "{{prime_sessions.content | from_json }}"
 
     - debug:
         msg: "{{prime_json}}"
     
-    - name: GET only the URL related to the highest session ID
+    - name: Prendo l'URL relativo alla sessione
       set_fact:
         prime_session_url: "{{prime_json['queryResponse']['entityId'][0]['@url']}}"
      
@@ -74,14 +74,14 @@
          prime_json_session: "{{session_facts.content | from_json }}"
 
       
-    - name: GET the switch MGMT IP Address
+    - name: GET the switch MGMT IP Address where the MAC is connected
       set_fact: 
          switch_IP: "{{prime_json_session.queryResponse.entity.0.clientSessionsDTO.deviceMgmtAddress.address}}"
 
     - debug:
         var: switch_IP
       
-    - name: GET the switch interface number
+    - name: GET the switch interface number where the MAC is connected
       set_fact: 
          switch_Interface: "{{prime_json_session.queryResponse.entity.0.clientSessionsDTO.clientInterface}}"
 
