@@ -22,7 +22,7 @@
 
     - name: GET the highest session ID from CPI in JSON format
       uri:
-        url: 'https://10.23.77.200/webacs/api/v4/data/ClientSessions.json?macAddress=000CCEF1A45A&.sort=-id&.maxResults=1'
+        url: 'https://10.23.77.200/webacs/api/v4/data/ClientSessions.json?macAddress=0013C352FFDA&.sort=-id&.maxResults=1'
         validate_certs: no
         method: GET
         return_content: yes
