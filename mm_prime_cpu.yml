@@ -6,7 +6,7 @@
 
     - name: GET the cpu values from CPI
       uri:
-        url: 'https://10.23.77.200/webacs/api/v4/op/statisticsService/device/topNCPU.json?range=1&topN=10'
+        url: 'https://10.23.77.200/webacs/api/v4/op/statisticsService/device/topNCPU.json?range=1&topN=50'
         validate_certs: no
         method: GET
         return_content: yes
@@ -86,12 +86,12 @@
         return_content: yes
         body_format: json
         body: '{
-                "deviceName":"{{item.statisticEntries.statisticEntry.1.entryValue}}",
-                "deviceIP":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
-                "averageCPU":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
-                "maxCPU":"{{item.statisticEntries.statisticEntry.5.entryValue}}",
-                "minCPU":"{{item.statisticEntries.statisticEntry.4.entryValue}}",
-                "currentCPU":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
+                "deviceName":"{{item.statisticEntries.statisticEntry.5.entryValue}}",
+                "deviceIP":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
+                "averageCPU":"{{item.statisticEntries.statisticEntry.4.entryValue}}",
+                "maxCPU":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
+                "minCPU":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
+                "currentCPU":"{{item.statisticEntries.statisticEntry.1.entryValue}}",
                 "@timestamp":"{{ansible_date_time.iso8601}}",
                 "Datetime":"{{ansible_date_time.iso8601}}",
                 "Myindex":"{{ 1000000 | random }}"
