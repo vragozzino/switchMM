@@ -40,27 +40,19 @@
                 "mappings": {
                     "switch": {
                         "properties": {
-                                "deviceName" : {
+                                "deviceIP" : {
                                     "type": "text",
                                     "store" : true    
                                 },
-                                "deviceIP" : {
-                                    "type": "text",
-                                    "store" : true
-                                },
-                                "averageCPU" : {
+                                "Up Ports" : {
                                     "type": "long",
                                     "store" : true
                                 },
-                                "maxCPU" : {
+                                "Operationally Down Ports" : {
                                     "type": "long",
                                     "store" : true
                                 },
-                                "minCPU" : {
-                                    "type": "long",
-                                    "store" : true
-                                },
-                                "currentCPU" : {
+                                "Administratively Down Ports" : {
                                     "type": "long",
                                     "store" : true
                                 },
