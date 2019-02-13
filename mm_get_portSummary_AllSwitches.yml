@@ -40,20 +40,36 @@
 
 #    - name: Get specific Values from JSON
 #      set_fact:
-#        Down_IFs: "{{Down_IFs| default([]) + [item] }}"
+#        First_Switch_Up_Ports: "{{First_Switch_Up_Ports| default([]) + [item] }}"
 #      with_items: "{{
-#                    device_facts.results|
-#                        json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"ethernetInterfaces\".ethernetInterface[*].\"operationalStatus\"')
+#                    All_Port_Status_json|
+#                        json_query('[*].json.mgmtResponse.statisticsDTO[0].statisticEntries.childStatistics.childStatistic[0].statisticEntry[0].entryValue')
 #                    }}"
 
 #    - debug:
-#            var: Down_IFs
+#            var: First_Switch_Up_Ports
 
 
-                                    
-#      
-#    - name: get_switch_IPaddress
-#         switch_IP: "{{switch_IPaddress.matches.0.address}}"
-#         switch_Interface: "{{switch_If.matches.0.clientInterface}}"
-#         switch_hostname: "{{switch_name.matches.0.deviceName}}"
-#
+#    - name: save output to elastic
+#      uri:
+#        url: 'http://10.23.77.202:9200/portstatus-{{ansible_date_time.date}}/switch/'
+#        method: POST
+#        return_content: yes
+#        body_format: json
+#        body: '{
+#                "deviceName":"{{item.statisticEntries.statisticEntry.5.entryValue}}",
+#                "deviceIP":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
+#                "averageCPU":"{{item.statisticEntries.statisticEntry.4.entryValue}}",
+#                "maxCPU":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
+#                "minCPU":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
+#                "currentCPU":"{{item.statisticEntries.statisticEntry.1.entryValue}}",
+#                "@timestamp":"{{ansible_date_time.iso8601}}",
+#                "Datetime":"{{ansible_date_time.iso8601}}",
+#                "Myindex":"{{ 1000000 | random }}"
+#                }'
+#        headers:
+#            Content-Type: "application/json"
+#        status_code: 201
+#      register: elastic_result
+#      with_items: "{{All_Port_Status_json.mgmtResponse.statisticsDTO}}"
+
