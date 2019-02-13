@@ -2,8 +2,8 @@
 -   hosts: localhost
     gather_facts: no
 
-   vars:
-    switch_list:
+    vars:
+     switch_list:
       - 10.22.22.1
       - 10.22.22.2
       - 10.22.22.3
