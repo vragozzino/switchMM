@@ -53,17 +53,23 @@
         return_content: yes
         body_format: json
         body: '{
-#                "deviceIP":"{{item._ansible_item_label}}",
-                "Up Ports":"{{item.json.mgmtResponse.statisticsDTO.0.childStatistics.childStatistic.0.statisticEntries.statisticEntry.0.entryValue}}",
-#                "Operationally Down Ports":"{{item..json.mgmtResponse.statisticsDTO[0].childStatistics.childStatistic[1].statisticEntries.statisticEntry[0].entryValue}}",
-#                "Administratively Down Ports":"{{item.json.mgmtResponse.statisticsDTO[0].childStatistics.childStatistic[2].statisticEntries.statisticEntry[0].entryValue}}",
+                "Up Ports":"{{Port_Summary.results[0].json.mgmtResponse.statisticsDTO.0.childStatistics.childStatistic.0.statisticEntries.statisticEntry.0.entryValue}}",
                 "@timestamp":"{{ansible_date_time.iso8601}}",
                 "Datetime":"{{ansible_date_time.iso8601}}",
                 "Myindex":"{{ 1000000 | random }}"
                 }'
+#        body: '{
+#                "deviceIP":"{{item._ansible_item_label}}",
+#                "Up Ports":"{{item.json.mgmtResponse.statisticsDTO.0.childStatistics.childStatistic.0.statisticEntries.statisticEntry.0.entryValue}}",
+#                "Operationally Down Ports":"{{item..json.mgmtResponse.statisticsDTO[0].childStatistics.childStatistic[1].statisticEntries.statisticEntry[0].entryValue}}",
+#                "Administratively Down Ports":"{{item.json.mgmtResponse.statisticsDTO[0].childStatistics.childStatistic[2].statisticEntries.statisticEntry[0].entryValue}}",
+#                "@timestamp":"{{ansible_date_time.iso8601}}",
+#                "Datetime":"{{ansible_date_time.iso8601}}",
+#                "Myindex":"{{ 1000000 | random }}"
+#                }'
         headers:
             Content-Type: "application/json"
         status_code: 201
       register: elastic_result
-      with_items: "{{Port_Summary.results}}"
+#      with_items: "{{Port_Summary.results}}"
 
