@@ -30,6 +30,56 @@
 #      debug:
 #            var: Port_Summary.results
 
+    - name: set db fields to stored 
+      uri:
+        url: 'http://10.23.77.202:9200/portstatus-{{ansible_date_time.date}}'
+        method: PUT
+        return_content: yes
+        body_format: json
+        body: '{
+                "mappings": {
+                    "switch": {
+                        "properties": {
+                                "deviceName" : {
+                                    "type": "text",
+                                    "store" : true    
+                                },
+                                "deviceIP" : {
+                                    "type": "text",
+                                    "store" : true
+                                },
+                                "averageCPU" : {
+                                    "type": "long",
+                                    "store" : true
+                                },
+                                "maxCPU" : {
+                                    "type": "long",
+                                    "store" : true
+                                },
+                                "minCPU" : {
+                                    "type": "long",
+                                    "store" : true
+                                },
+                                "currentCPU" : {
+                                    "type": "long",
+                                    "store" : true
+                                },
+                                "Datetime" : {
+                                    "type": "date",
+                                    "store" : true
+                                },
+                                "Myindex" : {
+                                    "type": "long",
+                                    "store" : true
+                                }
+                        }
+                    }
+                }
+               }'
+        headers:
+            Content-Type: "application/json"
+        status_code: [201, 200, 400]
+
     - name: save output to elastic
       uri:
         url: 'http://10.23.77.202:9200/portstatus-{{ansible_date_time.date}}/switch/'
