@@ -40,7 +40,7 @@
 
     - name: Get specific Values from JSON
       set_fact:
-        First_Switch_Up_Ports: "json_query('device_facts.results[0].json.mgmtResponse.statisticsDTO[0].childStatistics.childStatistic[0].statisticEntries.statisticEntry[0].entryValue')"
+        First_Switch_Up_Ports: json_query('device_facts.results[0].json.mgmtResponse.statisticsDTO[0].childStatistics.childStatistic[0].statisticEntries.statisticEntry[0].entryValue')
 
     - debug:
             var: First_Switch_Up_Ports
