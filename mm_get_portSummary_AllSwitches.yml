@@ -33,7 +33,7 @@
 
     - name: parse the JSON output from CPI and save it in a new dictionary
       set_fact: 
-         All_Port_Status_json: "{{ device_facts.results.json }}"
+         All_Port_Status_json: "{{ device_facts.results[0].json }}"
 
     - debug:
         msg: "{{All_Port_Status_json}}"
