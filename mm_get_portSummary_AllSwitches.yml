@@ -24,48 +24,46 @@
         password: Maticmind2018
         force_basic_auth: yes
       with_items: "{{switch_list}}"
-      register: device_facts
+      register: Port_Summary
 
     - name: Show Collected Data
       debug:
-            var: device_facts.results
+            var: Port_Summary.results
 
 
 #    - name: parse the JSON output from CPI and save it in a new dictionary
 #      set_fact: 
-#         All_Port_Status_json: "{{ device_facts.results[0].json }}"
+#         All_Port_Status_json: "{{ Port_Summary.results[0].json }}"
 
 #    - debug:
 #        msg: "{{All_Port_Status_json}}"
 
     - name: Get specific Values from JSON
       set_fact:
-        First_Switch_Up_Ports: "{{device_facts.results[0].json.mgmtResponse.statisticsDTO[0].childStatistics.childStatistic[0].statisticEntries.statisticEntry[0].entryValue}}"
+        First_Switch_Up_Ports: "{{Port_Summary.results[0].json.mgmtResponse.statisticsDTO[0].childStatistics.childStatistic[0].statisticEntries.statisticEntry[0].entryValue}}"
 
     - debug:
             var: First_Switch_Up_Ports
 
 
-#    - name: save output to elastic
-#      uri:
-#        url: 'http://10.23.77.202:9200/portstatus-{{ansible_date_time.date}}/switch/'
-#        method: POST
-#        return_content: yes
-#        body_format: json
-#        body: '{
-#                "deviceName":"{{item.statisticEntries.statisticEntry.5.entryValue}}",
-#                "deviceIP":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
-#                "averageCPU":"{{item.statisticEntries.statisticEntry.4.entryValue}}",
-#                "maxCPU":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
-#                "minCPU":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
-#                "currentCPU":"{{item.statisticEntries.statisticEntry.1.entryValue}}",
-#                "@timestamp":"{{ansible_date_time.iso8601}}",
-#                "Datetime":"{{ansible_date_time.iso8601}}",
-#                "Myindex":"{{ 1000000 | random }}"
-#                }'
-#        headers:
-#            Content-Type: "application/json"
-#        status_code: 201
-#      register: elastic_result
-#      with_items: "{{All_Port_Status_json.mgmtResponse.statisticsDTO}}"
+    - name: save output to elastic
+      uri:
+        url: 'http://10.23.77.202:9200/portstatus-{{ansible_date_time.date}}/switch/'
+        method: POST
+        return_content: yes
+        body_format: json
+        body: '{
+                "deviceIP":"{{item._ansible_item_label}}",
+                "Up Ports":"{{item.json.mgmtResponse.statisticsDTO[0].childStatistics.childStatistic[0].statisticEntries.statisticEntry[0].entryValue}}",
+                "Operationally Down Ports":"{{item..json.mgmtResponse.statisticsDTO[0].childStatistics.childStatistic[1].statisticEntries.statisticEntry[0].entryValue}}",
+                "Administratively Down Ports":"{{item.json.mgmtResponse.statisticsDTO[0].childStatistics.childStatistic[2].statisticEntries.statisticEntry[0].entryValue}}",
+                "@timestamp":"{{ansible_date_time.iso8601}}",
+                "Datetime":"{{ansible_date_time.iso8601}}",
+                "Myindex":"{{ 1000000 | random }}"
+                }'
+        headers:
+            Content-Type: "application/json"
+        status_code: 201
+      register: elastic_result
+      with_items: "{{Port_Summary.results}}"
 
