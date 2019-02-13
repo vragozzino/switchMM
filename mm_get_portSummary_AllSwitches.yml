@@ -74,5 +74,5 @@
             Content-Type: "application/json"
         status_code: 201
       register: elastic_result
-#      with_items: "{{Port_Summary.results}}"
+      with_items: "{{Port_Summary.results}}"
 
