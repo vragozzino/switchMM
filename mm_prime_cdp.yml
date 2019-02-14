@@ -56,6 +56,9 @@
 #      debug:
 #            var: device_facts_json
 
+    - meta: end_play
+      when: device_facts_json.queryResponse.entity[0].inventoryDetailsDTO.summary.productFamily != "Switches and Hubs"
+  
     - name: get_switch_IPaddress
       set_fact: 
          switch_IP: "{{device_facts_json.queryResponse.entity[0].inventoryDetailsDTO.summary.ipAddress}}"
@@ -66,30 +69,10 @@
     - name: Get specific Values from JSON
       set_fact:
          CDP_Neighbours: "{{ device_facts_json['queryResponse']['entity'][0]['inventoryDetailsDTO']['cdpNeighbors']['cdpNeighbor'] }}"
-#         CDP_Neighbours: "{{CDP_Neighbours| default([]) + [item] }}"
-#      with_items: "{{
-#                    device_facts_json['queryResponse']['entity'][0]['inventoryDetailsDTO']['cdpNeighbors']['cdpNeighbor'] | list
-#                    }}"
 
     - debug:
            var: CDP_Neighbours
 
-#    - name: get_CDP_interface
-#      set_fact: 
-#         CDP_int: "{{CDP_Neighbours[0].nearEndInterface}}"
-#
-#    - debug:
-#           var: CDP_int
-#
-#    - name: get_CDP_Nei
-#      set_fact: 
-#         CDP_Nei: "{{CDP_Neighbours[0].neighborDeviceName}}"
-#         
-#    - debug:
-#           var: CDP_Nei
-#
-#      
-#
 -   hosts: MM_Vimodrone
     gather_facts: no
     connection: network_cli
@@ -99,12 +82,6 @@
 
     tasks:
 
-#    - debug:
-#       var: hostvars['localhost']['CDP_int']
-#
-#    - debug:
-#       var: hostvars['localhost']['switch_IP']
-#
     - ios_command:
         commands:
           - configure terminal
