@@ -63,9 +63,10 @@
     - name: Get specific Values from JSON
       set_fact:
          CDP_Neighbours: "{{ device_facts_json['queryResponse']['entity'][0]['inventoryDetailsDTO']['cdpNeighbors']['cdpNeighbor'] }}"
+      when: (Prod_Family == "Switches and Hubs")
 
-    - debug:
-           var: CDP_Neighbours
+#    - debug:
+#           var: CDP_Neighbours
 
 -   hosts: MM_Vimodrone
     gather_facts: no
