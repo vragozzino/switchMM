@@ -48,33 +48,17 @@
       with_items: "{{Device_URLS}}"
       register: device_facts
 
-    - name: Get specific Values from JSON
+    - name: Get Devices IP Addresses from JSON
       set_fact:
         Device_IPs: "{{ Device_IPs| default([]) + [item] }}"
       with_items: "{{
                     device_facts.results|
                         json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\".\"ipAddress\"')
                     }}"
+      when: (item.json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\".\"deviceType\ == "Switches and Hubs")
+            
     - debug:
             var: Device_IPs
-
-#    - name: Change desc on first switch
-#      uri:
-#        url: http://10.23.77.201/api/v2/job_templates/23/launch/
-#        validate_certs: no
-#        method: POST
-#        return_content: yes
-#        headers:
-#            Content-Type: "application/json"
-#        user: devnet
-#        password: devnet
-#        force_basic_auth: yes
-#        status_code: 201, 200
-#        body_format: json
-#        body: { 
-#                "extra_vars": "{ input_ipaddress: '{{ Device_IPs[0] }}' }" 
-#              }
-
 
     - name: Change desc on all switches
       uri:
