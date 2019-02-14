@@ -52,9 +52,13 @@
       set_fact: 
          device_facts_json: "{{device_facts.content | from_json }}"
 
-#    - name: Show ALL device facts
-#      debug:
-#            var: device_facts_json
+    - name: Show ALL device facts
+      debug:
+            var: device_facts_json
+
+    - name: Show specific facts
+      debug:
+            var: device_facts_json.queryResponse.entity[0].inventoryDetailsDTO.summary.productFamily
 
     - meta: end_play
       when: device_facts_json.queryResponse.entity[0].inventoryDetailsDTO.summary.productFamily != "Switches and Hubs"
