@@ -25,6 +25,7 @@
       set_fact:
         prime_device_IDs: "{{prime_device_IDs| default([]) + [item] }}"
       with_items: "{{prime_devices_json['queryResponse']['entityId'] | list}}"
+      when: (prime_devices_json.queryResponse.entity.0.inventoryDetailsDTO.summary.productFamily == "Switches and Hubs")
     
     - name: Create list Device URLs
       set_fact:
@@ -55,7 +56,6 @@
                     device_facts.results|
                         json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\".\"ipAddress\"')
                     }}"
-      when: (item.json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\".\"deviceType\ == "Switches and Hubs")
             
     - debug:
             var: Device_IPs
