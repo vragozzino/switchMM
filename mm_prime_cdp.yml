@@ -28,9 +28,6 @@
       set_fact:
         Clean_Device_ID: "{{deviceID_prime['queryResponse']['entityId'][0]['$']}}"
 
-#    - debug:
-#            var: Clean_Device_ID
-
     - name: get_all_facts_from_selected_Device_from_PRIME
       uri:
         url: https://10.23.77.200/webacs/api/v4/data/InventoryDetails/{{Clean_Device_ID}}.json
@@ -44,17 +41,13 @@
         force_basic_auth: yes
       register: device_facts
 
-#    - name: Show ALL device facts
-#      debug:
-#            var: device_facts.content
-
     - name: parse the JSON output from CPI and save it in a new dictionary
       set_fact: 
          device_facts_json: "{{device_facts.content | from_json }}"
 
-    - name: Show ALL device facts
-      debug:
-            var: device_facts_json
+#    - name: Show ALL device facts
+#      debug:
+#            var: device_facts_json
 
     - name: Show specific facts
       set_fact:
@@ -62,16 +55,10 @@
 
     - debug:
             var: Prod_Family
-
-    - meta: end_play
-      when: Prod_Family != "Switches and Hubs"
   
     - name: get_switch_IPaddress
       set_fact: 
          switch_IP: "{{device_facts_json.queryResponse.entity[0].inventoryDetailsDTO.summary.ipAddress}}"
-
-#    - debug:
-#        var: switch_IP
 
     - name: Get specific Values from JSON
       set_fact:
@@ -97,6 +84,6 @@
           - end
       with_items: "{{ hostvars['localhost']['CDP_Neighbours'] }}"
       when: (ansible_host== hostvars['localhost']['switch_IP']) and 
-            (item.neighborCapabilities != "Host Phone")
+            (item.neighborCapabilities != "Host Phone") and (hostvars['localhost']['Prod_Family'] == "Switches and Hubs")
 
 
