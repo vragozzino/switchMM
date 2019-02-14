@@ -55,7 +55,7 @@
                     device_facts.results|
                         json_query('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\".\"ipAddress\"')
                     }}"
-      when: ( device_facts.results| json_query\('[*].json.queryResponse.entity[0].\"inventoryDetailsDTO\".\"summary\".\"productFamily\"'\) == "Switches and Hubs")
+      when: ( device_facts.results.json.queryResponse.entity[0].inventoryDetailsDTO.summary.productFamily == "Switches and Hubs")
             
     - debug:
             var: Device_IPs
