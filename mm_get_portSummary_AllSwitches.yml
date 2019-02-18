@@ -48,7 +48,7 @@
                                 "deviceIP" : {
                                     "type": "text",
                                     "store" : true,
-                                    "fielddata" : true
+                                    "fielddata": true
                                 },
                                 "Up Ports" : {
                                     "type": "long",
