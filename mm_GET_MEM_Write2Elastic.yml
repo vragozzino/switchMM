@@ -87,13 +87,13 @@
         return_content: yes
         body_format: json
         body: '{
-                "deviceName":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
-                "deviceIP":"{{item.statisticEntries.statisticEntry.7.entryValue}}",
-                "curUtil":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
-                "minUtil":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
-                "maxUtil":"{{item.statisticEntries.statisticEntry.4.entryValue}}",
-                "avgUtil":"{{item.statisticEntries.statisticEntry.5.entryValue}}",
-                "instance":"{{item.statisticEntries.statisticEntry.8.entryValue}}",
+                "{{item.statisticEntries.statisticEntry.2.entryValue}}":"{{item.statisticEntries.statisticEntry.2.entryValue}}",
+                "{{item.statisticEntries.statisticEntry.3.entryValue}}":"{{item.statisticEntries.statisticEntry.3.entryValue}}",
+                "{{item.statisticEntries.statisticEntry.4.entryValue}}":"{{item.statisticEntries.statisticEntry.4.entryValue}}",
+                "{{item.statisticEntries.statisticEntry.5.entryValue}}":"{{item.statisticEntries.statisticEntry.5.entryValue}}",
+                "{{item.statisticEntries.statisticEntry.6.entryValue}}":"{{item.statisticEntries.statisticEntry.6.entryValue}}",
+                "{{item.statisticEntries.statisticEntry.7.entryValue}}":"{{item.statisticEntries.statisticEntry.7.entryValue}}",
+                "{{item.statisticEntries.statisticEntry.8.entryValue}}":"{{item.statisticEntries.statisticEntry.8.entryValue}}",
                 "@timestamp":"{{ansible_date_time.iso8601}}",
                 "Datetime":"{{ansible_date_time.iso8601}}",
                 "Myindex":"{{ 100000 | random }}"            
