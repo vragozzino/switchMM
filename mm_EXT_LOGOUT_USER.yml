@@ -16,8 +16,8 @@
         body: 'xml=%3cquery%3e%3cappInfo%3e%3cappID%3edevnet%3c%2fappID%3e%3cappCertificate%3edevnet%3c%2fappCertificate%3e%3c%2fappInfo%3e%3cuserDevicesQuery%3e%3cuserID%3e{{username_mm}}%3c%2fuserID%3e%3c%2fuserDevicesQuery%3e%3c%2fquery%3e'
       register: page_content
 
-    - debug:
-        var: page_content.content
+#    - debug:
+#        var: page_content.content
 
     - xml:
         xmlstring: "{{page_content.content}}"
@@ -41,15 +41,15 @@
         body: 'xml=%3crequest%3e%3cappInfo%3e%3cappID%3edevnet%3c%2fappID%3e%3cappCertificate%3edevnet%3c%2fappCertificate%3e%3c%2fappInfo%3e%3clogout%3e%3cdeviceName%3e{{mac_device}}%3c%2fdeviceName%3e%3c%2flogout%3e%3c%2frequest%3e'
       register: logout_result
 
-    - debug:
-        var: logout_result.content
+#    - debug:
+#        var: logout_result.content
  
     - name: get_clean_mac_address
       set_fact: 
          clean_mac: "{{ mac_device | regex_replace('SEP') }}"
 
-    - debug:
-        var: clean_mac
+#    - debug:
+#        var: clean_mac
 
     - name: GET the highest session ID from CPI in JSON format
       uri:
@@ -65,23 +65,23 @@
         force_basic_auth: yes
       register: prime_sessions
 
-    - debug:
-        var: prime_sessions.content
+#    - debug:
+#        var: prime_sessions.content
       
 
     - name: parse the JSON output from CPI and save it in a new dictionary
       set_fact: 
          prime_json: "{{prime_sessions.content | from_json }}"
 
-    - debug:
-        msg: "{{prime_json}}"
+#    - debug:
+#        msg: "{{prime_json}}"
     
     - name: GET only the URL related to the highest session ID
       set_fact:
         prime_session_url: "{{prime_json['queryResponse']['entityId'][0]['@url']}}"
      
-    - debug:
-            var: prime_session_url
+#    - debug:
+#            var: prime_session_url
 
     - name: GET the detailed info of the highest session ID in JSON format
       uri:
@@ -97,8 +97,8 @@
         force_basic_auth: yes
       register: session_facts
 
-    - debug:
-        var: session_facts.content
+#    - debug:
+#        var: session_facts.content
     
     - name: parse the JSON output from CPI and save it in a new dictionary
       set_fact: 
@@ -123,8 +123,8 @@
       set_fact: 
          switch_hostname: "{{prime_json_session.queryResponse.entity.0.clientSessionsDTO.deviceName}}"
 
-    - debug:
-        var: switch_hostname
+#    - debug:
+#        var: switch_hostname
 
 
 -   hosts: MM_Vimodrone
