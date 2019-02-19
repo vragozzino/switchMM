@@ -43,23 +43,23 @@
                                     "type": "text",
                                     "store" : true    
                                 },
-                                "deviceIP" : {
+                                "deviceIp" : {
                                     "type": "text",
                                     "store" : true
                                 },
-                                "averageCPU" : {
+                                "avgUtil" : {
                                     "type": "long",
                                     "store" : true
                                 },
-                                "maxCPU" : {
+                                "maxUtil" : {
                                     "type": "long",
                                     "store" : true
                                 },
-                                "minCPU" : {
+                                "minUtil" : {
                                     "type": "long",
                                     "store" : true
                                 },
-                                "currentCPU" : {
+                                "curUtil" : {
                                     "type": "long",
                                     "store" : true
                                 },
