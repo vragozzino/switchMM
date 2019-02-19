@@ -61,7 +61,7 @@
 
     - name: Change desc on all switches
       uri:
-        url: http://10.23.77.201/api/v2/job_templates/23/launch/
+        url: http://10.23.77.201/api/v2/job_templates/12/launch/
         validate_certs: no
         method: POST
         return_content: yes
