@@ -38,8 +38,8 @@
       set_fact: 
          clean_mac: "{{ mac_device | regex_replace('SEP') }}"
 
-    - debug:
-        var: clean_mac
+#    - debug:
+#        var: clean_mac
 
     - name: GET the highest session ID from CPI in JSON format
       uri:
@@ -55,23 +55,23 @@
         force_basic_auth: yes
       register: prime_sessions
 
-    - debug:
-        var: prime_sessions.content
+#    - debug:
+#        var: prime_sessions.content
       
 
     - name: parse the JSON output from CPI and save it in a new dictionary
       set_fact: 
          prime_json: "{{prime_sessions.content | from_json }}"
 
-    - debug:
-        msg: "{{prime_json}}"
+#    - debug:
+#        msg: "{{prime_json}}"
     
     - name: GET only the URL related to the highest session ID
       set_fact:
         prime_session_url: "{{prime_json['queryResponse']['entityId'][0]['@url']}}"
      
-    - debug:
-            var: prime_session_url
+#    - debug:
+#            var: prime_session_url
 
     - name: GET the detailed info of the highest session ID in JSON format
       uri:
@@ -87,8 +87,8 @@
         force_basic_auth: yes
       register: session_facts
 
-    - debug:
-        var: session_facts.content
+#    - debug:
+#        var: session_facts.content
     
     - name: parse the JSON output from CPI and save it in a new dictionary
       set_fact: 
@@ -113,8 +113,8 @@
       set_fact: 
          switch_hostname: "{{prime_json_session.queryResponse.entity.0.clientSessionsDTO.deviceName}}"
 
-    - debug:
-        var: switch_hostname
+#    - debug:
+#        var: switch_hostname
 
 
 -   hosts: MM_Vimodrone
@@ -126,8 +126,8 @@
 
     tasks:
 
-    - debug:
-       var: hostvars['localhost']['switch_Interface']
+#    - debug:
+#       var: hostvars['localhost']['switch_Interface']
 
     - ios_command:
         commands:
