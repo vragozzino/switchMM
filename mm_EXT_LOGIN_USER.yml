@@ -16,8 +16,8 @@
         body: 'xml=%3crequest%3e%3cappInfo%3e%3cappID%3edevnet%3c%2fappID%3e%3cappCertificate%3edevnet%3c%2fappCertificate%3e%3c%2fappInfo%3e%3clogin%3e%3cdeviceName%3eSEP0013C352FFDA%3c%2fdeviceName%3e%3cuserID%3e{{username_mm}}%3c%2fuserID%3e%3c%2flogin%3e%3c%2frequest%3e'
       register: page_content
 
-    - debug:
-        var: page_content.content
+#    - debug:
+#        var: page_content.content
 
 
     - name: Verifico su PRIME la sessione relativa al MAC address del telefono predefinito
@@ -34,23 +34,23 @@
         force_basic_auth: yes
       register: prime_sessions
 
-    - debug:
-        var: prime_sessions.content
+#    - debug:
+#        var: prime_sessions.content
       
 
     - name: prendo il risultato della sessione PRIME e lo piazzo su un Dictionary
       set_fact: 
          prime_json: "{{prime_sessions.content | from_json }}"
 
-    - debug:
-        msg: "{{prime_json}}"
+#    - debug:
+#        msg: "{{prime_json}}"
     
     - name: Prendo l'URL relativo alla sessione
       set_fact:
         prime_session_url: "{{prime_json['queryResponse']['entityId'][0]['@url']}}"
      
-    - debug:
-            var: prime_session_url
+#    - debug:
+#            var: prime_session_url
 
     - name: GET the detailed info of the highest session ID in JSON format
       uri:
@@ -66,8 +66,8 @@
         force_basic_auth: yes
       register: session_facts
 
-    - debug:
-        var: session_facts.content
+#    - debug:
+#        var: session_facts.content
     
     - name: parse the JSON output from CPI and save it in a new dictionary
       set_fact: 
@@ -92,8 +92,8 @@
       set_fact: 
          switch_hostname: "{{prime_json_session.queryResponse.entity.0.clientSessionsDTO.deviceName}}"
 
-    - debug:
-        var: switch_hostname
+#    - debug:
+#        var: switch_hostname
 
 
 -   hosts: MM_Vimodrone
@@ -105,8 +105,8 @@
 
     tasks:
 
-    - debug:
-       var: hostvars['localhost']['switch_Interface']
+#    - debug:
+#       var: hostvars['localhost']['switch_Interface']
 
     - ios_command:
         commands:
