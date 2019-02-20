@@ -70,7 +70,8 @@
                         "properties": {
                                 "deviceName" : {
                                     "type": "text",
-                                    "store" : true    
+                                    "store" : true,
+                                    "fielddata": true  
                                 },
                                 "deviceIP" : {
                                     "type": "text",
