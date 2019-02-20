@@ -91,10 +91,10 @@
                 - interface {{ item.nearEndInterface }}
                 - description _NULL_
                 - end
-        with_items: "{{ hostvars['localhost']['CDP_Neighbours'] }}"
-        when: item.neighborCapabilities != "Host Phone" and 
+          with_items: "{{ hostvars['localhost']['CDP_Neighbours'] }}"
+          when: item.neighborCapabilities != "Host Phone" and 
                 (ansible_host== hostvars['localhost']['switch_IP'])
-     when: Prod_Type == "Switches and Hubs"
+      when: Prod_Type == "Switches and Hubs"
 
 #    - ios_command:
 #        commands:
