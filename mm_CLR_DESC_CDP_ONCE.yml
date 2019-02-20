@@ -81,8 +81,8 @@
     - set_fact: 
          Prod_Type: "{{hostvars['localhost']['Prod_Family'] }}"
 
-    - debug:
-            var: Prod_Type
+#    - debug:
+#            var: Prod_Type
 
     - ios_command:
         commands:
@@ -92,7 +92,7 @@
           - end
       with_items: "{{ hostvars['localhost']['CDP_Neighbours'] }}"
 #      when: (Prod_Type == "Switches and Hubs")
-      when: (ansible_host== hostvars['localhost']['switch_IP']) and 
+      when: ansible_host== hostvars['localhost']['switch_IP'] and 
             ((item.neighborCapabilities != "Host Phone") and 
             (Prod_Type == "Switches and Hubs"))
 
