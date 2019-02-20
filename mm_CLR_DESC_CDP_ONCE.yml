@@ -91,7 +91,8 @@
           - description _NULL_
           - end
       with_items: "{{ hostvars['localhost']['CDP_Neighbours'] }}"
-      when: (ansible_host== hostvars['localhost']['switch_IP']) and 
-            (item.neighborCapabilities != "Host Phone") and 
-            (Prod_Type == "Switches and Hubs")
+      when: (Prod_Type == "Switches and Hubs")
+#      when: (ansible_host== hostvars['localhost']['switch_IP']) and 
+#            (item.neighborCapabilities != "Host Phone") and 
+#            (Prod_Type == "Switches and Hubs")
 
