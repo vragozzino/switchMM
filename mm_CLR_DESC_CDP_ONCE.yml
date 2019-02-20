@@ -78,6 +78,12 @@
 
     tasks:
 
+    - set_fact: 
+         Prod_Type: "{{hostvars['localhost']['Prod_Family'] }}"
+
+    - debug:
+            var: Prod_Type
+
     - ios_command:
         commands:
           - configure terminal
@@ -86,5 +92,5 @@
           - end
       with_items: "{{ hostvars['localhost']['CDP_Neighbours'] }}"
       when: (ansible_host== hostvars['localhost']['switch_IP']) and 
-            (item.neighborCapabilities != "Host Phone") and (hostvars['localhost']['Prod_Family'] == "Switches and Hubs")
+            (item.neighborCapabilities != "Host Phone") and ("{{Prod_Type}}" == "Switches and Hubs")
 
