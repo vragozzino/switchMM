@@ -48,22 +48,15 @@
       set_fact: 
          device_facts_json: "{{device_facts.content | from_json }}"
 
-#    - name: Show ALL device facts
-#      debug:
-#            var: device_facts_json
-
-    - name: Show specific facts
+    - name: get_Prod_Family
       set_fact:
             Prod_Family: "{{ device_facts_json.queryResponse.entity[0].inventoryDetailsDTO.summary.productFamily }}"
-
-    - debug:
-            var: Prod_Family
 
     - name: get_switch_IPaddress
       set_fact: 
          switch_IP: "{{device_facts_json.queryResponse.entity[0].inventoryDetailsDTO.summary.ipAddress}}"
 
-    - name: Get specific Values from JSON
+    - name: get_list_of_CDP_Neighbours_if_Switch
       set_fact:
          CDP_Neighbours: "{{ device_facts_json['queryResponse']['entity'][0]['inventoryDetailsDTO']['cdpNeighbors']['cdpNeighbor'] }}"
       when: (Prod_Family == "Switches and Hubs")
@@ -78,11 +71,8 @@
 
     tasks:
 
-    - set_fact: 
-         Prod_Type: "{{hostvars['localhost']['Prod_Family'] }}"
-
-#    - debug:
-#            var: Prod_Type
+#    - set_fact: 
+#         Prod_Type: "{{hostvars['localhost']['Prod_Family'] }}"
 
     - block:
         - ios_command:
@@ -94,7 +84,7 @@
           with_items: "{{ hostvars['localhost']['CDP_Neighbours'] }}"
           when: item.neighborCapabilities != "Host Phone" and 
                 (ansible_host== hostvars['localhost']['switch_IP'])
-      when: Prod_Type == "Switches and Hubs"
+      when: hostvars['localhost']['Prod_Family'] == "Switches and Hubs"
 
 #    - ios_command:
 #        commands:
