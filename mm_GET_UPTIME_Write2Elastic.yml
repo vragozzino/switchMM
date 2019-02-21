@@ -75,7 +75,8 @@
                                 },
                                 "deviceIP" : {
                                     "type": "text",
-                                    "store" : true
+                                    "store" : true,
+                                    "fielddata": true                                    
                                 },
                                 "uptime" : {
                                     "type": "long",
