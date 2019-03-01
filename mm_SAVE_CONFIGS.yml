@@ -7,8 +7,9 @@
 
     tasks:
 
-    - ios_command:
+    - ios_config:
+        - save_when: always
 #        commands: copy running-config startup-config
-        commands: show ver
-        timeout: 30
+#        commands: show ver
+#        timeout: 30
 
