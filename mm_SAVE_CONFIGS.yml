@@ -1,15 +1,18 @@
 -   hosts: MM_Vimodrone
     gather_facts: no
-#    connection: network_cli
+    connection: network_cli
 
     vars:
       ansible_network_os: ios
 
     tasks:
 
-    - ios_command:
-        provider:
-            timeout: 30
-        commands: copy running-config startup-config
+    - name: save running to startup when modified
+      ios_config:
+        save_when: modified
+#    - ios_command:
+#        provider:
+#            timeout: 30
+#        commands: copy running-config startup-config
 #        commands: show ver
 
