@@ -1,0 +1,56 @@
+-   hosts: MM_Vimodrone
+    gather_facts: no
+    connection: network_cli
+
+    vars:
+      ansible_network_os: ios
+
+    tasks:
+
+#    - name: get_device_ID_from_PRIME_in_JSON
+#      uri:
+#        url: https://10.23.77.200/webacs/api/v4/data/Devices.json?ipAddress={{ansible_host}}
+#        validate_certs: no
+#        method: GET
+#        return_content: yes
+#        headers:
+#            Content-Type: "application/json"
+#        user: devnet
+#        password: Maticmind2018
+#        force_basic_auth: yes
+#      register: device_ID
+
+#    - name: parse_deviceID
+#      set_fact: 
+#         deviceID_prime: "{{device_ID.content | from_json }}"
+         
+#    - name: Clean Device ID
+#      set_fact:
+#        Clean_Device_ID: "{{deviceID_prime['queryResponse']['entityId'][0]['$']}}"
+
+#    - name: get_device_TYPE_from_PRIME_in_JSON
+#      uri:
+#        url: https://10.23.77.200/webacs/api/v4/data/Devices/{{Clean_Device_ID}}.json
+#        validate_certs: no
+#        method: GET
+#        return_content: yes
+#        headers:
+#            Content-Type: "application/json"
+#        user: devnet
+#        password: Maticmind2018
+#        force_basic_auth: yes
+#      register: device_facts
+
+#    - name: parse the JSON output from CPI and save it in a new dictionary
+#      set_fact: 
+#         device_facts_json: "{{device_facts.content | from_json }}"
+
+#    - name: get_Prod_Family
+#      set_fact:
+#            Prod_Family: "{{ device_facts_json.queryResponse.entity[0].inventoryDetailsDTO.summary.productFamily }}"
+
+    - ios_command:
+        commands:
+          - copy run start
+#      when: item.neighborCapabilities != "Host Phone" and 
+#            (ansible_host== hostvars['localhost']['switch_IP'])
