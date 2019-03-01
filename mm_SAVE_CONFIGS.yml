@@ -1,6 +1,6 @@
 -   hosts: MM_Vimodrone
     gather_facts: no
-    connection: network_cli
+#    connection: network_cli
 
     vars:
       ansible_network_os: ios
