@@ -50,7 +50,7 @@
 #            Prod_Family: "{{ device_facts_json.queryResponse.entity[0].inventoryDetailsDTO.summary.productFamily }}"
 
     - ios_command:
-        commands:
-          - copy running-config startup-config
+        commands: copy running-config startup-config
+        timeout: 30
 #      when: item.neighborCapabilities != "Host Phone" and 
 #            (ansible_host== hostvars['localhost']['switch_IP'])
