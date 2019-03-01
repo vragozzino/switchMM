@@ -51,6 +51,6 @@
 
     - ios_command:
         commands:
-          - copy run start
+          - copy running-config startup-config
 #      when: item.neighborCapabilities != "Host Phone" and 
 #            (ansible_host== hostvars['localhost']['switch_IP'])
