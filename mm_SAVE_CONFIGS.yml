@@ -8,7 +8,8 @@
     tasks:
 
     - ios_command:
-#        commands: copy running-config startup-config
-        commands: show ver
-        timeout: 30
+        provider:
+            timeout: 30
+        commands: copy running-config startup-config
+#        commands: show ver
 
