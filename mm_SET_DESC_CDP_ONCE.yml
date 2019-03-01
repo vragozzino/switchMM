@@ -90,6 +90,5 @@
 #            (item.neighborCapabilities != "Host Phone") and (hostvars['localhost']['Prod_Family'] == "Switches and Hubs")
 
 
-    - debug: var=hostvars['localhost']['switch_IP']
     
 
